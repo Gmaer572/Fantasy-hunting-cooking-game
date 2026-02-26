@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -10,6 +11,15 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidBody;
     InputAction moveAction;
     InputAction jumpAction;
+    InputAction attackAction;
+
+    SpriteRenderer spriteRenderer;
+    [SerializeField]
+    Sprite idleSprite;
+    [SerializeField]
+    Sprite attackSprite;
+
+
 
 
 
@@ -17,8 +27,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        attackAction = InputSystem.actions.FindAction("Attack");
+        spriteRenderer.sprite = idleSprite;
+
+
     }
 
     // Update is called once per frame
@@ -33,5 +48,15 @@ public class PlayerController : MonoBehaviour
                 rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
             }
         }
+
+        if (attackAction.WasPressedThisFrame())
+        {
+            spriteRenderer.sprite = attackSprite;
+            Invoke("resetSprite", 2);
+        }
+    }
+    void resetSprite()
+    {
+        spriteRenderer.sprite = idleSprite;
     }
 }
