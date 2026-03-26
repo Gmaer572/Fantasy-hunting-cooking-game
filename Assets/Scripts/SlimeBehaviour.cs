@@ -6,6 +6,8 @@ public class SlimeBehaviour : MonoBehaviour
     BoxCollider2D boxCollider;
     Rigidbody2D rigidBody;
 
+    SpriteRenderer renderer;
+
     Boolean jumping;
 
     [SerializeField]
@@ -21,6 +23,7 @@ public class SlimeBehaviour : MonoBehaviour
 
     void Start()
     {
+        renderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
         if (rigidBody == null)
@@ -38,6 +41,14 @@ public class SlimeBehaviour : MonoBehaviour
             Invoke("SlimeJump", UnityEngine.Random.Range(0.5f, 1.0f));
 
             jumping = true;
+        }
+        if (Time.time < nextHitTime)
+        {
+            renderer.color = Color.red;
+        }
+        else
+        {
+            renderer.color = Color.white;
         }
 
     }
@@ -76,7 +87,10 @@ public class SlimeBehaviour : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        TryTakeDamage(collision);
+        if (collision.CompareTag("Attack"))
+        {
+            TryTakeDamage(collision);
+        }
 
     }
 

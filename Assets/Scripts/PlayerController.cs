@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     float speed = 5.0f;
-    public float attackDuration = 0.5f;
+    public float attackDuration = 0.05f;
     [SerializeField]
     int maxHealth = 3;
     [SerializeField]

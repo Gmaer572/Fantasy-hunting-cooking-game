@@ -29,14 +29,14 @@ public class EnemyHurtBox : MonoBehaviour
         {
             health--;
             hittable = false;
-            Invoke("removeIFrames", iFrameDuration);
+            Invoke(nameof(RemoveIframes), iFrameDuration);
         }
 
     }
     //Invincibility frames, or "I-Frames", are the frames where an object cannot be hit.
     //This is in order to prevent, say, taking damage every frame where it overlaps with a hitbox, instead of just
     //taking one damage because it was hit once.
-    void removeIframes()
+    void RemoveIframes()
     {
         hittable = true;
     }
