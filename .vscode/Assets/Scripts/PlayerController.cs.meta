@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 112ab1c6fd8709147a20741de05f8b2a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - idleSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
+  - attackSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
