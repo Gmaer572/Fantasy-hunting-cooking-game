@@ -44,5 +44,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: 1 Grass
+    uniqueID: 289665029
+    locked: 0
+  - name: 2 Endtree
+    uniqueID: 654290345
+    locked: 0
+  - name: 3 Midtree
+    uniqueID: 3832234291
+    locked: 0
+  - name: 4 ForegroundTree
+    uniqueID: 2801123111
+    locked: 0
+  - name: 5 Platform
+    uniqueID: 2582257351
+    locked: 0
+  - name: 6 Player
+    uniqueID: 2941251433
+    locked: 0
   m_RenderingLayers:
   - Default
