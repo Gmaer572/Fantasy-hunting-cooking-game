@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="12">
- <tileset firstgid="1" source="../Tileset.tsx"/>
- <tileset firstgid="205" source="Swamp.tsx"/>
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="12">
+ <tileset firstgid="1" source="../Tileset/Tileset.tsx"/>
+ <tileset firstgid="205" source="../Tileset/Pixel Art Tiles and Backgrounds - Mountains.tsx"/>
  <layer id="1" name="Tile Layer 1" width="16" height="48">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
