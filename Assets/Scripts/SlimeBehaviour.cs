@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class SlimeBehaviour : MonoBehaviour
 {
-    BoxCollider2D boxCollider;
     Rigidbody2D rigidBody;
-
     SpriteRenderer renderer;
 
     Boolean jumping;
 
     [SerializeField]
     int health = 5;
-    [SerializeField]
-    int contactDamage = 1;
     [SerializeField]
     float attackCooldown = 0.5f;
     [SerializeField]
@@ -24,7 +20,6 @@ public class SlimeBehaviour : MonoBehaviour
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
         if (rigidBody == null)
         {
@@ -81,17 +76,6 @@ public class SlimeBehaviour : MonoBehaviour
             Invoke("ResetJump", 1f);
 
         }
-        TryDamagePlayer(collision.collider);
-
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Attack"))
-        {
-            TryTakeDamage(collision);
-        }
-
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -102,31 +86,20 @@ public class SlimeBehaviour : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        TryDamagePlayer(collision.collider);
-    }
-
     void ResetJump()
     {
         jumping = false;
     }
 
-    void TryTakeDamage(Collider2D collider)
+    public void TakeDamage(int damage)
     {
         if (Time.time < nextHitTime)
         {
             return;
         }
 
-        AttackController attackController = collider.GetComponent<AttackController>();
-        if (attackController == null)
-        {
-            return;
-        }
-
         nextHitTime = Time.time + hitCooldown;
-        health = Mathf.Max(0, health - attackController.GetDamage());
+        health = Mathf.Max(0, health - damage);
 
         if (health == 0)
         {
@@ -135,17 +108,11 @@ public class SlimeBehaviour : MonoBehaviour
 
     }
 
-    void TryDamagePlayer(Collider2D collider)
+    public void TryDamagePlayer(PlayerController playerController, int damage)
     {
         if (Time.time < nextAttackTime)
         {
             return;
-        }
-
-        PlayerController playerController = collider.GetComponent<PlayerController>();
-        if (playerController == null)
-        {
-            playerController = collider.GetComponentInParent<PlayerController>();
         }
 
         if (playerController == null)
@@ -154,6 +121,6 @@ public class SlimeBehaviour : MonoBehaviour
         }
 
         nextAttackTime = Time.time + attackCooldown;
-        playerController.TakeDamage(contactDamage);
+        playerController.TakeDamage(damage);
     }
 }
