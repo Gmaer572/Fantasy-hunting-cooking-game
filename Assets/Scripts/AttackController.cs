@@ -55,7 +55,7 @@ public class AttackController : MonoBehaviour
             return;
         }
 
-        transform.localPosition = parentSpriteRenderer.flipX ? attackOffsetLeft : attackOffsetRight;
+        transform.localPosition = parentSpriteRenderer.flipX ? attackOffsetRight : attackOffsetLeft;
     }
 
     void disableCollider()

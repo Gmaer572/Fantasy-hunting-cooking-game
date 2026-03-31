@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
         rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
         if (rigidBody.linearVelocityX < 0)
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
         if (rigidBody.linearVelocityX > 0)
         {
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
 
         }
 
