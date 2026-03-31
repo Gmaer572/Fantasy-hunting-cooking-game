@@ -1,6 +1,8 @@
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -99,4 +101,14 @@ public class PlayerController : MonoBehaviour
         nextDamageTime = Time.time + damageCooldown;
 
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        SceneTransition transition = collision.GetComponent<SceneTransition>();
+        if (collision.CompareTag("Transition"))
+        {
+            SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
+
+        }
+    }
+
 }
