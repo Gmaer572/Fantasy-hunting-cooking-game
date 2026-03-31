@@ -527,17 +527,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.00065944344, y: 0.00017510727}
+  m_Offset: {x: -0.030000016, y: 0.325}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.09, y: 0.17}
-    newSize: {x: 1, y: 1}
+    pivot: {x: 0.5714286, y: -0.050847456}
+    oldSize: {x: 0.42, y: 0.59}
+    newSize: {x: 0.42, y: 0.59}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.06939906, y: 0.1504542}
+  m_Size: {x: 0.42, y: 0.59000003}
   m_EdgeRadius: 0
 --- !u!4 &495075842 stripped
 Transform:
@@ -561,8 +561,8 @@ MonoBehaviour:
   maxHealth: 3
   damageCooldown: 0.2
   playerHealth: 0
-  idleSprite: {fileID: 1400830162134824513, guid: c59e7a60159bce243ab1324f04e4f1da, type: 3}
-  attackSprite: {fileID: -5743308182387385282, guid: c59e7a60159bce243ab1324f04e4f1da, type: 3}
+  idleSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
+  attackSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
 --- !u!114 &495075845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,8 +934,8 @@ Transform:
   m_GameObject: {fileID: 1088198309}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1738255, y: 0.52500665, z: 0}
-  m_LocalScale: {x: 0.27679333, y: 0.23809665, z: 0.2739367}
+  m_LocalPosition: {x: 0.22, y: 0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 495075842}
@@ -987,7 +987,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.26953447, y: -2.2130501}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -997,7 +997,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4609311, y: 0.2091546}
+  m_Size: {x: 0.35, y: 0.45}
   m_EdgeRadius: 0
 --- !u!1 &1145272296
 GameObject:
@@ -1399,7 +1399,9 @@ Transform:
   m_LocalPosition: {x: 2.748, y: 0.098, z: 0}
   m_LocalScale: {x: 1.8065, y: 1.8065, z: 1.8065}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2111111101}
+  - {fileID: 2111111201}
   m_Father: {fileID: 86790912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1816290097
@@ -1550,6 +1552,188 @@ MonoBehaviour:
   contactDamage: 1
   attackCooldown: 0.5
   hitCooldown: 0.1
+--- !u!1 &2111111100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111111101}
+  - component: {fileID: 2111111102}
+  - component: {fileID: 2111111103}
+  m_Layer: 0
+  m_Name: slime_hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2111111101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1816290096}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2111111102
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111100}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.010000005, y: 0.3107564}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5212766, y: -0.46875}
+    oldSize: {x: 0.47, y: 0.32}
+    newSize: {x: 0.47, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.47, y: 0.31848714}
+  m_EdgeRadius: 0
+--- !u!114 &2111111103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a4d2dfbfa609847a83b759e29995f3, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeHurtBox
+--- !u!1 &2111111200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111111201}
+  - component: {fileID: 2111111202}
+  - component: {fileID: 2111111203}
+  m_Layer: 0
+  m_Name: slime_attack_hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2111111201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1816290096}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2111111202
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111200}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.010000005, y: 0.3107564}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5212766, y: -0.46875}
+    oldSize: {x: 0.47, y: 0.32}
+    newSize: {x: 0.47, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.47, y: 0.31848714}
+  m_EdgeRadius: 0
+--- !u!114 &2111111203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111111200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9f097c8e1b3184787a0d1538dad0aa, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeAttackHitbox
 --- !u!1 &1898629667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,7 +1984,7 @@ PrefabInstance:
     - target: {fileID: 3162837207257435304, guid: 4afd1a1ee9863634baae6b5758b1f31f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1400830162134824513, guid: c59e7a60159bce243ab1324f04e4f1da, type: 3}
+      objectReference: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
     - target: {fileID: 3162837207257435304, guid: 4afd1a1ee9863634baae6b5758b1f31f, type: 3}
       propertyPath: m_Color.b
       value: 1

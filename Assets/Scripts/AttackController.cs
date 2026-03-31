@@ -6,12 +6,17 @@ public class AttackController : MonoBehaviour
 {
     [SerializeField]
     int damage = 1;
+    [SerializeField]
+    Vector3 attackOffsetRight = new Vector3(0.22f, 0.33f, 0f);
+    [SerializeField]
+    Vector3 attackOffsetLeft = new Vector3(-0.22f, 0.33f, 0f);
 
     InputAction attackAction;
     BoxCollider2D boxCollider;
 
     Rigidbody2D parentBody;
     PlayerController controller;
+    SpriteRenderer parentSpriteRenderer;
 
 
     float attackDuration;
@@ -24,8 +29,10 @@ public class AttackController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
         parentBody = GetComponentInParent<Rigidbody2D>();
-        controller = GameObject.Find("Player").GetComponent<PlayerController>();
+        controller = GetComponentInParent<PlayerController>();
+        parentSpriteRenderer = GetComponentInParent<SpriteRenderer>();
         attackDuration = controller.attackDuration;
+        UpdateAttackPosition();
     }
 
     // Update is called once per frame
@@ -38,15 +45,17 @@ public class AttackController : MonoBehaviour
             Invoke(nameof(disableCollider), attackDuration);
         }
 
-        if (parentBody.linearVelocityX < 0)
-        {
-            transform.localPosition = new Vector3(-0.024f, 0.5250067f, 0f); //CHANGE THESE VALUES WHEN SPRITES ARE CHANGED!!!
-        }
-        if (parentBody.linearVelocityX > 0)
-        {
-            transform.localPosition = new Vector3(0.1738255f, 0.5250067f, 0f);//CHANGE THESE VALUES WHEN SPRITES ARE CHANGED!!!
+        UpdateAttackPosition();
+    }
 
+    void UpdateAttackPosition()
+    {
+        if (parentSpriteRenderer == null)
+        {
+            return;
         }
+
+        transform.localPosition = parentSpriteRenderer.flipX ? attackOffsetLeft : attackOffsetRight;
     }
 
     void disableCollider()
