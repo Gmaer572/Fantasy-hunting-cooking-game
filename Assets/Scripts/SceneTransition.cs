@@ -19,10 +19,10 @@ public class SceneTransition : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("CollisionFound");
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             SceneManager.LoadScene("IntoForest", LoadSceneMode.Single);
         }

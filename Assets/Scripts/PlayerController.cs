@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
-        if (collision.CompareTag("Transition"))
-        {
+   //     if (collision.CompareTag("Transition"))
+   {
             SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
 
         }
