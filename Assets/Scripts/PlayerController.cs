@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     int maxHealth = 3;
     [SerializeField]
     float damageCooldown = 0.2f;
+    [SerializeField] Animator player_animator;
 
     public int playerHealth;
     Rigidbody2D rigidBody;
@@ -70,6 +71,15 @@ public class PlayerController : MonoBehaviour
             {
                 rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
             }
+        }
+
+        if(rigidBody.linearVelocityX != 0) //check for movement
+        {
+            player_animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            player_animator.SetBool("IsRunning", false);
         }
 
         if (attackAction != null && attackAction.WasPressedThisFrame())
