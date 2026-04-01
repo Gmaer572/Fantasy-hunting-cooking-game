@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float speed = 5.0f;
     public float attackDuration = 0.05f;
-    [SerializeField]
-    int maxHealth = 3;
+    int maxHealth = 5;
     [SerializeField]
     float damageCooldown = 0.2f;
     [SerializeField] Animator player_animator;
-
+    [SerializeField] HealthBarController healthBar;
     public int playerHealth;
     Rigidbody2D rigidBody;
     InputAction moveAction;
@@ -43,6 +42,12 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.sprite = idleSprite;
         playerHealth = maxHealth;
 
+        //HEALTH BAR TEST
+         healthBar = FindFirstObjectByType<HealthBarController>();
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(playerHealth);
+        }
         // float height = Camera.main.orthographicSize * 2;
         // float width = height * Camera.main.aspect;
 
@@ -110,6 +115,11 @@ public class PlayerController : MonoBehaviour
         playerHealth = Mathf.Max(0, playerHealth - damage);
         nextDamageTime = Time.time + damageCooldown;
 
+        // Update the health bar UI
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(playerHealth);
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
