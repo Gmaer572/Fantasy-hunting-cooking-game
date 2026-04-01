@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WargFight.unity
     guid: 1ab9741788ed60e49a45e4ad49125143
+  - enabled: 1
+    path: Assets/Scenes/IntoForest.unity
+    guid: 938605d6647e88a46837f8243763bdb7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,6 +1,7 @@
 using System;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     int maxHealth = 5;
     [SerializeField]
     float damageCooldown = 0.2f;
+
     [SerializeField] Animator player_animator;
     [SerializeField] HealthBarController healthBar;
     public int playerHealth;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction attackAction;
 
+    int spawnPointNum;
     SpriteRenderer spriteRenderer;
     [SerializeField]
     Sprite idleSprite;
@@ -27,6 +30,7 @@ public class PlayerController : MonoBehaviour
     Sprite attackSprite;
     float nextDamageTime;
 
+    GameObject spawnPoint;
 
 
 
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
         // Debug.Log("Camera Width: " + width);
         // Debug.Log("Camera Height: " + height);
+        setSpawnPoint();
     }
 
     // Update is called once per frame
@@ -78,7 +83,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(rigidBody.linearVelocityX != 0) //check for movement
+        if (rigidBody.linearVelocityX != 0) //check for movement
         {
             player_animator.SetBool("IsRunning", true);
         }
@@ -124,11 +129,19 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
-   //     if (collision.CompareTag("Transition"))
-   {
+        //     if (collision.CompareTag("Transition"))
+        {
             SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
 
         }
+    }
+
+    void setSpawnPoint()
+    {
+        spawnPointNum = GameObject.Find("SpawnPointHandler").GetComponent<SpawnPointHandler>().getSpawnPoint();
+        spawnPoint = GameObject.Find("SceneTransition" + spawnPointNum);
+        transform.position = spawnPoint.GetComponent<SceneTransition>().getPosition() +
+        new Vector2(spawnPoint.GetComponent<SceneTransition>().getOffset(), 2);
     }
 
 }
