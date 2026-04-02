@@ -67,6 +67,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        if (Time.time < nextDamageTime)
+        {
+            spriteRenderer.color = Color.red;
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }
         rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
         if (rigidBody.linearVelocityX < 0)
         {
@@ -181,6 +189,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerHealth = Mathf.Max(0, playerHealth - damage);
+
         nextDamageTime = Time.time + damageCooldown;
 
         // Update the health bar UI

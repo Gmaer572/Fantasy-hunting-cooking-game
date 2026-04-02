@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BackgroundVertical : MonoBehaviour
 {
-    private Vector2 startPos;  
+    private Vector2 startPos;
     private float lengthX;
     private float lengthY;
 
@@ -21,7 +21,7 @@ public class BackgroundVertical : MonoBehaviour
 
     void Update()
     {
- 
+
         float distX = cam.transform.position.x * parallaxEffectX;
         float moveX = cam.transform.position.x * (1 - parallaxEffectX);
 

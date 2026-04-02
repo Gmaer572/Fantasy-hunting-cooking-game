@@ -349,7 +349,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 1.18
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -672,7 +672,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 1
+    OrthographicSize: 1.18
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1818,12 +1818,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   attackDuration: 0.5
-  maxHealth: 3
   damageCooldown: 0.2
+  attackAnimationFps: 12
+  attackFrames: []
   player_animator: {fileID: 0}
+  healthBar: {fileID: 0}
   playerHealth: 0
   idleSprite: {fileID: 0}
-  attackSprite: {fileID: 0}
 --- !u!114 &2183860814256472289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,6 +1840,7 @@ MonoBehaviour:
   damage: 1
   attackOffsetRight: {x: 0.22, y: 0.33, z: 0}
   attackOffsetLeft: {x: -0.22, y: 0.33, z: 0}
+  attackHitboxSize: {x: 0.45, y: 0.4}
 --- !u!50 &2641669066207470660
 Rigidbody2D:
   serializedVersion: 5
@@ -1952,12 +1954,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   attackDuration: 0.5
-  maxHealth: 3
   damageCooldown: 0.2
+  attackAnimationFps: 12
+  attackFrames: []
   player_animator: {fileID: 8468920168980134272}
+  healthBar: {fileID: 0}
   playerHealth: 0
   idleSprite: {fileID: 5474905007746960958, guid: 94e46a147fec4ae4ca3c0d8c33c99f9d, type: 3}
-  attackSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
 --- !u!4 &8300392833376797677
 Transform:
   m_ObjectHideFlags: 0
