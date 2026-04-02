@@ -39,8 +39,8 @@ public class AttackController : MonoBehaviour
         {
             boxCollider.enabled = true;
             CancelInvoke(nameof(disableCollider));
-            float attackDuration = controller != null ? controller.attackDuration : 0.2f;
-            Invoke(nameof(disableCollider), attackDuration);
+            //float attackDuration = controller != null ? controller.attackDuration : 0.2f;
+            //Invoke(nameof(disableCollider), attackDuration);
         }
 
         UpdateAttackPosition();

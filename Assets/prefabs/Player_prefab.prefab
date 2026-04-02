@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2756036635303836233}
   - component: {fileID: 8295216801643538577}
   - component: {fileID: 8212040606799287849}
+  - component: {fileID: 2415185177894058764}
   m_Layer: 0
   m_Name: Player_Place
   m_TagString: Player
@@ -183,13 +184,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
-  attackDuration: 0.5
-  maxHealth: 3
   damageCooldown: 0.2
   player_animator: {fileID: 8212040606799287849}
+  healthBar: {fileID: 0}
   playerHealth: 0
   idleSprite: {fileID: 5474905007746960958, guid: 94e46a147fec4ae4ca3c0d8c33c99f9d, type: 3}
-  attackSprite: {fileID: 4218630833242111544, guid: 23683902fe82ae64a8c65efadec8a5c9, type: 3}
 --- !u!114 &8295216801643538577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +223,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2415185177894058764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300758844162685890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94dde3886219a0c4f8cef77ebcbf8179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  animator: {fileID: 0}
 --- !u!1 &3926766031628082840
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +330,7 @@ MonoBehaviour:
   damage: 1
   attackOffsetRight: {x: 0.22, y: 0.33, z: 0}
   attackOffsetLeft: {x: -0.22, y: 0.33, z: 0}
+  attackHitboxSize: {x: 0.45, y: 0.4}
 --- !u!1 &6589575646573053757
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,10 +377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
-  attackDuration: 0.5
-  maxHealth: 3
   damageCooldown: 0.2
   player_animator: {fileID: 0}
+  healthBar: {fileID: 0}
   playerHealth: 0
   idleSprite: {fileID: 0}
-  attackSprite: {fileID: 0}
