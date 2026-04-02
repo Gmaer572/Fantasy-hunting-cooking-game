@@ -41,10 +41,7 @@ public class SceneTransition : MonoBehaviour
         return sceneToLoad;
     }
 
-    public Vector2 getPosition()
-    {
-        return transform.position;
-    }
+
 
     public int getOffset()
     {
