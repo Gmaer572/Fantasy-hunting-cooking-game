@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         attackDuration = CalculateAttackDuration();
 
         //HEALTH BAR TEST
-         healthBar = FindFirstObjectByType<HealthBarController>();
+        healthBar = FindFirstObjectByType<HealthBarController>();
         if (healthBar != null)
         {
             healthBar.UpdateHealthBar(playerHealth);
@@ -203,9 +203,8 @@ public class PlayerController : MonoBehaviour
     void setSpawnPoint()
     {
         spawnPointNum = GameObject.Find("SpawnPointHandler").GetComponent<SpawnPointHandler>().getSpawnPoint();
-        spawnPoint = GameObject.Find("SceneTransition" + spawnPointNum);
-        transform.position = spawnPoint.GetComponent<SceneTransition>().getPosition() +
-        new Vector2(spawnPoint.GetComponent<SceneTransition>().getOffset(), 2);
+        spawnPoint = GameObject.Find("SpawnPoint" + spawnPointNum);
+        transform.position = spawnPoint.GetComponent<SpawnPoint>().getPosition();
     }
 
 }
