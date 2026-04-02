@@ -67,6 +67,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        if (playerHealth == 0)
+        {
+            SceneManager.LoadScene("gameover");
+        }
+
         if (Time.time < nextDamageTime)
         {
             spriteRenderer.color = Color.red;

@@ -1980,6 +1980,10 @@ PrefabInstance:
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2756036635303836233, guid: 27cbbcd81e58b6749b2510a729922721, type: 3}
+      propertyPath: damageCooldown
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2831259298247309393, guid: 27cbbcd81e58b6749b2510a729922721, type: 3}
       propertyPath: m_Layer
       value: 7
