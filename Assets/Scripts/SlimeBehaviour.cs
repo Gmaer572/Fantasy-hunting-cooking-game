@@ -14,6 +14,12 @@ public class SlimeBehaviour : MonoBehaviour
     float attackCooldown = 0.5f;
     [SerializeField]
     float hitCooldown = 0.1f;
+    [SerializeField]
+    LayerMask groundLayers = ~0;
+    [SerializeField]
+    string groundTag = "Ground";
+    [SerializeField]
+    string alternateGroundTag = "ground";
     float nextAttackTime;
     float nextHitTime;
 
@@ -55,6 +61,11 @@ public class SlimeBehaviour : MonoBehaviour
 
     void SlimeJump()
     {
+        if (rigidBody == null)
+        {
+            return;
+        }
+
         jumping = true;
         float xSpeed = 0;
         int jumpLeftOrRight = UnityEngine.Random.Range(1, 3);
@@ -71,18 +82,19 @@ public class SlimeBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && rigidBody.linearVelocityY == 0)
+        if (IsGroundCollision(collision))
         {
-            Invoke("ResetJump", 1f);
-
+            CancelInvoke(nameof(ResetJump));
+            Invoke(nameof(ResetJump), 0.15f);
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && rigidBody.linearVelocityY == 0)
+        if (IsGroundCollision(collision))
         {
             jumping = true;
+            CancelInvoke(nameof(ResetJump));
         }
     }
 
@@ -122,5 +134,35 @@ public class SlimeBehaviour : MonoBehaviour
 
         nextAttackTime = Time.time + attackCooldown;
         playerController.TakeDamage(damage);
+    }
+
+    bool IsGroundCollision(Collision2D collision)
+    {
+        if (collision == null || collision.collider == null || collision.collider.isTrigger)
+        {
+            return false;
+        }
+
+        int otherLayerMask = 1 << collision.collider.gameObject.layer;
+        if ((groundLayers.value & otherLayerMask) != 0)
+        {
+            return true;
+        }
+
+        if (collision.collider.CompareTag(groundTag) || collision.collider.CompareTag(alternateGroundTag))
+        {
+            return true;
+        }
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint2D contact = collision.GetContact(i);
+            if (contact.normal.y > 0.35f)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
