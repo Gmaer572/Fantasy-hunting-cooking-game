@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class AttackController : MonoBehaviour
@@ -7,19 +6,17 @@ public class AttackController : MonoBehaviour
     [SerializeField]
     int damage = 1;
     [SerializeField]
-    Vector3 attackOffsetRight = new Vector3(0.22f, 0.33f, 0f);
+    Vector3 attackOffsetRight = new Vector3(0.3f, 0.25f, 0f);
     [SerializeField]
-    Vector3 attackOffsetLeft = new Vector3(-0.22f, 0.33f, 0f);
+    Vector3 attackOffsetLeft = new Vector3(-0.3f, 0.25f, 0f);
+    [SerializeField]
+    Vector2 attackHitboxSize = new Vector2(0.45f, 0.4f);
 
     InputAction attackAction;
     BoxCollider2D boxCollider;
 
-    Rigidbody2D parentBody;
     PlayerController controller;
     SpriteRenderer parentSpriteRenderer;
-
-
-    float attackDuration;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,10 +25,10 @@ public class AttackController : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
-        parentBody = GetComponentInParent<Rigidbody2D>();
+        boxCollider.isTrigger = true;
+        boxCollider.size = attackHitboxSize;
         controller = GetComponentInParent<PlayerController>();
         parentSpriteRenderer = GetComponentInParent<SpriteRenderer>();
-        attackDuration = controller.attackDuration;
         UpdateAttackPosition();
     }
 
@@ -42,6 +39,7 @@ public class AttackController : MonoBehaviour
         {
             boxCollider.enabled = true;
             CancelInvoke(nameof(disableCollider));
+            float attackDuration = controller != null ? controller.attackDuration : 0.2f;
             Invoke(nameof(disableCollider), attackDuration);
         }
 

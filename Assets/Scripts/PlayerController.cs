@@ -1,7 +1,5 @@
-using System;
-using UnityEditorInternal;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -9,10 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     float speed = 5.0f;
-    public float attackDuration = 0.05f;
+    public float attackDuration = 0.3f;
     int maxHealth = 5;
     [SerializeField]
     float damageCooldown = 0.2f;
+    [SerializeField]
+    float attackAnimationFps = 12f;
+    [SerializeField]
+    Sprite[] attackFrames;
 
     [SerializeField] Animator player_animator;
     [SerializeField] HealthBarController healthBar;
@@ -26,9 +28,8 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     [SerializeField]
     Sprite idleSprite;
-    [SerializeField]
-    Sprite attackSprite;
     float nextDamageTime;
+    bool isAttacking;
 
     GameObject spawnPoint;
 
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         spriteRenderer.sprite = idleSprite;
         playerHealth = maxHealth;
+        TryLoadAttackFramesFromAsset();
+        attackDuration = CalculateAttackDuration();
 
         //HEALTH BAR TEST
          healthBar = FindFirstObjectByType<HealthBarController>();
@@ -83,7 +86,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (rigidBody.linearVelocityX != 0) //check for movement
+        if (!isAttacking && rigidBody.linearVelocityX != 0) //check for movement
         {
             player_animator.SetBool("IsRunning", true);
         }
@@ -92,17 +95,77 @@ public class PlayerController : MonoBehaviour
             player_animator.SetBool("IsRunning", false);
         }
 
-        if (attackAction != null && attackAction.WasPressedThisFrame())
+        if (attackAction != null && attackAction.WasPressedThisFrame() && !isAttacking)
         {
-            spriteRenderer.sprite = attackSprite;
-            CancelInvoke(nameof(resetSprite));
-            Invoke(nameof(resetSprite), attackDuration);
+            StartCoroutine(PlayAttackAnimation());
         }
 
     }
-    void resetSprite()
+
+    IEnumerator PlayAttackAnimation()
     {
+        isAttacking = true;
+        player_animator.enabled = false;
+
+        if (attackFrames != null && attackFrames.Length > 0)
+        {
+            float frameDuration = 1f / Mathf.Max(1f, attackAnimationFps);
+            for (int i = 0; i < attackFrames.Length; i++)
+            {
+                Sprite currentFrame = attackFrames[i];
+                spriteRenderer.sprite = currentFrame;
+                yield return new WaitForSeconds(frameDuration);
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(attackDuration);
+        }
+
         spriteRenderer.sprite = idleSprite;
+        player_animator.enabled = true;
+        isAttacking = false;
+    }
+
+    float CalculateAttackDuration()
+    {
+        if (attackFrames == null || attackFrames.Length == 0)
+        {
+            return attackDuration;
+        }
+
+        return attackFrames.Length / Mathf.Max(1f, attackAnimationFps);
+    }
+
+    void TryLoadAttackFramesFromAsset()
+    {
+#if UNITY_EDITOR
+        if (attackFrames != null && attackFrames.Length > 0)
+        {
+            return;
+        }
+
+        Object[] assets = UnityEditor.AssetDatabase.LoadAllAssetsAtPath("Assets/Characters/player/player_attack.aseprite");
+        if (assets == null || assets.Length == 0)
+        {
+            return;
+        }
+
+        System.Collections.Generic.List<Sprite> sprites = new System.Collections.Generic.List<Sprite>();
+        for (int i = 0; i < assets.Length; i++)
+        {
+            if (assets[i] is Sprite sprite)
+            {
+                sprites.Add(sprite);
+            }
+        }
+
+        sprites.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
+        if (sprites.Count > 0)
+        {
+            attackFrames = sprites.ToArray();
+        }
+#endif
     }
 
     public int getPlayerHealth()
@@ -129,11 +192,12 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
-        //     if (collision.CompareTag("Transition"))
+        if (transition == null)
         {
-            SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
-
+            return;
         }
+
+        SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
     }
 
     void setSpawnPoint()
