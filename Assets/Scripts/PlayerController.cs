@@ -4,29 +4,29 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    float speed = 5.0f;
+    [Header("Movement")]
+    [SerializeField] float speed = 5.0f;
 
+    [Header("Health")]
     int maxHealth = 5;
+    [SerializeField] float damageCooldown = 0.2f;
+    public int playerHealth;
 
-    [SerializeField]
-    float damageCooldown = 0.2f;
+    [Header("Attack")]
+    [SerializeField] float attackCooldown = 0.5f;
+    float nextAttackTime;
 
+    [Header("References")]
     [SerializeField] Animator player_animator;
     [SerializeField] HealthBarController healthBar;
 
-    public int playerHealth;
-
     Rigidbody2D rigidBody;
+    SpriteRenderer spriteRenderer;
     InputAction moveAction;
     InputAction jumpAction;
+    InputAction attackAction;   // New Input Action for attack
 
     int spawnPointNum;
-    SpriteRenderer spriteRenderer;
-
-    [SerializeField]
-    Sprite idleSprite;
-
     float nextDamageTime;
     GameObject spawnPoint;
 
@@ -37,101 +37,84 @@ public class PlayerController : MonoBehaviour
 
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
-
-        spriteRenderer.sprite = idleSprite;
+        attackAction = InputSystem.actions.FindAction("Attack"); 
         playerHealth = maxHealth;
 
         if (healthBar == null)
-        {
             healthBar = FindFirstObjectByType<HealthBarController>();
-        }
 
         if (healthBar != null)
-        {
             healthBar.UpdateHealthBar(playerHealth);
-        }
         else
-        {
             Debug.LogError("HealthBarController not found");
-        }
 
         setSpawnPoint();
     }
 
     void Update()
     {
+        // Game over check
         if (playerHealth == 0)
-        {
             SceneManager.LoadScene("gameover");
-        }
 
-        if (Time.time < nextDamageTime)
-        {
-            spriteRenderer.color = Color.red;
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
-        }
+        // Damage flash
+        spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
 
+        // Movement (horizontal)
         if (moveAction != null)
-        {
             rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
-        }
 
+        // Flipping sprite based on movement direction
         if (rigidBody.linearVelocityX < 0)
-        {
             spriteRenderer.flipX = false;
-        }
         else if (rigidBody.linearVelocityX > 0)
-        {
             spriteRenderer.flipX = true;
-        }
 
-        if (rigidBody.linearVelocityY == 0)
-        {
-            if (jumpAction != null && jumpAction.WasPressedThisFrame())
-            {
-                rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
-            }
-        }
+        // Jumping (only when grounded)
+        if (rigidBody.linearVelocityY == 0 && jumpAction != null && jumpAction.WasPressedThisFrame())
+            rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
 
+        // Attack input (supports both new Input System and legacy KeyCode.J)
+        bool attackPressed = false;
+        if (attackAction != null)
+            attackPressed = attackAction.WasPressedThisFrame();
+        else
+            attackPressed = Input.GetKeyDown(KeyCode.J);
+
+        if (attackPressed && Time.time >= nextAttackTime)
+            Attack();
+
+        // Animation: running state
         if (player_animator != null)
-        {
             player_animator.SetBool("IsRunning", rigidBody.linearVelocityX != 0);
-        }
     }
 
-    public int getPlayerHealth()
+    void Attack()
     {
-        return playerHealth;
+        if (player_animator == null) return;
+
+        player_animator.SetTrigger("Attack");
+        nextAttackTime = Time.time + attackCooldown;
     }
+
+    public int getPlayerHealth() => playerHealth;
 
     public void TakeDamage(int damage)
     {
-        if (Time.time < nextDamageTime)
-        {
-            return;
-        }
+        if (Time.time < nextDamageTime) return;
 
         playerHealth = Mathf.Max(0, playerHealth - damage);
         nextDamageTime = Time.time + damageCooldown;
 
         if (healthBar != null)
-        {
             healthBar.UpdateHealthBar(playerHealth);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
-        if (transition == null)
-        {
-            return;
-        }
-
-        SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
+        if (transition != null)
+            SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
     }
 
     void setSpawnPoint()

@@ -185,10 +185,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   damageCooldown: 0.2
+  playerHealth: 0
+  attackCooldown: 0.5
   player_animator: {fileID: 8212040606799287849}
   healthBar: {fileID: 0}
-  playerHealth: 0
-  idleSprite: {fileID: 5474905007746960958, guid: 94e46a147fec4ae4ca3c0d8c33c99f9d, type: 3}
 --- !u!114 &8295216801643538577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,12 +230,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300758844162685890}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94dde3886219a0c4f8cef77ebcbf8179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 0}
 --- !u!1 &3926766031628082840
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   damageCooldown: 0.2
+  playerHealth: 0
+  attackCooldown: 0.5
   player_animator: {fileID: 0}
   healthBar: {fileID: 0}
-  playerHealth: 0
-  idleSprite: {fileID: 0}
