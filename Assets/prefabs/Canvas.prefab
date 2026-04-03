@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 437068410351014855}
   - component: {fileID: 8474656489263875485}
   m_Layer: 5
-  m_Name: HeartLantern
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

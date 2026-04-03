@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5.0f;
 
     [Header("Health")]
-    int maxHealth = 5;
+    private static int savedHealth = -1;
+    [SerializeField] int maxHealth = 5;
     [SerializeField] float damageCooldown = 0.2f;
     public int playerHealth;
 
@@ -18,18 +19,22 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] Animator player_animator;
-    [SerializeField] HealthBarController healthBar;
 
     Rigidbody2D rigidBody;
     SpriteRenderer spriteRenderer;
     InputAction moveAction;
     InputAction jumpAction;
-    InputAction attackAction;   // New Input Action for attack
+    InputAction attackAction;   
 
     int spawnPointNum;
     float nextDamageTime;
     GameObject spawnPoint;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -40,22 +45,42 @@ public class PlayerController : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack"); 
         playerHealth = maxHealth;
 
-        if (healthBar == null)
-            healthBar = FindFirstObjectByType<HealthBarController>();
-
-        if (healthBar != null)
-            healthBar.UpdateHealthBar(playerHealth);
+        if (savedHealth == -1)
+        {
+            playerHealth = maxHealth;
+        }
         else
-            Debug.LogError("HealthBarController not found");
+        {
+            playerHealth = savedHealth;
+        }
+        UpdateHealthBarUI();
 
         setSpawnPoint();
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateHealthBarUI();
+    }
+    private void UpdateHealthBarUI()
+    {
+        HealthBarController.Instance?.UpdateHealthBar(playerHealth);
     }
 
     void Update()
     {
         // Game over check
         if (playerHealth == 0)
+        {
+            savedHealth = -1;
+            Destroy(gameObject);
             SceneManager.LoadScene("gameover");
+            return;
+        }
 
         // Damage flash
         spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
@@ -106,15 +131,18 @@ public class PlayerController : MonoBehaviour
         playerHealth = Mathf.Max(0, playerHealth - damage);
         nextDamageTime = Time.time + damageCooldown;
 
-        if (healthBar != null)
-            healthBar.UpdateHealthBar(playerHealth);
+        savedHealth = playerHealth;
+        UpdateHealthBarUI();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
         if (transition != null)
+        {
+            savedHealth = playerHealth;
             SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
+        }
     }
 
     void setSpawnPoint()
