@@ -3,16 +3,19 @@ using UnityEngine;
 public class SpawnPointHandler : MonoBehaviour
 {
     private static SpawnPointHandler instance;
-    private int spawnPoint = 0;
+    [SerializeField] private int defaultSpawnPoint =0;
+    private int spawnPoint = 1;
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (instance != null && instance != this)
+       // {
+        //    Destroy(gameObject);
+        //    return;
+       // }
         instance = this;
+        // Ensure we start with a valid spawn point so no lookup for SpawnPoint0 happens on the first scene load.
+        spawnPoint = defaultSpawnPoint;
         DontDestroyOnLoad(gameObject);
     }
 

@@ -1923,6 +1923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9780e6e4f27521445afed80d55a9268b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPointHandler
+  defaultSpawnPoint: 0
 --- !u!4 &1655026170
 Transform:
   m_ObjectHideFlags: 0

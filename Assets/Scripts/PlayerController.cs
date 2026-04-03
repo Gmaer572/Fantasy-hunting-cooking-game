@@ -2,8 +2,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController instance;
+
     [Header("Movement")]
     [SerializeField] float speed = 5.0f;
 
@@ -32,6 +38,16 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Handle play-mode without domain reloads: if a stale instance exists, clear it.
+        if (instance != null && instance == null) instance = null;
+
+        if (instance != null && instance != this)
+        {
+            // Another persistent player already exists; remove this duplicate.
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -39,6 +55,10 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer missing on PlayerController GameObject.");
+        }
 
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
@@ -65,6 +85,8 @@ public class PlayerController : MonoBehaviour
      private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UpdateHealthBarUI();
+        // Reposition to the correct spawn after every scene load.
+        setSpawnPoint();
     }
     private void UpdateHealthBarUI()
     {
@@ -83,7 +105,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Damage flash
-        spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
+        if (spriteRenderer != null)
+            spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
 
         // Movement (horizontal)
         if (moveAction != null)
