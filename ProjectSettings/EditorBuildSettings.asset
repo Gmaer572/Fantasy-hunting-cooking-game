@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/title.unity
+    guid: 1ecd97f80e79cb2429eac707663e8ebd
+  - enabled: 1
     path: Assets/Scenes/ForestSpawn.unity
     guid: 305b7e15122a72546ab7c7d1abb76675
   - enabled: 1
