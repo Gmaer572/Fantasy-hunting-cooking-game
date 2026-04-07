@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     InputAction moveAction;
     InputAction jumpAction;
-    InputAction attackAction;   
+    InputAction attackAction;
 
     int spawnPointNum;
     float nextDamageTime;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
-        attackAction = InputSystem.actions.FindAction("Attack"); 
+        attackAction = InputSystem.actions.FindAction("Attack");
         playerHealth = maxHealth;
 
         if (savedHealth == -1)
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UpdateHealthBarUI();
         // Reposition to the correct spawn after every scene load.

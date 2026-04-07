@@ -71,11 +71,11 @@ public class SlimeBehaviour : MonoBehaviour
         int jumpLeftOrRight = UnityEngine.Random.Range(1, 3);
         if (jumpLeftOrRight == 1)
         {
-            xSpeed = UnityEngine.Random.Range(-5.0f, -3.0f);
+            xSpeed = UnityEngine.Random.Range(-2.0f, -1.0f);
         }
         else if (jumpLeftOrRight == 2)
         {
-            xSpeed = UnityEngine.Random.Range(3.0f, 5.0f);
+            xSpeed = UnityEngine.Random.Range(1.0f, 2.0f);
         }
         rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 5.0f)), ForceMode2D.Impulse);
     }

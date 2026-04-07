@@ -9,9 +9,9 @@ public class AttackController : MonoBehaviour
     Vector3 attackOffsetRight = new Vector3(0.3f, 0.25f, 0f);
     [SerializeField]
     Vector3 attackOffsetLeft = new Vector3(-0.3f, 0.25f, 0f);
-    [SerializeField]
-    Vector2 attackHitboxSize = new Vector2(0.45f, 0.4f);
 
+
+    float attackDuration;
     InputAction attackAction;
     BoxCollider2D boxCollider;
 
@@ -23,10 +23,10 @@ public class AttackController : MonoBehaviour
     void Start()
     {
         attackAction = InputSystem.actions.FindAction("Attack");
+        attackDuration = .5f;
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
         boxCollider.isTrigger = true;
-        boxCollider.size = attackHitboxSize;
         controller = GetComponentInParent<PlayerController>();
         parentSpriteRenderer = GetComponentInParent<SpriteRenderer>();
         UpdateAttackPosition();
@@ -39,8 +39,8 @@ public class AttackController : MonoBehaviour
         {
             boxCollider.enabled = true;
             CancelInvoke(nameof(disableCollider));
-            //float attackDuration = controller != null ? controller.attackDuration : 0.2f;
-            //Invoke(nameof(disableCollider), attackDuration);
+            float attackDuration = 0.2f;
+            Invoke(nameof(disableCollider), attackDuration);
         }
 
         UpdateAttackPosition();
