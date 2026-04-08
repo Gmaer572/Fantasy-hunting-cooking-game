@@ -1,210 +1,205 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    float speed = 5.0f;
-    public float attackDuration = 0.3f;
-    int maxHealth = 5;
-    [SerializeField]
-    float damageCooldown = 0.2f;
-    [SerializeField]
-    float attackAnimationFps = 12f;
-    [SerializeField]
-    Sprite[] attackFrames;
+    private static PlayerController instance;
 
-    [SerializeField] Animator player_animator;
-    [SerializeField] HealthBarController healthBar;
+    [Header("Movement")]
+    [SerializeField] float speed = 5.0f;
+
+    [Header("Health")]
+    private static int savedHealth = -1;
+    [SerializeField] int maxHealth = 5;
+    [SerializeField] float damageCooldown = 0.2f;
     public int playerHealth;
+
+    [Header("Attack")]
+    [SerializeField] float attackCooldown = 0.5f;
+    float nextAttackTime;
+
+    [Header("References")]
+    [SerializeField] Animator player_animator;
+
     Rigidbody2D rigidBody;
+    SpriteRenderer spriteRenderer;
     InputAction moveAction;
     InputAction jumpAction;
     InputAction attackAction;
 
     int spawnPointNum;
-    SpriteRenderer spriteRenderer;
-    [SerializeField]
-    Sprite idleSprite;
     float nextDamageTime;
-    bool isAttacking;
-
     GameObject spawnPoint;
 
+    private void Awake()
+    {
+        // Handle play-mode without domain reloads: if a stale instance exists, clear it.
+        if (instance != null && instance == null) instance = null;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+        if (instance != null && instance != this)
+        {
+            // Another persistent player already exists; remove this duplicate.
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer missing on PlayerController GameObject.");
+        }
+
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         attackAction = InputSystem.actions.FindAction("Attack");
-        spriteRenderer.sprite = idleSprite;
         playerHealth = maxHealth;
-        TryLoadAttackFramesFromAsset();
-        attackDuration = CalculateAttackDuration();
 
-        //HEALTH BAR TEST
-        healthBar = FindFirstObjectByType<HealthBarController>();
-        if (healthBar != null)
+        if (savedHealth == -1)
         {
-            healthBar.UpdateHealthBar(playerHealth);
+            playerHealth = maxHealth;
         }
-        // float height = Camera.main.orthographicSize * 2;
-        // float width = height * Camera.main.aspect;
+        else
+        {
+            playerHealth = savedHealth;
+        }
+        UpdateHealthBarUI();
 
-        // Debug.Log("Camera Width: " + width);
-        // Debug.Log("Camera Height: " + height);
         setSpawnPoint();
     }
 
-    // Update is called once per frame
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateHealthBarUI();
+        // Reposition to the correct spawn after every scene load.
+        setSpawnPoint();
+    }
+    private void UpdateHealthBarUI()
+    {
+        HealthBarController.Instance?.UpdateHealthBar(playerHealth);
+    }
+
     void Update()
     {
-
-        rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
-        if (rigidBody.linearVelocityX < 0)
+        // Game over check
+        if (playerHealth == 0)
         {
-            spriteRenderer.flipX = false;
+            savedHealth = -1;
+            Destroy(gameObject);
+            SceneManager.LoadScene("gameover");
+            return;
         }
-        if (rigidBody.linearVelocityX > 0)
-        {
+
+        // Damage flash
+        if (spriteRenderer != null)
+            spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
+
+        // Movement (horizontal)
+        if (moveAction != null)
+            rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
+
+        // Flipping sprite based on movement direction
+        if (rigidBody.linearVelocityX < 0)
+            spriteRenderer.flipX = false;
+        else if (rigidBody.linearVelocityX > 0)
             spriteRenderer.flipX = true;
 
-        }
+        // Jumping (only when grounded)
+        if (rigidBody.linearVelocityY == 0 && jumpAction != null && jumpAction.WasPressedThisFrame())
+            rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
 
-        if (rigidBody.linearVelocityY == 0) //check for already falling/jumping; reprogram later to check if grounded
-        {
-            if (jumpAction.WasPressedThisFrame())
-            {
-                rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
-            }
-        }
-
-        if (!isAttacking && rigidBody.linearVelocityX != 0) //check for movement
-        {
-            player_animator.SetBool("IsRunning", true);
-        }
+        // Attack input (supports both new Input System and legacy KeyCode.J)
+        bool attackPressed = false;
+        if (attackAction != null)
+            attackPressed = attackAction.WasPressedThisFrame();
         else
-        {
-            player_animator.SetBool("IsRunning", false);
-        }
+            attackPressed = Input.GetKeyDown(KeyCode.J);
 
-        if (attackAction != null && attackAction.WasPressedThisFrame() && !isAttacking)
-        {
-            StartCoroutine(PlayAttackAnimation());
-        }
+        if (attackPressed && Time.time >= nextAttackTime)
+            Attack();
 
+        // Animation: running state
+        if (player_animator != null)
+            player_animator.SetBool("IsRunning", rigidBody.linearVelocityX != 0);
     }
 
-    IEnumerator PlayAttackAnimation()
+    void Attack()
     {
-        isAttacking = true;
-        player_animator.enabled = false;
+        if (player_animator == null) return;
 
-        if (attackFrames != null && attackFrames.Length > 0)
-        {
-            float frameDuration = 1f / Mathf.Max(1f, attackAnimationFps);
-            for (int i = 0; i < attackFrames.Length; i++)
-            {
-                Sprite currentFrame = attackFrames[i];
-                spriteRenderer.sprite = currentFrame;
-                yield return new WaitForSeconds(frameDuration);
-            }
-        }
-        else
-        {
-            yield return new WaitForSeconds(attackDuration);
-        }
-
-        spriteRenderer.sprite = idleSprite;
-        player_animator.enabled = true;
-        isAttacking = false;
+        player_animator.SetTrigger("Attack");
+        nextAttackTime = Time.time + attackCooldown;
     }
 
-    float CalculateAttackDuration()
-    {
-        if (attackFrames == null || attackFrames.Length == 0)
-        {
-            return attackDuration;
-        }
-
-        return attackFrames.Length / Mathf.Max(1f, attackAnimationFps);
-    }
-
-    void TryLoadAttackFramesFromAsset()
-    {
-#if UNITY_EDITOR
-        if (attackFrames != null && attackFrames.Length > 0)
-        {
-            return;
-        }
-
-        Object[] assets = UnityEditor.AssetDatabase.LoadAllAssetsAtPath("Assets/Characters/player/player_attack.aseprite");
-        if (assets == null || assets.Length == 0)
-        {
-            return;
-        }
-
-        System.Collections.Generic.List<Sprite> sprites = new System.Collections.Generic.List<Sprite>();
-        for (int i = 0; i < assets.Length; i++)
-        {
-            if (assets[i] is Sprite sprite)
-            {
-                sprites.Add(sprite);
-            }
-        }
-
-        sprites.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
-        if (sprites.Count > 0)
-        {
-            attackFrames = sprites.ToArray();
-        }
-#endif
-    }
-
-    public int getPlayerHealth()
-    {
-        return playerHealth;
-    }
+    public int getPlayerHealth() => playerHealth;
 
     public void TakeDamage(int damage)
     {
-        if (Time.time < nextDamageTime)
-        {
-            return;
-        }
+        if (Time.time < nextDamageTime) return;
 
         playerHealth = Mathf.Max(0, playerHealth - damage);
         nextDamageTime = Time.time + damageCooldown;
 
-        // Update the health bar UI
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(playerHealth);
-        }
+        savedHealth = playerHealth;
+        UpdateHealthBarUI();
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         SceneTransition transition = collision.GetComponent<SceneTransition>();
-        if (transition == null)
+        if (transition != null)
         {
-            return;
+            savedHealth = playerHealth;
+            SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
         }
-
-        SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
     }
 
     void setSpawnPoint()
     {
-        spawnPointNum = GameObject.Find("SpawnPointHandler").GetComponent<SpawnPointHandler>().getSpawnPoint();
-        spawnPoint = GameObject.Find("SpawnPoint" + spawnPointNum);
-        transform.position = spawnPoint.GetComponent<SpawnPoint>().getPosition();
-    }
+        GameObject handler = GameObject.Find("SpawnPointHandler");
+        if (handler == null)
+        {
+            Debug.LogError("SpawnPointHandler not found");
+            return;
+        }
 
+        SpawnPointHandler spawnHandler = handler.GetComponent<SpawnPointHandler>();
+        if (spawnHandler == null)
+        {
+            Debug.LogError("SpawnPointHandler component not found");
+            return;
+        }
+
+        spawnPointNum = spawnHandler.getSpawnPoint();
+        spawnPoint = GameObject.Find("SpawnPoint" + spawnPointNum);
+
+        if (spawnPoint == null)
+        {
+            Debug.LogError("SpawnPoint" + spawnPointNum + " not found");
+            return;
+        }
+
+        SpawnPoint spawn = spawnPoint.GetComponent<SpawnPoint>();
+        if (spawn == null)
+        {
+            Debug.LogError("SpawnPoint component not found on SpawnPoint" + spawnPointNum);
+            return;
+        }
+
+        transform.position = spawn.getPosition();
+    }
 }
