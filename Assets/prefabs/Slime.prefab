@@ -67,7 +67,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010000005, y: 0.3107564}
+  m_Offset: {x: -0.010000005, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5212766, y: -0.46875}
@@ -190,7 +190,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010000005, y: 0.3107564}
+  m_Offset: {x: -0.010000005, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5212766, y: -0.46875}
@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 7086417142741492164}
   - component: {fileID: 8169278560590786517}
   - component: {fileID: 5897162070478610455}
+  - component: {fileID: 7338451090745434543}
   m_Layer: 0
   m_Name: slime_idle
   m_TagString: Untagged
@@ -345,7 +346,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010000005, y: 0.3107564}
+  m_Offset: {x: -0.010000005, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5212766, y: -0.46875}
@@ -399,3 +400,40 @@ MonoBehaviour:
   health: 5
   attackCooldown: 0.5
   hitCooldown: 0.1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundTag: Ground
+  alternateGroundTag: ground
+  jumpAnimationFps: 14
+  useJumpAnimation: 1
+  jumpVisualStartFrame: 7
+  jumpVisualEndFrame: 12
+  minAirHeightForJumpAnimation: 0.2
+  airHeightForLastJumpFrame: 0.7
+  deadAnimationFps: 4
+  deadAnimationMinimumVisibleTime: 1
+  jumpFrames: []
+  deadFrames: []
+--- !u!95 &7338451090745434543
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772175887743244801}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd0cc007ab1683d49949e7819f4f725b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -1,12 +1,16 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class SlimeBehaviour : MonoBehaviour
 {
     Rigidbody2D rigidBody;
-    SpriteRenderer renderer;
+    Collider2D bodyCollider;
+    SpriteRenderer spriteRenderer;
+    Animator animator;
 
-    Boolean jumping;
+    bool jumping;
+    bool isGrounded;
+    bool isDead;
 
     [SerializeField]
     int health = 5;
@@ -15,87 +19,114 @@ public class SlimeBehaviour : MonoBehaviour
     [SerializeField]
     float hitCooldown = 0.1f;
     [SerializeField]
+    float deadDisableDelay = 1.0f;
+    [SerializeField]
     LayerMask groundLayers = ~0;
     [SerializeField]
     string groundTag = "Ground";
     [SerializeField]
     string alternateGroundTag = "ground";
+    [SerializeField]
+    float groundedCheckDistance = 0.08f;
+
     float nextAttackTime;
     float nextHitTime;
+    Coroutine deadRoutine;
 
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
         rigidBody = GetComponent<Rigidbody2D>();
         if (rigidBody == null)
         {
             rigidBody = GetComponentInParent<Rigidbody2D>();
         }
-        jumping = true;
 
+        bodyCollider = GetComponent<Collider2D>();
+        if (bodyCollider == null)
+        {
+            bodyCollider = GetComponentInChildren<Collider2D>();
+        }
+
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
+
+        jumping = false;
+        isGrounded = CheckGrounded();
+        ApplyAnimatorState();
     }
 
     void Update()
     {
-        if (jumping == false)
+        if (isDead)
         {
-            Invoke("SlimeJump", UnityEngine.Random.Range(0.5f, 1.0f));
+            return;
+        }
 
+        if (!jumping && isGrounded)
+        {
+            Invoke(nameof(SlimeJump), UnityEngine.Random.Range(0.5f, 1.0f));
             jumping = true;
         }
-        if (Time.time < nextHitTime)
+
+        if (spriteRenderer != null)
         {
-            renderer.color = Color.red;
-        }
-        else
-        {
-            renderer.color = Color.white;
+            spriteRenderer.color = Time.time < nextHitTime ? Color.red : Color.white;
         }
 
+        ApplyAnimatorState();
     }
 
-    /*void DisableCollider()
+    void FixedUpdate()
     {
-        boxCollider.enabled = false;
-    }*/
+        if (isDead)
+        {
+            return;
+        }
+
+        bool groundedNow = CheckGrounded();
+        if (groundedNow && !isGrounded)
+        {
+            CancelInvoke(nameof(ResetJump));
+            Invoke(nameof(ResetJump), 0.1f);
+        }
+
+        isGrounded = groundedNow;
+        ApplyAnimatorState();
+    }
 
     void SlimeJump()
     {
-        if (rigidBody == null)
+        if (rigidBody == null || isDead || !isGrounded)
         {
             return;
         }
 
         jumping = true;
+        isGrounded = false;
+        ApplyAnimatorState();
+
+
         float xSpeed = 0;
         int jumpLeftOrRight = UnityEngine.Random.Range(1, 3);
         if (jumpLeftOrRight == 1)
         {
             xSpeed = UnityEngine.Random.Range(-5.0f, -3.0f);
         }
-        else if (jumpLeftOrRight == 2)
+        else
         {
             xSpeed = UnityEngine.Random.Range(3.0f, 5.0f);
         }
+
         rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 5.0f)), ForceMode2D.Impulse);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (IsGroundCollision(collision))
-        {
-            CancelInvoke(nameof(ResetJump));
-            Invoke(nameof(ResetJump), 0.15f);
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (IsGroundCollision(collision))
-        {
-            jumping = true;
-            CancelInvoke(nameof(ResetJump));
-        }
     }
 
     void ResetJump()
@@ -105,7 +136,7 @@ public class SlimeBehaviour : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (Time.time < nextHitTime)
+        if (Time.time < nextHitTime || isDead)
         {
             return;
         }
@@ -115,14 +146,25 @@ public class SlimeBehaviour : MonoBehaviour
 
         if (health == 0)
         {
-            gameObject.SetActive(false);
-        }
+            isDead = true;
+            jumping = true;
+            ApplyAnimatorState();
 
+            if (animator != null)
+            {
+                animator.Play("slime_dead", 0, 0f);
+            }
+
+            if (deadRoutine == null)
+            {
+                deadRoutine = StartCoroutine(PlayDeathAndDisable());
+            }
+        }
     }
 
     public void TryDamagePlayer(PlayerController playerController, int damage)
     {
-        if (Time.time < nextAttackTime)
+        if (Time.time < nextAttackTime || isDead)
         {
             return;
         }
@@ -136,33 +178,106 @@ public class SlimeBehaviour : MonoBehaviour
         playerController.TakeDamage(damage);
     }
 
-    bool IsGroundCollision(Collision2D collision)
+    bool CheckGrounded()
     {
-        if (collision == null || collision.collider == null || collision.collider.isTrigger)
+        if (IsGroundedByContacts())
+        {
+            return true;
+        }
+
+        if (bodyCollider == null)
         {
             return false;
         }
 
-        int otherLayerMask = 1 << collision.collider.gameObject.layer;
-        if ((groundLayers.value & otherLayerMask) != 0)
-        {
-            return true;
-        }
+        Bounds bounds = bodyCollider.bounds;
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.02f);
+        Vector2 size = new Vector2(bounds.size.x * 0.85f, 0.05f);
 
-        if (collision.collider.CompareTag(groundTag) || collision.collider.CompareTag(alternateGroundTag))
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0f, Vector2.down, groundedCheckDistance);
+        for (int i = 0; i < hits.Length; i++)
         {
-            return true;
-        }
-
-        for (int i = 0; i < collision.contactCount; i++)
-        {
-            ContactPoint2D contact = collision.GetContact(i);
-            if (contact.normal.y > 0.35f)
+            Collider2D hitCollider = hits[i].collider;
+            if (IsValidGroundCollider(hitCollider))
             {
                 return true;
             }
         }
 
         return false;
+    }
+
+    bool IsGroundedByContacts()
+    {
+        if (rigidBody == null)
+        {
+            return false;
+        }
+
+        ContactPoint2D[] contacts = new ContactPoint2D[16];
+        int count = rigidBody.GetContacts(contacts);
+        for (int i = 0; i < count; i++)
+        {
+            ContactPoint2D contact = contacts[i];
+            if (contact.normal.y > 0.2f && IsValidGroundCollider(contact.collider))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool IsValidGroundCollider(Collider2D collider)
+    {
+        if (collider == null || collider.isTrigger)
+        {
+            return false;
+        }
+
+        if (rigidBody != null && collider.attachedRigidbody == rigidBody)
+        {
+            return false;
+        }
+
+        int otherLayerMask = 1 << collider.gameObject.layer;
+        bool inGroundLayer = (groundLayers.value & otherLayerMask) != 0;
+        bool matchesGroundTag = collider.CompareTag(groundTag) || collider.CompareTag(alternateGroundTag);
+
+        if (inGroundLayer || matchesGroundTag)
+        {
+            return true;
+        }
+
+        return true;
+    }
+
+    void ApplyAnimatorState()
+    {
+        if (animator == null)
+        {
+            return;
+        }
+
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetBool("IsDead", isDead);
+    }
+
+    IEnumerator PlayDeathAndDisable()
+    {
+        if (rigidBody != null)
+        {
+            rigidBody.linearVelocity = Vector2.zero;
+            rigidBody.simulated = false;
+        }
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+
+        yield return new WaitForSeconds(deadDisableDelay);
+        gameObject.SetActive(false);
     }
 }
