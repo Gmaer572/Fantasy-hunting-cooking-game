@@ -32,6 +32,7 @@ public class SlimeBehaviour : MonoBehaviour
     float nextAttackTime;
     float nextHitTime;
     Coroutine deadRoutine;
+    Transform playerTransform;
 
     void Start()
     {
@@ -59,6 +60,7 @@ public class SlimeBehaviour : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
+        RefreshPlayerReference();
         jumping = false;
         isGrounded = CheckGrounded();
         ApplyAnimatorState();
@@ -69,6 +71,11 @@ public class SlimeBehaviour : MonoBehaviour
         if (isDead)
         {
             return;
+        }
+
+        if (playerTransform == null)
+        {
+            RefreshPlayerReference();
         }
 
         if (!jumping && isGrounded)
@@ -114,19 +121,30 @@ public class SlimeBehaviour : MonoBehaviour
         isGrounded = false;
         ApplyAnimatorState();
 
-
-        float xSpeed = 0;
-        int jumpLeftOrRight = UnityEngine.Random.Range(1, 3);
-        if (jumpLeftOrRight == 1)
-        {
-            xSpeed = UnityEngine.Random.Range(-2.0f, -1.0f);
-        }
-        else
-        {
-            xSpeed = UnityEngine.Random.Range(1.0f, 2.0f);
-        }
+        float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
 
         rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 5.0f)), ForceMode2D.Impulse);
+    }
+
+    float GetHorizontalJumpSpeedTowardPlayer()
+    {
+        float minSpeed = 1.0f;
+        float maxSpeed = 2.0f;
+
+        if (playerTransform == null)
+        {
+            return UnityEngine.Random.Range(-maxSpeed, maxSpeed);
+        }
+
+        float deltaX = playerTransform.position.x - transform.position.x;
+        if (Mathf.Abs(deltaX) < 0.05f)
+        {
+            return UnityEngine.Random.Range(-0.25f, 0.25f);
+        }
+
+        float direction = Mathf.Sign(deltaX);
+        float speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        return direction * speed;
     }
 
     void ResetJump()
@@ -176,6 +194,15 @@ public class SlimeBehaviour : MonoBehaviour
 
         nextAttackTime = Time.time + attackCooldown;
         playerController.TakeDamage(damage);
+    }
+
+    void RefreshPlayerReference()
+    {
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
     }
 
     bool CheckGrounded()
