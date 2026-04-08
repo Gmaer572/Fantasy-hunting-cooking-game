@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float speed = 5.0f;
+    [SerializeField] LayerMask groundLayers = ~0;
+    [SerializeField] float groundCheckDistance = 0.08f;
 
     [Header("Health")]
     private static int savedHealth = -1;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator player_animator;
 
     Rigidbody2D rigidBody;
+    Collider2D bodyCollider;
     SpriteRenderer spriteRenderer;
     InputAction moveAction;
     InputAction jumpAction;
@@ -54,6 +57,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        bodyCollider = GetComponent<Collider2D>();
+        if (bodyCollider == null)
+        {
+            bodyCollider = GetComponentInChildren<Collider2D>();
+        }
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -119,7 +128,7 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
 
         // Jumping (only when grounded)
-        if (rigidBody.linearVelocityY == 0 && jumpAction != null && jumpAction.WasPressedThisFrame())
+        if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
             rigidBody.AddForce(new Vector2(0, speed), ForceMode2D.Impulse);
 
         // Attack input (supports both new Input System and legacy KeyCode.J)
@@ -156,6 +165,37 @@ public class PlayerController : MonoBehaviour
 
         savedHealth = playerHealth;
         UpdateHealthBarUI();
+    }
+
+    bool IsGrounded()
+    {
+        if (bodyCollider == null)
+        {
+            return false;
+        }
+
+        Bounds bounds = bodyCollider.bounds;
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.02f);
+        Vector2 size = new Vector2(bounds.size.x * 0.85f, 0.06f);
+
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0f, Vector2.down, groundCheckDistance, groundLayers.value);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hitCollider = hits[i].collider;
+            if (hitCollider == null || hitCollider.isTrigger)
+            {
+                continue;
+            }
+
+            if (hitCollider.attachedRigidbody == rigidBody)
+            {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
