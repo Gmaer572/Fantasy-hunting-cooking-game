@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 493031616}
   - component: {fileID: 493031617}
+  - component: {fileID: 493031618}
   m_Layer: 0
   m_Name: deer_lookbox
   m_TagString: Untagged
@@ -145,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 493031615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5020132, y: -0.6108955, z: 0}
+  m_LocalPosition: {x: -1.04, y: -0.6108955, z: 0}
   m_LocalScale: {x: 0.40181625, y: 0.46761748, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -197,6 +198,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.17665243, y: 0.3333304}
   m_EdgeRadius: 0
+--- !u!114 &493031618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493031615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaa6d125ac94ce4b8bfd2cced57640f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeerLookBox
 --- !u!1 &496715689
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,37 +347,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &855747940
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 855747941}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &855747941
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855747940}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.77766, y: -0.4378, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068844544
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +439,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1068844547
 SpriteRenderer:
   serializedVersion: 2
@@ -829,4 +811,3 @@ SceneRoots:
   - {fileID: 1424506498}
   - {fileID: 2030316692}
   - {fileID: 1068844548}
-  - {fileID: 855747941}
