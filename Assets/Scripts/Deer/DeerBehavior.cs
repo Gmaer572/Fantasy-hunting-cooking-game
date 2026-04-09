@@ -6,6 +6,8 @@ public class DeerBehavior : MonoBehaviour
 
     Rigidbody2D rigidBody;
     SpriteRenderer spriteRenderer;
+
+    GameObject attack;
     bool turnAround;
     int speed;
     int tempSpeed;
@@ -33,6 +35,7 @@ public class DeerBehavior : MonoBehaviour
         {
             spriteRenderer.flipX = false;
         }
+
     }
 
     void turnCheck()
