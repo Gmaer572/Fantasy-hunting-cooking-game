@@ -32,10 +32,10 @@ public class DeerLookBox : MonoBehaviour
 
     void OnTriggerExit2D(UnityEngine.Collider2D collider)
     {
-        //if (!deerBehavior.getTurn())
-        //{
-        Debug.Log("no ground detected");
-        deerBehavior.setTurn(true);
-        //}
+        if (collider.CompareTag("Ground") || collider.CompareTag("DeerBoundary"))
+        {
+            Debug.Log("no ground detected");
+            deerBehavior.setTurn(true);
+        }
     }
 }
