@@ -712,7 +712,7 @@ Transform:
   m_GameObject: {fileID: 323921246}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.26, y: -3.38, z: 0}
+  m_LocalPosition: {x: 4.85, y: -3.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -732,15 +732,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
-      value: 2.6595604
+      value: 7.2077074
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].y
-      value: -2.107335
+      value: -2.4500034
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].x
-      value: 2.6595604
+      value: 7.2077074
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
@@ -760,11 +760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].y
-      value: -2.107335
+      value: -2.4500034
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].X
-      value: 26595898
+      value: 72077368
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
@@ -784,15 +784,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: -21073350
+      value: -24500034
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].X
-      value: 26595898
+      value: 72077368
       objectReference: {fileID: 0}
     - target: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: -21073350
+      value: -24500034
       objectReference: {fileID: 0}
     - target: {fileID: 6410397782734192851, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_Name
@@ -840,19 +840,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9082916996560399141, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_Size.x
-      value: 16.087765
+      value: 20.635912
       objectReference: {fileID: 0}
     - target: {fileID: 9082916996560399141, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_Size.y
-      value: 3.2114086
+      value: 3.554077
       objectReference: {fileID: 0}
     - target: {fileID: 9082916996560399141, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_Offset.x
-      value: -5.3842926
+      value: -3.110219
       objectReference: {fileID: 0}
     - target: {fileID: 9082916996560399141, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
       propertyPath: m_Offset.y
-      value: -0.5016308
+      value: -0.67296493
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1315,6 +1315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2424e072a32c6244f9bc2164a8554f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeerHitBox
+  damage: 1
+  forwardOffsetMultiplier: 0.35
 --- !u!1 &619131843 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7943425401819746009, guid: 9c50d90981063b846bd934db45a27569, type: 3}
@@ -2634,11 +2636,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8182205295586369752, guid: 188bbf5be0d7bac43926013416316bac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.66
+      value: 7.81
       objectReference: {fileID: 0}
     - target: {fileID: 8182205295586369752, guid: 188bbf5be0d7bac43926013416316bac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.78
+      value: -3.57
       objectReference: {fileID: 0}
     - target: {fileID: 8182205295586369752, guid: 188bbf5be0d7bac43926013416316bac, type: 3}
       propertyPath: m_LocalPosition.z
