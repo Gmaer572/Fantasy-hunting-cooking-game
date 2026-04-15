@@ -6,10 +6,11 @@ public class DeerBehavior : MonoBehaviour
     Rigidbody2D rigidBody;
     BoxCollider2D bodyCollider;
     SpriteRenderer spriteRenderer;
+    Transform playerTransform;
 
     bool turnAround;
-    int speed;
-    int tempSpeed;
+    bool turning;
+    int patrolDirection;
     bool isDead;
 
     [Header("Combat")]
@@ -21,17 +22,25 @@ public class DeerBehavior : MonoBehaviour
     float nextAttackTime;
     float nextHitTime;
 
+    [Header("Behavior")]
+    [SerializeField] float patrolSpeed = 1f;
+    [SerializeField] float reactionMoveSpeed = 1.4f;
+    [SerializeField] float alertDistance = 3f;
+    [SerializeField] float counterattackDistance = 1.2f;
+    [SerializeField] float turnDelay = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        speed = 1;
-        tempSpeed = speed;
+        patrolDirection = 1;
         turnAround = false;
+        turning = false;
         isDead = false;
 
+        RefreshPlayerReference();
         EnsureHurtBox();
     }
 
@@ -47,19 +56,31 @@ public class DeerBehavior : MonoBehaviour
             return;
         }
 
-        rigidBody.linearVelocityX = speed;
-        turnCheck();
+        if (playerTransform == null)
+        {
+            RefreshPlayerReference();
+        }
+
+        if (turning)
+        {
+            rigidBody.linearVelocityX = 0f;
+        }
+        else
+        {
+            ApplyMovementByDistance();
+            turnCheck();
+        }
 
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Time.time < nextHitTime ? Color.red : Color.white;
         }
 
-        if (speed < 0)
+        if (rigidBody.linearVelocityX < 0)
         {
             spriteRenderer.flipX = true;
         }
-        else if (speed > 0)
+        else if (rigidBody.linearVelocityX > 0)
         {
             spriteRenderer.flipX = false;
         }
@@ -68,22 +89,49 @@ public class DeerBehavior : MonoBehaviour
 
     void turnCheck()
     {
-        if (turnAround == true)
+        if (turnAround && !turning)
         {
             rigidBody.linearVelocityX = 0;
             turnAround = false;
-            tempSpeed = speed;
-            speed = 0;
-            Invoke(nameof(turn), 1.0f);
-
+            turning = true;
+            patrolDirection = -patrolDirection;
+            Invoke(nameof(turn), turnDelay);
         }
     }
 
     void turn()
     {
-        speed = -tempSpeed;
-
+        turning = false;
     }
+
+    void ApplyMovementByDistance()
+    {
+        float moveDirection = patrolDirection;
+        float moveSpeed = patrolSpeed;
+
+        if (playerTransform != null)
+        {
+            float deltaX = playerTransform.position.x - transform.position.x;
+            float distanceToPlayer = Mathf.Abs(deltaX);
+            float playerDir = Mathf.Sign(deltaX);
+
+            if (distanceToPlayer <= counterattackDistance)
+            {
+                // Counterattack range: move toward player.
+                moveDirection = playerDir;
+                moveSpeed = reactionMoveSpeed;
+            }
+            // else if (distanceToPlayer <= alertDistance)
+            // {
+            //     // Alert range only: move away from player.
+            //     moveDirection = -playerDir;
+            //     moveSpeed = reactionMoveSpeed;
+            // }
+        }
+
+        rigidBody.linearVelocityX = moveDirection * moveSpeed;
+    }
+
     public void setTurn(bool turn)
     {
         turnAround = turn;
@@ -107,7 +155,7 @@ public class DeerBehavior : MonoBehaviour
         if (health == 0)
         {
             isDead = true;
-            speed = 0;
+            turning = false;
             if (rigidBody != null)
             {
                 rigidBody.linearVelocity = Vector2.zero;
@@ -164,5 +212,14 @@ public class DeerBehavior : MonoBehaviour
         }
 
         hurtboxObj.AddComponent<DeerHurtBox>();
+    }
+
+    void RefreshPlayerReference()
+    {
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
     }
 }
