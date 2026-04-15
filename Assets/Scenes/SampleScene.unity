@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 312914736}
   - component: {fileID: 312914735}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: SettingsPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,6 +348,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1572717319}
+  - {fileID: 821348623}
   m_Father: {fileID: 978704613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -811,7 +812,7 @@ GameObject:
   - component: {fileID: 499990446}
   - component: {fileID: 499990445}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PlayerPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1309,18 +1310,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821348622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1721684841}
-  m_Father: {fileID: 1572717319}
+  m_Father: {fileID: 312914734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.9738, y: -73.6687}
-  m_SizeDelta: {x: 198.0525, y: 61.3374}
+  m_AnchoredPosition: {x: -66.3, y: -199.5}
+  m_SizeDelta: {x: 289.1984, y: 100.8534}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &821348624
 MonoBehaviour:
@@ -1365,7 +1366,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 821348625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1749242651}
+        m_TargetAssemblyTypeName: SaveController, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &821348625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,7 +1711,7 @@ GameObject:
   - component: {fileID: 1254786364}
   - component: {fileID: 1254786363}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: RecipePage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1907,8 +1920,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 821348623}
+  m_Children: []
   m_Father: {fileID: 312914734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2285,10 +2297,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: SAVE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
+  m_sharedMaterial: {fileID: 2857922300896848310, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2312,8 +2324,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2375,6 +2387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1749242652}
   - component: {fileID: 1749242651}
+  - component: {fileID: 1749242653}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2409,6 +2422,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1749242653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749242650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114d98a92f72c8a4b9441c24fd3da5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  inventoryPanel: {fileID: 1893941950}
+  slotPrefab: {fileID: 2818713427845761527, guid: a01c0647c4244ad47b9052219bceaeff, type: 3}
+  slotCount: 10
+  itemPrefabs:
+  - {fileID: 6045393730002716528, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+  - {fileID: 1855882218681391053, guid: 91ee094d4dd2b214295338ad64b08489, type: 3}
+  - {fileID: 487937871655226560, guid: 395e74db0c07c494fa7f920ef4ce61cc, type: 3}
+  - {fileID: 9103115070012853571, guid: 526db8e7513f9404aafcae15f388663b, type: 3}
+  - {fileID: 8521532395813030089, guid: aa73fd48eaae9024caeb87a70aeec2e1, type: 3}
 --- !u!1 &1818761644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2526,8 +2560,9 @@ GameObject:
   - component: {fileID: 1893941951}
   - component: {fileID: 1893941953}
   - component: {fileID: 1893941952}
+  - component: {fileID: 1893941954}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: InventoryPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2590,6 +2625,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893941950}
   m_CullTransparentMesh: 1
+--- !u!114 &1893941954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893941950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 150
+    m_Right: 150
+    m_Top: 100
+    m_Bottom: 100
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 100, y: 100}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1898629667
 GameObject:
   m_ObjectHideFlags: 0
