@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float attackCooldown = 0.5f;
+    [SerializeField] float attackLockDuration = 0.2f;
     float nextAttackTime;
+    float attackEndTime;
+    bool isAttacking;
 
     [Header("References")]
     [SerializeField] Animator player_animator;
@@ -118,8 +121,19 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.color = (Time.time < nextDamageTime) ? Color.red : Color.white;
 
         // Movement (horizontal)
-        if (moveAction != null)
+        if (isAttacking)
+        {
+            rigidBody.linearVelocityX = 0f;
+        }
+        else if (moveAction != null)
+        {
             rigidBody.linearVelocityX = moveAction.ReadValue<Vector2>().x * speed;
+        }
+
+        if (isAttacking && Time.time >= attackEndTime)
+        {
+            isAttacking = false;
+        }
 
         // Flipping sprite based on movement direction
         if (rigidBody.linearVelocityX < 0)
@@ -150,6 +164,8 @@ public class PlayerController : MonoBehaviour
     {
         if (player_animator == null) return;
 
+        isAttacking = true;
+        attackEndTime = Time.time + attackLockDuration;
         player_animator.SetTrigger("Attack");
         nextAttackTime = Time.time + attackCooldown;
     }
