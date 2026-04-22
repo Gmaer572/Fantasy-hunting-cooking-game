@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 45773293}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7583108, y: -3.18303, z: -10}
+  m_LocalPosition: {x: 0.7583245, y: -3.18303, z: -10}
   m_LocalScale: {x: 0.3856244, y: 0.35670257, z: 0.3856244}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -971,20 +971,8 @@ PrefabInstance:
       value: Player_Place
       objectReference: {fileID: 0}
     - target: {fileID: 2302271000837761773, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
-      propertyPath: attackHitboxSize.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2302271000837761773, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
-      propertyPath: attackHitboxSize.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2302271000837761773, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
       propertyPath: attackOffsetLeft.x
       value: -0.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 2302271000837761773, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
-      propertyPath: attackOffsetRight.x
-      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 3421080965616894333, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
       propertyPath: speed
