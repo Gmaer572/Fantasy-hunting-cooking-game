@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
@@ -27,8 +28,16 @@ public class SceneTransition : MonoBehaviour
 
         isTransitioning = true;
         handler.setSpawnPoint(spawnPoint);
+        StartCoroutine(LoadSceneAsync());
+    }
 
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+    IEnumerator LoadSceneAsync()
+    {
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+        while (!loadOp.isDone)
+        {
+            yield return null;
+        }
     }
 
     public string getSceneToLoad() => sceneToLoad;
