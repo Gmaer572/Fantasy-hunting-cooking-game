@@ -1,17 +1,22 @@
 using UnityEngine;
+using System;
 
 public class DeerBehavior : MonoBehaviour
 {
-
     Rigidbody2D rigidBody;
     BoxCollider2D bodyCollider;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
+    Sprite[] idleFrames;
+    Sprite[] walkFrames;
 
     bool turnAround;
     bool turning;
     int patrolDirection;
     bool isDead;
+    bool wasMoving;
+    float animationTimer;
+    int animationFrameIndex;
 
     [Header("Combat")]
     [SerializeField] int health = 3;
@@ -29,6 +34,12 @@ public class DeerBehavior : MonoBehaviour
     [SerializeField] float counterattackDistance = 1.2f;
     [SerializeField] float turnDelay = 1f;
 
+    [Header("Animation")]
+    [SerializeField] float idleAnimationFps = 5f;
+    [SerializeField] float walkAnimationFps = 8f;
+    [SerializeField] string idleResourcePath = "Deer/elk_idle";
+    [SerializeField] string walkResourcePath = "Deer/elk_walk";
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +53,8 @@ public class DeerBehavior : MonoBehaviour
 
         RefreshPlayerReference();
         EnsureHurtBox();
+        LoadAnimationFrames();
+        ApplyCurrentAnimationFrame(forceReset: true);
     }
 
     // Update is called once per frame
@@ -85,6 +98,7 @@ public class DeerBehavior : MonoBehaviour
             spriteRenderer.flipX = false;
         }
 
+        UpdateAnimation();
     }
 
     void turnCheck()
@@ -186,6 +200,77 @@ public class DeerBehavior : MonoBehaviour
     void DisableSelf()
     {
         gameObject.SetActive(false);
+    }
+
+    void LoadAnimationFrames()
+    {
+        idleFrames = Resources.LoadAll<Sprite>(idleResourcePath);
+        walkFrames = Resources.LoadAll<Sprite>(walkResourcePath);
+        Array.Sort(idleFrames, (a, b) => string.CompareOrdinal(a.name, b.name));
+        Array.Sort(walkFrames, (a, b) => string.CompareOrdinal(a.name, b.name));
+
+        if (idleFrames.Length == 0)
+        {
+            Debug.LogWarning($"DeerBehavior on {name} could not load idle frames from Resources/{idleResourcePath}.");
+        }
+
+        if (walkFrames.Length == 0)
+        {
+            Debug.LogWarning($"DeerBehavior on {name} could not load walk frames from Resources/{walkResourcePath}.");
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        if (spriteRenderer == null || isDead)
+        {
+            return;
+        }
+
+        bool isMoving = Mathf.Abs(rigidBody.linearVelocityX) > 0.01f && !turning;
+        if (isMoving != wasMoving)
+        {
+            ApplyCurrentAnimationFrame(forceReset: true);
+            return;
+        }
+
+        Sprite[] activeFrames = isMoving ? walkFrames : idleFrames;
+        float activeFps = isMoving ? walkAnimationFps : idleAnimationFps;
+        if (activeFrames == null || activeFrames.Length == 0 || activeFps <= 0f)
+        {
+            return;
+        }
+
+        animationTimer += Time.deltaTime;
+        float frameDuration = 1f / activeFps;
+        if (animationTimer < frameDuration)
+        {
+            return;
+        }
+
+        animationTimer -= frameDuration;
+        animationFrameIndex = (animationFrameIndex + 1) % activeFrames.Length;
+        spriteRenderer.sprite = activeFrames[animationFrameIndex];
+    }
+
+    void ApplyCurrentAnimationFrame(bool forceReset)
+    {
+        bool isMoving = rigidBody != null && Mathf.Abs(rigidBody.linearVelocityX) > 0.01f && !turning;
+        Sprite[] activeFrames = isMoving ? walkFrames : idleFrames;
+        if (activeFrames == null || activeFrames.Length == 0)
+        {
+            wasMoving = isMoving;
+            return;
+        }
+
+        if (forceReset)
+        {
+            animationTimer = 0f;
+            animationFrameIndex = 0;
+        }
+
+        spriteRenderer.sprite = activeFrames[Mathf.Clamp(animationFrameIndex, 0, activeFrames.Length - 1)];
+        wasMoving = isMoving;
     }
 
     void EnsureHurtBox()
