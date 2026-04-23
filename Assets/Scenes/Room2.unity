@@ -865,6 +865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5897162070478610455, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: health
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7307147054912835281, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.31
@@ -2320,6 +2324,10 @@ PrefabInstance:
     - target: {fileID: 3252684412422681170, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897162070478610455, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: health
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9057319012015641302, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalScale.x
