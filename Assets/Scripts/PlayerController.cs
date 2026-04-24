@@ -107,6 +107,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //if the game is paused, stop all movement and animations
+        if(PauseController.IsGamePaused)
+        {
+            rigidBody.linearVelocityX = 0f;
+            player_animator.SetBool("IsRunning", false);
+            return;
+        }
         // Game over check
         if (playerHealth == 0)
         {

@@ -60,6 +60,14 @@ public class DeerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.IsGamePaused)
+        {
+            if (rigidBody != null)
+            {
+                rigidBody.linearVelocity = Vector2.zero;
+            }
+            return;
+        }
         if (isDead)
         {
             if (rigidBody != null)
