@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class SoundEffectManager : MonoBehaviour
 {
     private static SoundEffectManager Instance;
     private AudioSource audioSource;
     private SoundEffectLibrary soundEffectLibrary;
     [SerializeField] private Slider sfxSlider;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -15,31 +17,38 @@ public class SoundEffectManager : MonoBehaviour
             return;
         }
         Instance = this;
+        audioSource = GetComponent<AudioSource>();
+        soundEffectLibrary = GetComponent<SoundEffectLibrary>();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        sfxSlider?.onValueChanged.AddListener(delegate { OnValueChanged(); });
     }
 
     public static void Play(string soundName)
     {
-       AudioClip audioClip = SoundEffectLibrary.GetRandomClip(soundName);
-        if (audioClip != null)
-        {
-           audioSource.PlayOneShot(audioClip, Instance.sfxSlider.value);
-        }
-    }   
+        if (Instance == null) { Debug.LogWarning("SoundEffectManager: no instance in scene."); return; }
+        if (Instance.soundEffectLibrary == null) { Debug.LogWarning("SoundEffectManager: SoundEffectLibrary component missing."); return; }
+        if (Instance.audioSource == null) { Debug.LogWarning("SoundEffectManager: AudioSource missing."); return; }
+
+        AudioClip audioClip = Instance.soundEffectLibrary.GetRandomClip(soundName);
+        if (audioClip == null) { Debug.LogWarning($"SoundEffectManager: no clip found for \"{soundName}\"."); return; }
+
+        float volume = Instance.sfxSlider != null ? Instance.sfxSlider.value : 1f;
+        Instance.audioSource.PlayOneShot(audioClip, volume);
+    }
 
     public static void SetVolume(float volume)
     {
-        audioSource.volume = volume;
+        if (Instance == null || Instance.audioSource == null) return;
+        Instance.audioSource.volume = volume;
     }
 
     public static void OnValueChanged()
     {
-        SetVolume(sfxSlider.value);
-    }
-
-    public void Start()
-    {
-        
-        sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+        if (Instance?.sfxSlider != null)
+            SetVolume(Instance.sfxSlider.value);
     }
 }

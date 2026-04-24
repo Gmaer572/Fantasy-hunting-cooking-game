@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     float nextAttackTime;
     float attackEndTime;
     bool isAttacking;
-
+    
     [Header("References")]
     [SerializeField] Animator player_animator;
 
@@ -41,7 +41,10 @@ public class PlayerController : MonoBehaviour
     int spawnPointNum;
     float nextDamageTime;
     GameObject spawnPoint;
-
+    private bool playFootsteps = false;
+    [SerializeField] float footstepInterval = 0.4f;
+    float footstepTimer;
+    
     private void Awake()
     {
         // Handle play-mode without domain reloads: if a stale instance exists, clear it.
@@ -165,6 +168,22 @@ public class PlayerController : MonoBehaviour
         // Animation: running state
         if (player_animator != null)
             player_animator.SetBool("IsRunning", rigidBody.linearVelocityX != 0);
+
+        // Footstep sounds
+        bool isMoving = rigidBody.linearVelocityX != 0;
+        if (isMoving && IsGrounded())
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                SoundEffectManager.Play("footstep");
+                footstepTimer = footstepInterval;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
+        }
     }
 
     void Attack()
