@@ -8,7 +8,7 @@ public class ItemPickupUIController : MonoBehaviour
 
     public GameObject popupPrefab;
     public int maxPopups = 5;
-    public float popupDuration;
+    public float popupDuration=3f;
 
     private readonly Queue<GameObject> activePopups = new ();
     private void Awake()
@@ -22,6 +22,12 @@ public class ItemPickupUIController : MonoBehaviour
     }
     public void ShowItemPickup(string itemName, Sprite itemIcon)
     {
+        if (popupPrefab == null)
+        {
+            Debug.LogError("ItemPickupUIController: popupPrefab is not assigned in the Inspector.", this);
+            return;
+        }
+
         if (activePopups.Count >= maxPopups)
         {
             //destroy the oldest popup to make room for the new one
@@ -30,7 +36,7 @@ public class ItemPickupUIController : MonoBehaviour
 
         GameObject popup = Instantiate(popupPrefab, transform);
         //get item and icon from the prefab and set them to the item name and icon
-        popup.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"Picked up: {itemName}";
+        popup.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = itemName;
         Image iconImage = popup.transform.Find("ItemIcon")?.GetComponent<Image>();
         if (iconImage != null)
         {
@@ -43,12 +49,12 @@ public class ItemPickupUIController : MonoBehaviour
     private IEnumerator FadeOutAndDestroy(GameObject popup)
     {
        yield return new WaitForSeconds(popupDuration);
-       if (popup != null) yield break;
+       if (popup == null) yield break;
 
        CanvasGroup canvasGroup = popup.GetComponent<CanvasGroup>();
        for (float timePassed = 0; timePassed < 1f; timePassed += Time.deltaTime)
        {
-            if (popup != null) yield break;
+            if (popup == null) yield break;
             canvasGroup.alpha = 1f - timePassed;
             yield return null;
        }

@@ -27,13 +27,30 @@ public class InventoryController : MonoBehaviour
     {
         itemDictionary = FindObjectOfType<ItemDictionary>();
     }
+
+    public bool AddItem(GameObject itemPrefab)
+    {
+        foreach(Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot=slotTransform.GetComponent<Slot>();
+            if (slot!=null && slot.currentItem == null)
+            {
+                GameObject newItem = Instantiate(itemPrefab, slot.transform);
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                slot.currentItem = newItem;
+                return true; // Item added successfully
+            }
+        }
+        Debug.Log("Inventory is full! Cannot add item: " + itemPrefab.name);
+        return false; // Inventory full
+    }
     public List<InventorySaveData> GetInventoryItems()
     {
         List<InventorySaveData> invData=new List<InventorySaveData>();
         foreach(Transform slotTransform in inventoryPanel.transform)
         {
             Slot slot=slotTransform.GetComponent<Slot>();
-            if (slot.currentItem != null)
+            if (slot!=null && slot.currentItem != null)
             {
                 Item item=slot.currentItem.GetComponent<Item>();
                 invData.Add(new InventorySaveData{

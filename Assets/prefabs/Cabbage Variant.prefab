@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: Name
+      value: Ent Lettuce
+      objectReference: {fileID: 0}
+    - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3745373221525108600, guid: 5c0edf88dee2872408eb454398b073bc, type: 3}
     - target: {fileID: 2586052594656845283, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_Sprite
       value: 
