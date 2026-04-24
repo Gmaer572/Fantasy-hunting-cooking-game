@@ -8,7 +8,7 @@ public class SaveController : MonoBehaviour
    void Start()
    {
     //define save location, switch back to persistentDataPath before build.
-      saveLocation = Path.Combine(Application.dataPath, "..", "Saves", "saveData.json");
+      saveLocation = Path.Combine(Application.persistentDataPath, "Saves", "saveData.json");
       inventoryController=FindObjectOfType<InventoryController>();
       Directory.CreateDirectory(Path.GetDirectoryName(saveLocation));
       LoadGame();

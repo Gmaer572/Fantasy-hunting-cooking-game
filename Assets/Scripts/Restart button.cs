@@ -15,7 +15,7 @@ public class Restartbutton : MonoBehaviour
     {
         if (InputSystem.actions.FindAction("Click").WasPressedThisFrame())
         {
-            SceneManager.LoadScene("ForestSpawn");
+            SceneManager.LoadScene("Room1");
 
         }
     }

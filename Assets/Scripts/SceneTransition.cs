@@ -1,25 +1,43 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
     [SerializeField] string sceneToLoad;
     [SerializeField] int spawnPoint;
     // [SerializeField] int spawnOffset; 
+    bool isTransitioning;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player")) return;
+        if (isTransitioning || !collision.CompareTag("Player")) return;
 
-        GameObject handlerObj = GameObject.Find("SpawnPointHandler");
+        if (string.IsNullOrWhiteSpace(sceneToLoad))
+        {
+            Debug.LogError($"SceneTransition on {name} has no target scene assigned.");
+            return;
+        }
 
-        SpawnPointHandler handler = handlerObj.GetComponent<SpawnPointHandler>();
+        SpawnPointHandler handler = SpawnPointHandler.Instance;
+        if (handler == null)
+        {
+            Debug.LogError($"SceneTransition on {name} could not find SpawnPointHandler.");
+            return;
+        }
 
-        //Set the spawn point for the next scene
+        isTransitioning = true;
         handler.setSpawnPoint(spawnPoint);
+        StartCoroutine(LoadSceneAsync());
+    }
 
-        //load the new scene
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+    IEnumerator LoadSceneAsync()
+    {
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+        while (!loadOp.isDone)
+        {
+            yield return null;
+        }
     }
 
     public string getSceneToLoad() => sceneToLoad;

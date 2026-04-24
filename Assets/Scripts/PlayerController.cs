@@ -214,16 +214,6 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        SceneTransition transition = collision.GetComponent<SceneTransition>();
-        if (transition != null)
-        {
-            savedHealth = playerHealth;
-            SceneManager.LoadScene(transition.getSceneToLoad(), LoadSceneMode.Single);
-        }
-    }
-
     void setSpawnPoint()
     {
         GameObject handler = GameObject.Find("SpawnPointHandler");

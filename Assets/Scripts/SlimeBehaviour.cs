@@ -13,7 +13,7 @@ public class SlimeBehaviour : MonoBehaviour
     bool isDead;
 
     [SerializeField]
-    int health = 5;
+    int health = 2;
     [SerializeField]
     float attackCooldown = 0.5f;
     [SerializeField]
