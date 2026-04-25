@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3421080965616894333}
   - component: {fileID: 8816904645417751461}
   - component: {fileID: 8697137906593541405}
+  - component: {fileID: 4019920118831821023}
   m_Layer: 0
   m_Name: Player_Place
   m_TagString: Player
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966573146273661174}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ea5c32f46153245b0cc82d36f4488d, type: 3}
   m_Name: 
@@ -227,6 +228,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4019920118831821023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966573146273661174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758236cac82f86e43b77980062f314f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerItemCollector
 --- !u!1 &4556476593568900524
 GameObject:
   m_ObjectHideFlags: 0

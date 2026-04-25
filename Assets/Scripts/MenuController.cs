@@ -18,13 +18,6 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (menuCanvas == null)
-        {
-            Debug.LogError($"{nameof(MenuController)}: menuCanvas is not assigned and no child Canvas was found.");
-            enabled = false;
-            return;
-        }
-
         menuCanvas.SetActive(false);
     }
 
@@ -33,7 +26,12 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if(!menuCanvas.activeSelf&&PauseController.IsGamePaused)
+            {
+                return;
+            }
             menuCanvas.SetActive(!menuCanvas.activeSelf);
+            PauseController.SetPause(menuCanvas.activeSelf);
         }
     }
 }

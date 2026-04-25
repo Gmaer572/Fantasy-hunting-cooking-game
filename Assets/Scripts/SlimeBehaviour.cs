@@ -68,6 +68,11 @@ public class SlimeBehaviour : MonoBehaviour
 
     void Update()
     {
+        if(PauseController.IsGamePaused)
+        {   
+            // Ensure the slime doesn't continue its behavior while the game is paused
+            return;
+        }
         if (isDead)
         {
             return;
