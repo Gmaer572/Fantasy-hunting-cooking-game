@@ -1106,9 +1106,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1256303488}
   - component: {fileID: 1256303489}
+  - component: {fileID: 1256303490}
   m_Layer: 0
   m_Name: warg_hitbox_left
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1162,7 +1163,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.18556058, y: 0.26094437}
+  m_Offset: {x: -0.3142292, y: 0.26094437}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1172,8 +1173,21 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.44331813, y: 0.52450085}
+  m_Size: {x: 0.70065534, y: 0.52450085}
   m_EdgeRadius: 0
+--- !u!114 &1256303490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256303487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16f9dea2b7f3274e884e1115ba022d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WargAttackHitbox
+  damage: 1
 --- !u!1 &1336269699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,9 +1466,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1649170459}
   - component: {fileID: 1649170460}
+  - component: {fileID: 1649170461}
   m_Layer: 0
   m_Name: warg_hitbox_right
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1520,6 +1535,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.44331813, y: 0.52450085}
   m_EdgeRadius: 0
+--- !u!114 &1649170461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649170458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16f9dea2b7f3274e884e1115ba022d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WargAttackHitbox
+  damage: 1
 --- !u!1 &1718152357
 GameObject:
   m_ObjectHideFlags: 0
