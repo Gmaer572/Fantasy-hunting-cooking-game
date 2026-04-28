@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WargBehavior
   health: 10
   attackCooldown: 0.5
-  hitCooldown: 1
+  hitCooldown: 0.1
   deadDisableDelay: 1
   groundLayers:
     serializedVersion: 2
