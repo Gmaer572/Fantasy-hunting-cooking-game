@@ -251,17 +251,10 @@ public class PlayerController : MonoBehaviour
 
     void setSpawnPoint()
     {
-        GameObject handler = GameObject.Find("SpawnPointHandler");
-        if (handler == null)
-        {
-            Debug.LogError("SpawnPointHandler not found");
-            return;
-        }
-
-        SpawnPointHandler spawnHandler = handler.GetComponent<SpawnPointHandler>();
+        SpawnPointHandler spawnHandler = SpawnPointHandler.Instance;
         if (spawnHandler == null)
         {
-            Debug.LogError("SpawnPointHandler component not found");
+            Debug.LogError("SpawnPointHandler instance not found");
             return;
         }
 
