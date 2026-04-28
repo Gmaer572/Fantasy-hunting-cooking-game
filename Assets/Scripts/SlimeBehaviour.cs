@@ -27,8 +27,6 @@ public class SlimeBehaviour : MonoBehaviour
     [SerializeField]
     string groundTag = "Ground";
     [SerializeField]
-    string alternateGroundTag = "ground";
-    [SerializeField]
     float groundedCheckDistance = 0.08f;
     [SerializeField]
     Vector2 lookBoxSize = new Vector2(12f, 6f);
@@ -75,8 +73,8 @@ public class SlimeBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(PauseController.IsGamePaused)
-        {   
+        if (PauseController.IsGamePaused)
+        {
             // Ensure the slime doesn't continue its behavior while the game is paused
             return;
         }
@@ -290,7 +288,7 @@ public class SlimeBehaviour : MonoBehaviour
 
         int otherLayerMask = 1 << collider.gameObject.layer;
         bool inGroundLayer = (groundLayers.value & otherLayerMask) != 0;
-        bool matchesGroundTag = collider.CompareTag(groundTag) || collider.CompareTag(alternateGroundTag);
+        bool matchesGroundTag = collider.CompareTag(groundTag);
 
         if (inGroundLayer || matchesGroundTag)
         {

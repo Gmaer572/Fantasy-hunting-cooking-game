@@ -199,6 +199,15 @@ public class WargBehavior : MonoBehaviour
         }
 
         float direction = Mathf.Sign(deltaX);
+        if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+
+        }
+        else if (direction > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
         float speed = 5;
         return direction * speed;
     }

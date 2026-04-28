@@ -185,10 +185,20 @@ public class PlayerController : MonoBehaviour
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0f)
             {
-                SoundEffectManager.Play("footstep");
+                if (IsInWater() == true)
+                {
+                    Debug.Log("water!");
+                    SoundEffectManager.Play("waterFootstep");
+                }
+                else
+                {
+                    SoundEffectManager.Play("footstep");
+
+                }
                 footstepTimer = footstepInterval;
             }
         }
+
         else
         {
             footstepTimer = 0f;
@@ -244,6 +254,41 @@ public class PlayerController : MonoBehaviour
             }
 
             return true;
+        }
+
+        return false;
+    }
+
+    bool IsInWater()
+    {
+        if (bodyCollider == null)
+        {
+            return false;
+        }
+
+        Bounds bounds = bodyCollider.bounds;
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.02f);
+        Vector2 size = new Vector2(bounds.size.x * 0.85f, 0.06f);
+
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0f, Vector2.down, groundCheckDistance, groundLayers.value);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hitCollider = hits[i].collider;
+            if (hitCollider == null || hitCollider.isTrigger)
+            {
+                continue;
+            }
+
+            if (hitCollider.attachedRigidbody == rigidBody)
+            {
+                continue;
+            }
+            if (hitCollider.gameObject.CompareTag("Water"))
+            {
+                return true;
+            }
+
+
         }
 
         return false;
