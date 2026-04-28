@@ -212,10 +212,10 @@ public class WargBehavior : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (attacking)
-        {
-            return;
-        }
+        // if (attacking)
+        // {
+        //     return;
+        // }
         if (Time.time < nextHitTime || isDead)
         {
             return;
