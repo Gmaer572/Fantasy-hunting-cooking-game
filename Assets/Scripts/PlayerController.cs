@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     float nextAttackTime;
     float attackEndTime;
     bool isAttacking;
-    
+
     [Header("References")]
     [SerializeField] Animator player_animator;
 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private bool playFootsteps = false;
     [SerializeField] float footstepInterval = 0.4f;
     float footstepTimer;
-    
+
     private void Awake()
     {
         // Handle play-mode without domain reloads: if a stale instance exists, clear it.
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         UpdateHealthBarUI();
 
         setSpawnPoint();
+        GameObject.Find("TimerText").SetActive(true);
     }
 
     private void OnDestroy()
@@ -110,8 +111,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        //if the game ends, disable
+        if (SceneManager.GetActiveScene().name == "gameover")
+        {
+            Destroy(gameObject);
+
+
+        }
         //if the game is paused, stop all movement and animations
-        if(PauseController.IsGamePaused)
+        if (PauseController.IsGamePaused)
         {
             rigidBody.linearVelocityX = 0f;
             player_animator.SetBool("IsRunning", false);
@@ -153,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
         // Jumping (only when grounded)
         if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
-            rigidBody.AddForce(new Vector2(0, speed*1.75f), ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector2(0, speed * 1.75f), ForceMode2D.Impulse);
 
         // Attack input (supports both new Input System and legacy KeyCode.J)
         bool attackPressed = false;

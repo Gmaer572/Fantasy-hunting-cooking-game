@@ -764,7 +764,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.40017706, y: -0.80035496}
+  m_Offset: {x: -0.36645293, y: -0.80035496}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -774,7 +774,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.0744516, y: 0.6463561}
+  m_Size: {x: 0.6762419, y: 0.6463561}
   m_EdgeRadius: 0
 --- !u!50 &942340791
 Rigidbody2D:
@@ -1163,7 +1163,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.3142292, y: 0.26094437}
+  m_Offset: {x: -0.22232306, y: 0.26094437}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1173,7 +1173,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70065534, y: 0.52450085}
+  m_Size: {x: 0.5168431, y: 0.52450085}
   m_EdgeRadius: 0
 --- !u!114 &1256303490
 MonoBehaviour:
@@ -1387,9 +1387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d1a7020dc417041a066d58afb313b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WargBehavior
-  health: 2
+  health: 10
   attackCooldown: 0.5
-  hitCooldown: 0.1
+  hitCooldown: 1
   deadDisableDelay: 1
   groundLayers:
     serializedVersion: 2
