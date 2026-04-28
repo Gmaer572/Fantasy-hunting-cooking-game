@@ -7,10 +7,12 @@ public class SlimeBehaviour : MonoBehaviour
     Collider2D bodyCollider;
     SpriteRenderer spriteRenderer;
     Animator animator;
+    BoxCollider2D lookBoxCollider;
 
     bool jumping;
     bool isGrounded;
     bool isDead;
+    bool playerDetected;
 
     [SerializeField]
     int health = 2;
@@ -28,6 +30,10 @@ public class SlimeBehaviour : MonoBehaviour
     string alternateGroundTag = "ground";
     [SerializeField]
     float groundedCheckDistance = 0.08f;
+    [SerializeField]
+    Vector2 lookBoxSize = new Vector2(12f, 6f);
+    [SerializeField]
+    Vector2 lookBoxOffset = new Vector2(0f, 1f);
 
     float nextAttackTime;
     float nextHitTime;
@@ -60,6 +66,7 @@ public class SlimeBehaviour : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
+        EnsureLookBox();
         RefreshPlayerReference();
         jumping = false;
         isGrounded = CheckGrounded();
@@ -136,7 +143,7 @@ public class SlimeBehaviour : MonoBehaviour
         float minSpeed = 1.0f;
         float maxSpeed = 2.0f;
 
-        if (playerTransform == null)
+        if (playerTransform == null || !playerDetected)
         {
             return UnityEngine.Random.Range(-maxSpeed, maxSpeed);
         }
@@ -207,6 +214,15 @@ public class SlimeBehaviour : MonoBehaviour
         if (player != null)
         {
             playerTransform = player.transform;
+        }
+    }
+
+    public void SetPlayerDetected(bool detected, Transform detectedPlayer = null)
+    {
+        playerDetected = detected;
+        if (detectedPlayer != null)
+        {
+            playerTransform = detectedPlayer;
         }
     }
 
@@ -293,6 +309,35 @@ public class SlimeBehaviour : MonoBehaviour
 
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsDead", isDead);
+    }
+
+    void EnsureLookBox()
+    {
+        SlimeLookBox existing = GetComponentInChildren<SlimeLookBox>(true);
+        if (existing != null)
+        {
+            lookBoxCollider = existing.GetComponent<BoxCollider2D>();
+            if (lookBoxCollider != null)
+            {
+                lookBoxCollider.isTrigger = true;
+                lookBoxCollider.size = lookBoxSize;
+                lookBoxCollider.offset = lookBoxOffset;
+            }
+            return;
+        }
+
+        GameObject lookBoxObject = new GameObject("slime_lookbox");
+        lookBoxObject.transform.SetParent(transform, false);
+        lookBoxObject.transform.localPosition = Vector3.zero;
+        lookBoxObject.transform.localRotation = Quaternion.identity;
+        lookBoxObject.transform.localScale = Vector3.one;
+
+        lookBoxCollider = lookBoxObject.AddComponent<BoxCollider2D>();
+        lookBoxCollider.isTrigger = true;
+        lookBoxCollider.size = lookBoxSize;
+        lookBoxCollider.offset = lookBoxOffset;
+
+        lookBoxObject.AddComponent<SlimeLookBox>();
     }
 
     IEnumerator PlayDeathAndDisable()

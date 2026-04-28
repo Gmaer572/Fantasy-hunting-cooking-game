@@ -1,45 +1,62 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    static Timer instance;
+    [SerializeField] float defaultTime = 100f;
 
-    private float time;
-    Text timerText;
-    Boolean setTime;
+    float timeRemaining;
+    TextMeshProUGUI timerText;
 
-
-    float defaultTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        setTime = true;
-        defaultTime = 10 / Time.deltaTime;
-        time = defaultTime;
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        timerText = GetComponent<TextMeshProUGUI>();
+
+        if (defaultTime <= 0f)
+        {
+            defaultTime = 100f;
+        }
+
+        timeRemaining = defaultTime;
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "gameover")
         {
+            if (timerText != null)
+            {
+                timerText.enabled = false;
+            }
 
-            gameObject.SetActive(false);
-            time = defaultTime;
+            timeRemaining = defaultTime;
+            return;
         }
 
-        DontDestroyOnLoad(gameObject);
-        time--;
-        gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "Time:" + time;
-        if (time <= 0)
+        if (timerText != null && !timerText.enabled)
+        {
+            timerText.enabled = true;
+        }
+
+        timeRemaining -= Time.deltaTime;
+        if (timerText != null)
+        {
+            timerText.text = $"Time: {Mathf.CeilToInt(timeRemaining)}";
+        }
+
+        if (timeRemaining <= 0f)
         {
             SceneManager.LoadScene("gameover");
-
         }
     }
-
-
 }
