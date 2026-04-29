@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
-public class SlimeBehaviour : MonoBehaviour
+public class WargBehavior : MonoBehaviour
 {
     Rigidbody2D rigidBody;
     Collider2D bodyCollider;
     SpriteRenderer spriteRenderer;
     Animator animator;
-    BoxCollider2D lookBoxCollider;
 
     bool jumping;
     bool isGrounded;
+
+    bool attacking;
+
+    bool charging;
     bool isDead;
-    bool playerDetected;
+
+    string lastAttack;
 
     [SerializeField]
     int health = 2;
@@ -27,11 +35,9 @@ public class SlimeBehaviour : MonoBehaviour
     [SerializeField]
     string groundTag = "Ground";
     [SerializeField]
+    string alternateGroundTag = "ground";
+    [SerializeField]
     float groundedCheckDistance = 0.08f;
-    [SerializeField]
-    Vector2 lookBoxSize = new Vector2(12f, 6f);
-    [SerializeField]
-    Vector2 lookBoxOffset = new Vector2(0f, 1f);
 
     float nextAttackTime;
     float nextHitTime;
@@ -64,20 +70,16 @@ public class SlimeBehaviour : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
-        EnsureLookBox();
         RefreshPlayerReference();
         jumping = false;
         isGrounded = CheckGrounded();
         ApplyAnimatorState();
+        attacking = false;
+
     }
 
     void Update()
     {
-        if (PauseController.IsGamePaused)
-        {
-            // Ensure the slime doesn't continue its behavior while the game is paused
-            return;
-        }
         if (isDead)
         {
             return;
@@ -88,18 +90,66 @@ public class SlimeBehaviour : MonoBehaviour
             RefreshPlayerReference();
         }
 
-        if (!jumping && isGrounded)
+        if (attacking == false)
         {
-            Invoke(nameof(SlimeJump), UnityEngine.Random.Range(0.5f, 1.0f));
-            jumping = true;
+            attacking = true;
+            PickNewAttack();
         }
 
-        if (spriteRenderer != null)
+
+        if (spriteRenderer != null && spriteRenderer.color != Color.green && spriteRenderer.color != Color.blue)
         {
             spriteRenderer.color = Time.time < nextHitTime ? Color.red : Color.white;
         }
 
         ApplyAnimatorState();
+    }
+
+    private void PickNewAttack()
+    {
+        attacking = true;
+        int jumpOrCharge = UnityEngine.Random.Range(0, 2);
+        if (jumpOrCharge == 0)
+        {
+            Invoke(nameof(InvokeJump), 2);
+        }
+        else if (jumpOrCharge == 1)
+        {
+            Invoke(nameof(InvokeCharge), 2);
+        }
+    }
+
+    private void InvokeCharge()
+    {
+        spriteRenderer.color = Color.green;
+        Invoke(nameof(WargCharge), 3);
+    }
+
+    private void InvokeJump()
+    {
+        spriteRenderer.color = Color.blue;
+        Invoke(nameof(WargJump), 3);
+    }
+    private void WargCharge()
+    {
+        spriteRenderer.color = Color.white;
+
+        attacking = true;
+        ApplyAnimatorState();
+
+        float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
+
+        rigidBody.linearVelocityX = xSpeed;
+        Invoke(nameof(resetCharge), 2);
+        lastAttack = "Charge";
+
+    }
+
+    private void resetCharge()
+    {
+        rigidBody.linearVelocityX = 0;
+        charging = false;
+        attacking = false;
     }
 
     void FixedUpdate()
@@ -109,41 +159,37 @@ public class SlimeBehaviour : MonoBehaviour
             return;
         }
 
-        bool groundedNow = CheckGrounded();
-        if (groundedNow && !isGrounded)
-        {
-            CancelInvoke(nameof(ResetJump));
-            Invoke(nameof(ResetJump), 0.1f);
-        }
-
-        isGrounded = groundedNow;
         ApplyAnimatorState();
+        bool groundedNow = CheckGrounded();
+        if (groundedNow && !isGrounded && jumping)
+        {
+            jumping = false;
+            Invoke(nameof(ResetJump), 2);
+        }
     }
 
-    void SlimeJump()
+    void WargJump()
     {
-        if (rigidBody == null || isDead || !isGrounded)
+        spriteRenderer.color = Color.white;
+        if (rigidBody == null || isDead)
         {
             return;
         }
-
         jumping = true;
+        attacking = true;
         isGrounded = false;
         ApplyAnimatorState();
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
-
-        rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 5.0f)), ForceMode2D.Impulse);
+        lastAttack = "Jump";
+        rigidBody.AddForce(new Vector2(xSpeed, 6), ForceMode2D.Impulse);
     }
 
     float GetHorizontalJumpSpeedTowardPlayer()
     {
-        float minSpeed = 1.0f;
-        float maxSpeed = 2.0f;
-
-        if (playerTransform == null || !playerDetected)
+        if (playerTransform == null)
         {
-            return UnityEngine.Random.Range(-maxSpeed, maxSpeed);
+            return 5;
         }
 
         float deltaX = playerTransform.position.x - transform.position.x;
@@ -153,17 +199,32 @@ public class SlimeBehaviour : MonoBehaviour
         }
 
         float direction = Mathf.Sign(deltaX);
-        float speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+
+        }
+        else if (direction > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        float speed = 5;
         return direction * speed;
     }
 
     void ResetJump()
     {
+        isGrounded = CheckGrounded();
         jumping = false;
+        attacking = false;
     }
 
     public void TakeDamage(int damage)
     {
+        // if (attacking)
+        // {
+        //     return;
+        // }
         if (Time.time < nextHitTime || isDead)
         {
             return;
@@ -180,7 +241,7 @@ public class SlimeBehaviour : MonoBehaviour
 
             if (animator != null)
             {
-                animator.Play("slime_dead", 0, 0f);
+                animator.Play("warg_dead", 0, 0f);
             }
 
             if (deadRoutine == null)
@@ -212,15 +273,6 @@ public class SlimeBehaviour : MonoBehaviour
         if (player != null)
         {
             playerTransform = player.transform;
-        }
-    }
-
-    public void SetPlayerDetected(bool detected, Transform detectedPlayer = null)
-    {
-        playerDetected = detected;
-        if (detectedPlayer != null)
-        {
-            playerTransform = detectedPlayer;
         }
     }
 
@@ -307,35 +359,6 @@ public class SlimeBehaviour : MonoBehaviour
 
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsDead", isDead);
-    }
-
-    void EnsureLookBox()
-    {
-        SlimeLookBox existing = GetComponentInChildren<SlimeLookBox>(true);
-        if (existing != null)
-        {
-            lookBoxCollider = existing.GetComponent<BoxCollider2D>();
-            if (lookBoxCollider != null)
-            {
-                lookBoxCollider.isTrigger = true;
-                lookBoxCollider.size = lookBoxSize;
-                lookBoxCollider.offset = lookBoxOffset;
-            }
-            return;
-        }
-
-        GameObject lookBoxObject = new GameObject("slime_lookbox");
-        lookBoxObject.transform.SetParent(transform, false);
-        lookBoxObject.transform.localPosition = Vector3.zero;
-        lookBoxObject.transform.localRotation = Quaternion.identity;
-        lookBoxObject.transform.localScale = Vector3.one;
-
-        lookBoxCollider = lookBoxObject.AddComponent<BoxCollider2D>();
-        lookBoxCollider.isTrigger = true;
-        lookBoxCollider.size = lookBoxSize;
-        lookBoxCollider.offset = lookBoxOffset;
-
-        lookBoxObject.AddComponent<SlimeLookBox>();
     }
 
     IEnumerator PlayDeathAndDisable()

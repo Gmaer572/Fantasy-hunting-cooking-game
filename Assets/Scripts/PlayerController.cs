@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     float nextAttackTime;
     float attackEndTime;
     bool isAttacking;
-    
+
     [Header("References")]
     [SerializeField] Animator player_animator;
 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private bool playFootsteps = false;
     [SerializeField] float footstepInterval = 0.4f;
     float footstepTimer;
-    
+
     private void Awake()
     {
         // Handle play-mode without domain reloads: if a stale instance exists, clear it.
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         UpdateHealthBarUI();
 
         setSpawnPoint();
+        GameObject.Find("TimerText").SetActive(true);
     }
 
     private void OnDestroy()
@@ -110,8 +111,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        //if the game ends, disable
+        if (SceneManager.GetActiveScene().name == "gameover")
+        {
+            Destroy(gameObject);
+
+
+        }
         //if the game is paused, stop all movement and animations
-        if(PauseController.IsGamePaused)
+        if (PauseController.IsGamePaused)
         {
             rigidBody.linearVelocityX = 0f;
             player_animator.SetBool("IsRunning", false);
@@ -153,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
         // Jumping (only when grounded)
         if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
-            rigidBody.AddForce(new Vector2(0, speed*1.75f), ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector2(0, speed * 1.75f), ForceMode2D.Impulse);
 
         // Attack input (supports both new Input System and legacy KeyCode.J)
         bool attackPressed = false;
@@ -176,10 +185,20 @@ public class PlayerController : MonoBehaviour
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0f)
             {
-                SoundEffectManager.Play("footstep");
+                if (IsInWater() == true)
+                {
+                    Debug.Log("water!");
+                    SoundEffectManager.Play("waterFootstep");
+                }
+                else
+                {
+                    SoundEffectManager.Play("footstep");
+
+                }
                 footstepTimer = footstepInterval;
             }
         }
+
         else
         {
             footstepTimer = 0f;
@@ -240,19 +259,47 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    void setSpawnPoint()
+    bool IsInWater()
     {
-        GameObject handler = GameObject.Find("SpawnPointHandler");
-        if (handler == null)
+        if (bodyCollider == null)
         {
-            Debug.LogError("SpawnPointHandler not found");
-            return;
+            return false;
         }
 
-        SpawnPointHandler spawnHandler = handler.GetComponent<SpawnPointHandler>();
+        Bounds bounds = bodyCollider.bounds;
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y + 0.02f);
+        Vector2 size = new Vector2(bounds.size.x * 0.85f, 0.06f);
+
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0f, Vector2.down, groundCheckDistance, groundLayers.value);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hitCollider = hits[i].collider;
+            if (hitCollider == null || hitCollider.isTrigger)
+            {
+                continue;
+            }
+
+            if (hitCollider.attachedRigidbody == rigidBody)
+            {
+                continue;
+            }
+            if (hitCollider.gameObject.CompareTag("Water"))
+            {
+                return true;
+            }
+
+
+        }
+
+        return false;
+    }
+
+    void setSpawnPoint()
+    {
+        SpawnPointHandler spawnHandler = SpawnPointHandler.Instance;
         if (spawnHandler == null)
         {
-            Debug.LogError("SpawnPointHandler component not found");
+            Debug.LogError("SpawnPointHandler instance not found");
             return;
         }
 

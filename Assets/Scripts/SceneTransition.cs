@@ -8,10 +8,17 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] int spawnPoint;
     // [SerializeField] int spawnOffset; 
     bool isTransitioning;
+    static float sceneLoadProtectUntil;
+
+    void OnEnable()
+    {
+        // Prevent immediate re-trigger when the player spawns inside/near a transition collider.
+        sceneLoadProtectUntil = Time.time + 0.35f;
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isTransitioning || !collision.CompareTag("Player")) return;
+        if (isTransitioning || Time.time < sceneLoadProtectUntil || !collision.CompareTag("Player")) return;
 
         if (string.IsNullOrWhiteSpace(sceneToLoad))
         {
