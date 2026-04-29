@@ -8,8 +8,6 @@ TagManager:
   - Enemy
   - Ground
   - DeerBoundary
-  - Item
-  - Water
   layers:
   - Default
   - TransparentFX
