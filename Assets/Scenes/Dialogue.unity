@@ -469,7 +469,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueController
   dialogueText: {fileID: 0}
   hintText: {fileID: 0}
-  lines: []
+  lines:
+  - hello
+  - hello world
   loadSceneAfterDialogue: 0
   nextSceneName: Room1
 --- !u!4 &1038977229
