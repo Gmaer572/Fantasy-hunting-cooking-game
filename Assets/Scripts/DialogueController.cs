@@ -9,6 +9,7 @@ public class DialogueController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI hintText;
+    [SerializeField] private TextMeshProUGUI speakerText;
 
     [Header("Dialogue")]
     [TextArea(2, 5)]
@@ -17,13 +18,18 @@ public class DialogueController : MonoBehaviour
     [Header("Flow")]
     [SerializeField] private bool loadSceneAfterDialogue = false;
     [SerializeField] private string nextSceneName = "Room1";
+    [SerializeField] private bool autoCreateUiAtRuntime = true;
+    [SerializeField] private string defaultSpeakerName = "Narrator";
 
     private int currentLineIndex;
     private bool finished;
 
     private void Start()
     {
-        EnsureDialogueUi();
+        if (autoCreateUiAtRuntime)
+        {
+            EnsureDialogueUi();
+        }
         AutoAssignTextReferencesIfNeeded();
         currentLineIndex = 0;
         finished = false;
@@ -41,6 +47,11 @@ public class DialogueController : MonoBehaviour
         if (hintText == null)
         {
             hintText = FindTextByNameToken("hint");
+        }
+
+        if (speakerText == null)
+        {
+            speakerText = FindTextByNameToken("speaker");
         }
     }
 
@@ -115,6 +126,20 @@ public class DialogueController : MonoBehaviour
         dialogueTmp.enableWordWrapping = true;
         dialogueTmp.text = string.Empty;
 
+        GameObject speakerObj = new GameObject("SpeakerText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        speakerObj.transform.SetParent(boxObj.transform, false);
+        RectTransform speakerRect = speakerObj.GetComponent<RectTransform>();
+        speakerRect.anchorMin = new Vector2(0f, 1f);
+        speakerRect.anchorMax = new Vector2(0f, 1f);
+        speakerRect.pivot = new Vector2(0f, 1f);
+        speakerRect.anchoredPosition = new Vector2(30f, -10f);
+        speakerRect.sizeDelta = new Vector2(500f, 48f);
+
+        TextMeshProUGUI speakerTmp = speakerObj.GetComponent<TextMeshProUGUI>();
+        speakerTmp.fontSize = 30f;
+        speakerTmp.alignment = TextAlignmentOptions.TopLeft;
+        speakerTmp.text = defaultSpeakerName;
+
         GameObject hintObj = new GameObject("HintText", typeof(RectTransform), typeof(TextMeshProUGUI));
         hintObj.transform.SetParent(boxObj.transform, false);
         RectTransform hintRect = hintObj.GetComponent<RectTransform>();
@@ -128,6 +153,13 @@ public class DialogueController : MonoBehaviour
         hintTmp.fontSize = 30f;
         hintTmp.alignment = TextAlignmentOptions.BottomRight;
         hintTmp.text = "Space / Enter to continue";
+    }
+
+    [ContextMenu("Build Dialogue UI In Scene")]
+    private void BuildDialogueUiInScene()
+    {
+        EnsureDialogueUi();
+        AutoAssignTextReferencesIfNeeded();
     }
 
     private void Update()
@@ -189,7 +221,29 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        dialogueText.text = lines[currentLineIndex];
+        string rawLine = lines[currentLineIndex] ?? string.Empty;
+        string speaker = defaultSpeakerName;
+        string content = rawLine;
+
+        int splitIndex = rawLine.IndexOf(':');
+        if (splitIndex > 0)
+        {
+            string parsedSpeaker = rawLine.Substring(0, splitIndex).Trim();
+            string parsedContent = rawLine.Substring(splitIndex + 1).Trim();
+
+            if (!string.IsNullOrWhiteSpace(parsedSpeaker))
+            {
+                speaker = parsedSpeaker;
+            }
+
+            content = parsedContent;
+        }
+
+        dialogueText.text = content;
+        if (speakerText != null)
+        {
+            speakerText.text = speaker;
+        }
     }
 
     private void ShowEndMessage()
