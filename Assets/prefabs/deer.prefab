@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 145453246075659670}
   - component: {fileID: 6550912114854690621}
+  - component: {fileID: 3158478943787071192}
   m_Layer: 0
   m_Name: deer_hitbox
   m_TagString: Attack
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3189158047765455847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,6 +79,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.38913533, y: 0.6023481}
   m_EdgeRadius: 0
+--- !u!114 &3158478943787071192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189158047765455847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424e072a32c6244f9bc2164a8554f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeerHitBox
+  damage: 1
+  forwardOffsetMultiplier: 0.35
 --- !u!1 &3723954193661920167
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,3 +365,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8951e39d5c44b4298a3a4295fc80e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeerBehavior
+  meatPrefab: {fileID: 487937871655226560, guid: 395e74db0c07c494fa7f920ef4ce61cc, type: 3}
+  health: 3
+  attackCooldown: 0.5
+  hitCooldown: 0.1
+  deadDisableDelay: 0.8
+  patrolSpeed: 1
+  reactionMoveSpeed: 1.4
+  alertDistance: 3
+  counterattackDistance: 1.2
+  turnDelay: 1
+  idleAnimationFps: 5
+  walkAnimationFps: 8
+  idleResourcePath: Deer/elk_idle
+  walkResourcePath: Deer/elk_walk

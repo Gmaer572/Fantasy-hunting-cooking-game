@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float speed = 5.0f;
     [SerializeField] LayerMask groundLayers = ~0;
-    [SerializeField] float groundCheckDistance = 0.08f;
+    [SerializeField] float groundCheckDistance = 0f;
 
     [Header("Health")]
     private static int savedHealth = -1;

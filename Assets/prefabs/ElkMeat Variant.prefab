@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: ID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: Name
       value: Elk Meat
       objectReference: {fileID: 0}
@@ -16,6 +20,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 64575951555410731, guid: 897e8639a503ddd44babf9c3e7ee7e00, type: 3}
+    - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1353715863
+      objectReference: {fileID: 0}
     - target: {fileID: 2586052594656845283, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -86,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6185632225752565176, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 570.06415
+      value: -8.04246
       objectReference: {fileID: 0}
     - target: {fileID: 6185632225752565176, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 833.97217
+      value: -3.77167
       objectReference: {fileID: 0}
     - target: {fileID: 6185632225752565176, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
