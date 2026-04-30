@@ -1,4 +1,5 @@
 using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,10 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI hintText;
     [SerializeField] private TextMeshProUGUI speakerText;
+
+    [Header("Dialogue Image")]
+    [SerializeField] private Image dialogueImage;
+    [SerializeField] private List<DialogueImageChange> dialogueImageChanges;
 
     [Header("Dialogue")]
     [TextArea(2, 5)]
@@ -24,6 +29,13 @@ public class DialogueController : MonoBehaviour
     private int currentLineIndex;
     private bool finished;
 
+    [System.Serializable]
+    private struct DialogueImageChange
+    {
+        public int lineIndex;
+        public Sprite sprite;
+    }
+
     private void Start()
     {
         if (autoCreateUiAtRuntime)
@@ -31,6 +43,7 @@ public class DialogueController : MonoBehaviour
             EnsureDialogueUi();
         }
         AutoAssignTextReferencesIfNeeded();
+        AutoAssignImageReferencesIfNeeded();
         currentLineIndex = 0;
         finished = false;
         ShowCurrentLine();
@@ -55,6 +68,14 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    private void AutoAssignImageReferencesIfNeeded()
+    {
+        if (dialogueImage == null)
+        {
+            dialogueImage = FindImageByNameToken("dialogue image") ?? FindImageByNameToken("dialogueimage");
+        }
+    }
+
     private TextMeshProUGUI FindTextByNameToken(string token)
     {
         TextMeshProUGUI[] allTexts = FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None);
@@ -74,6 +95,31 @@ public class DialogueController : MonoBehaviour
             if (!string.IsNullOrEmpty(objName) && objName.ToLower().Contains(token))
             {
                 return allTexts[i];
+            }
+        }
+
+        return null;
+    }
+
+    private Image FindImageByNameToken(string token)
+    {
+        Image[] allImages = FindObjectsByType<Image>(FindObjectsSortMode.None);
+        if (allImages == null || allImages.Length == 0)
+        {
+            return null;
+        }
+
+        for (int i = 0; i < allImages.Length; i++)
+        {
+            if (allImages[i] == null)
+            {
+                continue;
+            }
+
+            string objName = allImages[i].gameObject.name;
+            if (!string.IsNullOrEmpty(objName) && objName.ToLower().Contains(token))
+            {
+                return allImages[i];
             }
         }
 
@@ -153,13 +199,31 @@ public class DialogueController : MonoBehaviour
         hintTmp.fontSize = 30f;
         hintTmp.alignment = TextAlignmentOptions.BottomRight;
         hintTmp.text = "Space / Enter to continue";
-    }
+
+        if (GameObject.Find("DialogueImage") == null && dialogueImage == null) // Made by Sam Jackson with help from VisualStudio AI Code
+        {
+            GameObject imageObj = new GameObject("DialogueImage", typeof(RectTransform), typeof(Image));
+            imageObj.transform.SetParent(canvas.transform, false);
+            RectTransform imageRect = imageObj.GetComponent<RectTransform>();
+            imageRect.anchorMin = new Vector2(1f, 1f);
+            imageRect.anchorMax = new Vector2(1f, 1f);
+            imageRect.pivot = new Vector2(1f, 1f);
+            imageRect.anchoredPosition = new Vector2(-40f, -40f);
+            imageRect.sizeDelta = new Vector2(280f, 280f);
+
+            Image imageUi = imageObj.GetComponent<Image>();
+            imageUi.color = new Color(1f, 1f, 1f, 0f);
+            imageUi.raycastTarget = false;
+            dialogueImage = imageUi;
+        }
+    } 
 
     [ContextMenu("Build Dialogue UI In Scene")]
     private void BuildDialogueUiInScene()
     {
         EnsureDialogueUi();
         AutoAssignTextReferencesIfNeeded();
+        AutoAssignImageReferencesIfNeeded();
     }
 
     private void Update()
@@ -244,6 +308,65 @@ public class DialogueController : MonoBehaviour
         {
             speakerText.text = speaker;
         }
+
+        ApplyDialogueImageForLine(currentLineIndex);
+    }
+
+    private void ApplyDialogueImageForLine(int lineIndex)
+    {
+        if (dialogueImage == null || dialogueImageChanges == null || dialogueImageChanges.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < dialogueImageChanges.Count; i++)
+        {
+            if (dialogueImageChanges[i].lineIndex != lineIndex)
+            {
+                continue;
+            }
+
+            Sprite newSprite = dialogueImageChanges[i].sprite;
+            dialogueImage.sprite = newSprite;
+            dialogueImage.color = newSprite == null ? new Color(1f, 1f, 1f, 0f) : Color.white;
+            dialogueImage.enabled = newSprite != null;
+            return;
+        }
+    }
+
+    public void SetDialogueImageForLine(int lineIndex, Sprite sprite)
+    {
+        if (lineIndex < 0)
+        {
+            return;
+        }
+
+        if (dialogueImageChanges == null)
+        {
+            dialogueImageChanges = new List<DialogueImageChange>();
+        }
+
+        int existingIndex = dialogueImageChanges.FindIndex(x => x.lineIndex == lineIndex);
+        DialogueImageChange change = new DialogueImageChange { lineIndex = lineIndex, sprite = sprite };
+
+        if (existingIndex >= 0)
+        {
+            dialogueImageChanges[existingIndex] = change;
+        }
+        else
+        {
+            dialogueImageChanges.Add(change);
+        }
+
+        if (currentLineIndex == lineIndex)
+        {
+            ApplyDialogueImageForLine(lineIndex);
+        }
+    }
+
+    public void ChangeCanvasImageAfterLine(int lineIndex, Sprite newSprite)
+    {
+        SetDialogueImageForLine(lineIndex, newSprite);
     }
 
     private void ShowEndMessage()
