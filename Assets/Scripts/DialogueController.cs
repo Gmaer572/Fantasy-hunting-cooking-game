@@ -235,6 +235,12 @@ public class DialogueController : MonoBehaviour
 
         if (finished)
         {
+            if (DayManager.Instance != null)
+            {
+                DayManager.Instance.OnDialogueFinished();
+                return;
+            }
+
             if (loadSceneAfterDialogue && !string.IsNullOrWhiteSpace(nextSceneName))
             {
                 SceneManager.LoadScene(nextSceneName);
@@ -392,9 +398,15 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
+        if (DayManager.Instance != null)
+        {
+            hintText.text = "Click / Space / Enter to start day";
+            return;
+        }
+
         if (loadSceneAfterDialogue)
         {
-            hintText.text = "Click / Space / Enter to continue";
+            hintText.text = "Click / Space / Enter to start day";
         }
         else
         {

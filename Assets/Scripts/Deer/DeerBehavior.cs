@@ -10,6 +10,8 @@ public class DeerBehavior : MonoBehaviour
     Sprite[] idleFrames;
     Sprite[] walkFrames;
 
+
+    [SerializeField] GameObject meatPrefab;
     bool turnAround;
     bool turning;
     int patrolDirection;
@@ -70,6 +72,7 @@ public class DeerBehavior : MonoBehaviour
         }
         if (isDead)
         {
+
             if (rigidBody != null)
             {
                 rigidBody.linearVelocity = Vector2.zero;
@@ -207,6 +210,7 @@ public class DeerBehavior : MonoBehaviour
 
     void DisableSelf()
     {
+        Instantiate(meatPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
         gameObject.SetActive(false);
     }
 

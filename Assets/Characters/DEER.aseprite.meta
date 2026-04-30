@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: DEER
     originalName: 
-    pivot: {x: 0.537037, y: -0.016129032}
+    pivot: {x: 0.46403962, y: 0.39547816}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -138,7 +138,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 54
-      height: 62
+      height: 61
     spriteID: 53b5648108fde544aad2e97e954386c3
     spriteBone: []
     spriteOutline: []
@@ -168,9 +168,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 3
-        y: 1
+        y: 0
         width: 54
-        height: 62
+        height: 61
       spriteId: 53b5648108fde544aad2e97e954386c3
     linkedCells: []
     tileCells: []
