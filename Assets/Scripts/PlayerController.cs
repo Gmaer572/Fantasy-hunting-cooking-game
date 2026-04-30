@@ -162,7 +162,13 @@ public class PlayerController : MonoBehaviour
 
         // Jumping (only when grounded)
         if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
+        {
             rigidBody.AddForce(new Vector2(0, speed * 1.75f), ForceMode2D.Impulse);
+            if (player_animator != null)
+            {
+                player_animator.SetTrigger("Jump");
+            }
+        }
 
         // Attack input (supports both new Input System and legacy KeyCode.J)
         bool attackPressed = false;

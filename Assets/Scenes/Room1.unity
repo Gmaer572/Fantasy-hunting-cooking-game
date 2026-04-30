@@ -1963,6 +1963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   defaultTime: 100000000
+  useDaySystem: 1
+  endDayHotkey: 20
 --- !u!1 &1219315258
 GameObject:
   m_ObjectHideFlags: 0
