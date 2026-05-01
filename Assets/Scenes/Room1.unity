@@ -364,6 +364,24 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2103972180}
   m_SourcePrefab: {fileID: 100100000, guid: 3a4554ddc73ec464dadd4ed25b618967, type: 3}
+--- !u!1 &93567003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8717215735901046484, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+  m_PrefabInstance: {fileID: 1402053066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &93567008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93567003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!1 &149958231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1185,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 141c91ce4cc5f56408ce3f8ada72cda2, type: 3}
+--- !u!1 &377897659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6332933774808772651, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+  m_PrefabInstance: {fileID: 1402053066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &377897664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377897659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!4 &383112471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9192147336336995059, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
@@ -1884,6 +1920,24 @@ Transform:
   - {fileID: 744028118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &653996003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 470185465701321570, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+  m_PrefabInstance: {fileID: 1402053066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &653996008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653996003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!1 &707897791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,7 +3256,22 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8392665709709911478, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 469978174}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1880107153502347593, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753376340}
+    - targetCorrespondingSourceObject: {fileID: 6332933774808772651, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 377897664}
+    - targetCorrespondingSourceObject: {fileID: 8717215735901046484, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 93567008}
+    - targetCorrespondingSourceObject: {fileID: 470185465701321570, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 653996008}
+    - targetCorrespondingSourceObject: {fileID: 4704423014192612319, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1702721332}
   m_SourcePrefab: {fileID: 100100000, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
 --- !u!1 &1556857893
 GameObject:
@@ -3537,6 +3606,24 @@ CompositeCollider2D:
   m_CorrespondingSourceObject: {fileID: 5046286940427428597, guid: 4d3a63442e98bba4aafe60385c2559a4, type: 3}
   m_PrefabInstance: {fileID: 342507736}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1702721327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4704423014192612319, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+  m_PrefabInstance: {fileID: 1402053066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1702721332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702721327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!1 &1734937379
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,6 +3857,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744592763}
   m_CullTransparentMesh: 1
+--- !u!1 &1753376335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1880107153502347593, guid: 84e2f131e7efb124eac1f247db3a0de0, type: 3}
+  m_PrefabInstance: {fileID: 1402053066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1753376340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753376335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!1 &1790660779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3918,6 +4023,7 @@ GameObject:
   - component: {fileID: 1792642655}
   - component: {fileID: 1792642657}
   - component: {fileID: 1792642656}
+  - component: {fileID: 1792642658}
   m_Layer: 5
   m_Name: nameLabel
   m_TagString: Untagged
@@ -4044,6 +4150,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792642654}
   m_CullTransparentMesh: 1
+--- !u!114 &1792642658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792642654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8111aaeaa03644aa45e49e1fa56fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
+  soundName: uiClick
 --- !u!1001 &2036001407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4102,7 +4221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[0].name
@@ -4117,6 +4236,10 @@ PrefabInstance:
       value: cleaver
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[3].name
+      value: uiClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[0].clips.Array.size
       value: 21
       objectReference: {fileID: 0}
@@ -4127,6 +4250,10 @@ PrefabInstance:
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[2].clips.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[3].clips.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: 'soundEffectGroups.Array.data[0].clips.Array.data[0]'
@@ -4248,6 +4375,38 @@ PrefabInstance:
       propertyPath: 'soundEffectGroups.Array.data[2].clips.Array.data[9]'
       value: 
       objectReference: {fileID: 8300000, guid: af7fa5995bb40e841bea26bda894d6ea, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: acae59216e30e044b820b3e8fda6c703, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f60b9628a91a9944fbb87e37bfa67d26, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b5275739592bea64ba83a86ec78fbf84, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 41f3b7b3dcaa2fc418dbbdc3489cbb8c, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 46f2d3fcb8fa6d24c883310c815cfbb6, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b9bfddcc9cffad340b5045fc0a307d81, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 81b9900807c6b974b8ea9cfbbb88330c, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3361438058a60d8469153e03f841f359, type: 3}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: 'soundEffectGroups.Array.data[0].clips.Array.data[10]'
       value: 

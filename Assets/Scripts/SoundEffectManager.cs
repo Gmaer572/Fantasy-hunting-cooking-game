@@ -20,6 +20,8 @@ public class SoundEffectManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         soundEffectLibrary = GetComponent<SoundEffectLibrary>();
         DontDestroyOnLoad(gameObject);
+        // Warm up the audio pipeline to eliminate first-play latency.
+        audioSource.PlayOneShot(AudioClip.Create("warmup", 1, 1, 44100, false), 0f);
     }
 
     private void Start()
