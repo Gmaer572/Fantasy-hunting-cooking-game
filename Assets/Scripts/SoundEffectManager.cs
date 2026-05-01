@@ -8,6 +8,7 @@ public class SoundEffectManager : MonoBehaviour
     private AudioSource audioSource;
     private SoundEffectLibrary soundEffectLibrary;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private float sfxVolumeMultiplier = 2f;
 
     private void Awake()
     {
@@ -38,19 +39,12 @@ public class SoundEffectManager : MonoBehaviour
         AudioClip audioClip = Instance.soundEffectLibrary.GetRandomClip(soundName);
         if (audioClip == null) { Debug.LogWarning($"SoundEffectManager: no clip found for \"{soundName}\"."); return; }
 
-        float volume = Instance.sfxSlider != null ? Instance.sfxSlider.value : 1f;
+        float volume = (Instance.sfxSlider != null ? Instance.sfxSlider.value : 1f) * Instance.sfxVolumeMultiplier;
         Instance.audioSource.PlayOneShot(audioClip, volume);
-    }
-
-    public static void SetVolume(float volume)
-    {
-        if (Instance == null || Instance.audioSource == null) return;
-        Instance.audioSource.volume = volume;
     }
 
     public static void OnValueChanged()
     {
-        if (Instance?.sfxSlider != null)
-            SetVolume(Instance.sfxSlider.value);
+        // Volume is applied per-clip in PlayOneShot — nothing extra needed here.
     }
 }
