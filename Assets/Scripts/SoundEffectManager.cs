@@ -30,7 +30,7 @@ public class SoundEffectManager : MonoBehaviour
         sfxSlider?.onValueChanged.AddListener(delegate { OnValueChanged(); });
     }
 
-    public static void Play(string soundName)
+    public static void Play(string soundName, float volumeScale = 1f)
     {
         if (Instance == null) { Debug.LogWarning("SoundEffectManager: no instance in scene."); return; }
         if (Instance.soundEffectLibrary == null) { Debug.LogWarning("SoundEffectManager: SoundEffectLibrary component missing."); return; }
@@ -39,7 +39,7 @@ public class SoundEffectManager : MonoBehaviour
         AudioClip audioClip = Instance.soundEffectLibrary.GetRandomClip(soundName);
         if (audioClip == null) { Debug.LogWarning($"SoundEffectManager: no clip found for \"{soundName}\"."); return; }
 
-        float volume = (Instance.sfxSlider != null ? Instance.sfxSlider.value : 1f) * Instance.sfxVolumeMultiplier;
+        float volume = (Instance.sfxSlider != null ? Instance.sfxSlider.value : 1f) * Instance.sfxVolumeMultiplier * volumeScale;
         Instance.audioSource.PlayOneShot(audioClip, volume);
     }
 
