@@ -171,7 +171,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 131}
   - name: Frame_2
     originalName: 
-    pivot: {x: 0.6, y: -0.49999997}
+    pivot: {x: 0.55, y: -0.21666665}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -189,7 +189,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 37, y: 1}
+    uvTransform: {x: 37, y: 4}
   - name: Frame_3
     originalName: 
     pivot: {x: 0.6, y: -0.28333333}
@@ -269,10 +269,10 @@ ScriptedImporter:
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 20
-        y: 27
-        width: 23
-        height: 63
+        x: 21
+        y: 13
+        width: 20
+        height: 60
       spriteId: aa24d32d91b4c2743801f4c687dc01cd
     - name: Frame_3
       frameIndex: 3
