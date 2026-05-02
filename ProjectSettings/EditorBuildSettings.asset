@@ -33,10 +33,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Room3.unity
     guid: cbdb9c849297b534dbdc5581018b2910
   - enabled: 1
-    path: Assets/Scenes/EntRoom.unity
+    path: Assets/Scenes/Room4.unity
     guid: 93725bd973eba5c42905def410feee2f
   - enabled: 1
-    path: Assets/Scenes/WargTransition.unity
+    path: Assets/Scenes/Room5.unity
     guid: 6a414d8f6c7ab68498d7892ea8cfb25b
   - enabled: 1
     path: Assets/Scenes/WargFight.unity
