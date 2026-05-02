@@ -9655,7 +9655,7 @@ PrefabInstance:
       objectReference: {fileID: 495281304}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[0].name
@@ -9674,6 +9674,18 @@ PrefabInstance:
       value: uiClick
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[4].name
+      value: slime_jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[5].name
+      value: slime_hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[6].name
+      value: swoosh
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[0].clips.Array.size
       value: 21
       objectReference: {fileID: 0}
@@ -9688,6 +9700,18 @@ PrefabInstance:
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: soundEffectGroups.Array.data[3].clips.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[4].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[5].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: soundEffectGroups.Array.data[6].clips.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: 'soundEffectGroups.Array.data[0].clips.Array.data[0]'
@@ -9841,6 +9865,26 @@ PrefabInstance:
       propertyPath: 'soundEffectGroups.Array.data[3].clips.Array.data[7]'
       value: 
       objectReference: {fileID: 8300000, guid: 3361438058a60d8469153e03f841f359, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[4].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: de47fe8b2b21af04cacde649d1404272, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[4].clips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f60b9628a91a9944fbb87e37bfa67d26, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[4].clips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b5275739592bea64ba83a86ec78fbf84, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[5].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 02fc3e45f90c4c54f80c5480e854057b, type: 3}
+    - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
+      propertyPath: 'soundEffectGroups.Array.data[6].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d68e493619283d24bba2f53cd4b80132, type: 3}
     - target: {fileID: 5687023715817928472, guid: 5342a3194f99317439dce1fa89aaf574, type: 3}
       propertyPath: 'soundEffectGroups.Array.data[0].clips.Array.data[10]'
       value: 

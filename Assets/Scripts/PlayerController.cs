@@ -234,7 +234,6 @@ public class PlayerController : MonoBehaviour
         attackEndTime = Time.time + attackLockDuration;
         player_animator.SetTrigger("Attack");
         nextAttackTime = Time.time + attackCooldown;
-        SoundEffectManager.Play("cleaver");
     }
 
     public int getPlayerHealth() => playerHealth;
