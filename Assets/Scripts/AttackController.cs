@@ -37,6 +37,7 @@ public class AttackController : MonoBehaviour
     {
         if (attackAction != null && attackAction.WasPressedThisFrame())
         {
+            SoundEffectManager.Play("swoosh");
             boxCollider.enabled = true;
             CancelInvoke(nameof(disableCollider));
             float attackDuration = 0.2f;
@@ -54,6 +55,16 @@ public class AttackController : MonoBehaviour
         }
 
         transform.localPosition = parentSpriteRenderer.flipX ? attackOffsetRight : attackOffsetLeft;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        bool isEnemyHurtBox = collision.GetComponent<SlimeHurtBox>() != null
+                           || collision.GetComponent<DeerHurtBox>() != null
+                           || collision.GetComponent<WargHurtBox>() != null
+                           || collision.GetComponent<EnemyHurtBox>() != null;
+        if (isEnemyHurtBox)
+            SoundEffectManager.Play("cleaver");
     }
 
     void disableCollider()

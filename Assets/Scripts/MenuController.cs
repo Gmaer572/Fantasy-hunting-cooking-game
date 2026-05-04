@@ -32,6 +32,7 @@ public class MenuController : MonoBehaviour
             }
             menuCanvas.SetActive(!menuCanvas.activeSelf);
             PauseController.SetPause(menuCanvas.activeSelf);
+            SoundEffectManager.Play("uiClick");
         }
     }
 }

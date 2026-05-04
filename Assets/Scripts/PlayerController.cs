@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] Animator player_animator;
+    [SerializeField] ParticleSystem smokeFX;
 
     Rigidbody2D rigidBody;
     Collider2D bodyCollider;
@@ -162,7 +163,14 @@ public class PlayerController : MonoBehaviour
 
         // Jumping (only when grounded)
         if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
+        {
             rigidBody.AddForce(new Vector2(0, speed * 1.75f), ForceMode2D.Impulse);
+            if (player_animator != null)
+            {
+                player_animator.SetTrigger("Jump");
+            }
+            smokeFX?.Play();
+        }
 
         // Attack input (supports both new Input System and legacy KeyCode.J)
         bool attackPressed = false;
@@ -177,6 +185,19 @@ public class PlayerController : MonoBehaviour
         // Animation: running state
         if (player_animator != null)
             player_animator.SetBool("IsRunning", rigidBody.linearVelocityX != 0);
+
+        // Smoke FX: play while moving, stop when idle
+        if (smokeFX != null)
+        {
+            if (rigidBody.linearVelocityX != 0)
+            {
+                if (!smokeFX.isPlaying) smokeFX.Play();
+            }
+            else if (IsGrounded())
+            {
+                smokeFX.Stop();
+            }
+        }
 
         // Footstep sounds
         bool isMoving = rigidBody.linearVelocityX != 0;
