@@ -1,23 +1,21 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Restartbutton : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    [SerializeField] private string startSceneName = "Room1";
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene(startSceneName);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void QuitGame()
     {
-        if (InputSystem.actions.FindAction("Click").WasPressedThisFrame())
-        {
-            SceneManager.LoadScene("Room1");
-
-        }
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
-
 }
