@@ -269,6 +269,15 @@ public class DialogueController : MonoBehaviour
                 return;
             }
 
+            if (WasSkipPressedThisFrame())
+            {
+                /// Skip to the end of the cutscene immediately and mark as finished
+                currentLineIndex = lines.Length + 1;
+                finished = true;
+                ShowEndMessage();
+                return;
+            }
+
             typingTimer += Time.deltaTime;
             float scrollSpeed = GetScrollSpeedForLine(currentLineIndex);
             float timePerChar = 1f / scrollSpeed;
@@ -336,7 +345,19 @@ public class DialogueController : MonoBehaviour
             || Keyboard.current.enterKey.wasPressedThisFrame
             || Keyboard.current.numpadEnterKey.wasPressedThisFrame;
     }
-
+    private bool WasSkipPressedThisFrame()
+    {
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            return true;
+        }
+        if (Keyboard.current == null)
+        {
+            return false;
+        }
+        return Keyboard.current.leftShiftKey.wasPressedThisFrame
+            || Keyboard.current.rightShiftKey.wasPressedThisFrame;
+    }
     private void ShowCurrentLine()
     {
         if (dialogueText == null)
