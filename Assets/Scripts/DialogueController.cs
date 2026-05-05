@@ -283,7 +283,6 @@ public class DialogueController : MonoBehaviour
             if (WasSkipPressedThisFrame())
             {
                 /// Skip to the end of the cutscene immediately and mark as finished
-                currentLineIndex = lines.Length + 1;
                 finished = true;
                 ShowEndMessage();
                 return;
@@ -308,10 +307,19 @@ public class DialogueController : MonoBehaviour
             return; // Don't allow advancing while typing
         }
 
+        if (WasSkipPressedThisFrame())
+            {
+                /// Skip to the end of the cutscene immediately and mark as finished
+                finished = true;
+                ShowEndMessage();
+                return;
+            }
+            
         if (!WasAdvancePressedThisFrame())
         {
             return;
         }
+
 
         if (finished)
         {

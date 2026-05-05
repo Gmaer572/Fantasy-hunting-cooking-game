@@ -594,7 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueController
   dialogueText: {fileID: 1267125335}
   hintText: {fileID: 744677527}
-  speakerText: {fileID: 560766100}
+  speakerText: {fileID: 0}
   dialogueImage: {fileID: 0}
   dialogueImageChanges: []
   dialogueSoundChanges:
@@ -604,35 +604,10 @@ MonoBehaviour:
   - lineIndex: 12
     scrollSpeed: 10
   defaultScrollSpeed: 30
-  lines:
-  - 'After a tough day of adventuring, you return to your inn room to find a letter
-    waiting for you. '
-  - You open the letter.
-  - '"Hey, kid, I know it''s been a while. Crazy how time flies."'
-  - "\"I should probably be asking about if you\u2019ve been eating well like any
-    other father would, but I\u2019ll just cut straight to the chase.\""
-  - '"If you are reading this then that means I''ve passed on to ther side"'
-  - "\"How am I sending this letter then? Hah! Guess your old man still has some
-    tricks that you don\u2019t know about!\""
-  - '"Don''t feel bad for not being there for my final moments. we both accepted
-    this could happen with you going out on your adventures" '
-  - "\"But if you do ever put roots down, just know that I\u2019ve left the restaurant
-    for you\" "
-  - "\"It\u2019s still in good ol\u2019 Kriesen, and it\u2019ll be waiting for you.\" "
-  - "\"It\u2019ll be a bit of a fixer-upper, but I\u2019m sure you remember all of
-    the recipes I taught you.\""
-  - '"Love, Dad"'
-  - You stare at the letter, wondering what to do.
-  - . . . . Maybe a change of pace would be nice?
-  dayDialogues:
-  - day: 0
-    lines:
-    - Player:day 0 dialogue
-    - 'Customer:day 0 dialogue '
-  - day: 1
-    lines:
-    - Player:day 1 dialogue
-    - Player:day 2 dialogue
+  defaultLines:
+  - bdbdfbdbd
+  - If you read this you are bad
+  dayDialogues: []
   loadSceneAfterDialogue: 1
   nextSceneName: Room1
   autoCreateUiAtRuntime: 1
@@ -982,7 +957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2, y: -18}
+  m_AnchoredPosition: {x: 41, y: -9}
   m_SizeDelta: {x: -60, y: -85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1267125334
