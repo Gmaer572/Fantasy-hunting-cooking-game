@@ -12,9 +12,16 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hintText;
     [SerializeField] private TextMeshProUGUI speakerText;
 
-    [Header("Dialogue Image")]
+    [Header("Dialogue Image")] // Dialogue Image code made by Sam Jackson with help from Visual Studio AI in-app agent
     [SerializeField] private Image dialogueImage;
     [SerializeField] private List<DialogueImageChange> dialogueImageChanges;
+
+    [Header("Dialogue Sounds")] // Dialogue Sound code made by Sam Jackson with help from Visual Studio AI in-app agent
+    [SerializeField] private List<DialogueSoundChange> dialogueSoundChanges;
+
+    [Header("Dialogue Scroll Speeds")] // Dialogue Scroll Speed code made by Sam Jackson with help from Visual Studio AI in-app agent
+    [SerializeField] private List<DialogueScrollSpeed> dialogueScrollSpeeds;
+    [SerializeField] private float defaultScrollSpeed = 0.05f; // Characters per second
 
     [Header("Dialogue")]
     [TextArea(2, 5)]
@@ -26,14 +33,35 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private bool autoCreateUiAtRuntime = true;
     [SerializeField] private string defaultSpeakerName = "Narrator";
 
+    /// Intialized Variables for Sound Effects - Sam Jackson
+    [SerializeField] private string soundname = "uiClick";
+
     private int currentLineIndex;
     private bool finished;
+    private bool isTyping = false;
+    private string currentFullText = "";
+    private int currentCharIndex = 0;
+    private float typingTimer = 0f;
 
     [System.Serializable]
     private struct DialogueImageChange
     {
         public int lineIndex;
         public Sprite sprite;
+    }
+
+    [System.Serializable]
+    private struct DialogueSoundChange
+    {
+        public int lineIndex;
+        public string soundName;
+    }
+
+    [System.Serializable]
+    private struct DialogueScrollSpeed
+    {
+        public int lineIndex;
+        public float scrollSpeed; // Characters per second (higher = faster)
     }
 
     private void Start()
@@ -200,7 +228,7 @@ public class DialogueController : MonoBehaviour
         hintTmp.alignment = TextAlignmentOptions.BottomRight;
         hintTmp.text = "Space / Enter to continue";
 
-        if (GameObject.Find("DialogueImage") == null && dialogueImage == null) // Made by Sam Jackson with help from VisualStudio AI Code
+        if (GameObject.Find("DialogueImage") == null && dialogueImage == null) 
         {
             GameObject imageObj = new GameObject("DialogueImage", typeof(RectTransform), typeof(Image));
             imageObj.transform.SetParent(canvas.transform, false);
@@ -228,6 +256,38 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
+        // Handle typing animation
+        if (isTyping)
+        {
+            if (WasAdvancePressedThisFrame())
+            {
+                // Skip typing animation
+                dialogueText.text = currentFullText;
+                currentCharIndex = currentFullText.Length;
+                isTyping = false;
+                UpdateHint();
+                return;
+            }
+
+            typingTimer += Time.deltaTime;
+            float scrollSpeed = GetScrollSpeedForLine(currentLineIndex);
+            float timePerChar = 1f / scrollSpeed;
+
+            while (typingTimer >= timePerChar && currentCharIndex < currentFullText.Length)
+            {
+                typingTimer -= timePerChar;
+                currentCharIndex++;
+                dialogueText.text = currentFullText.Substring(0, currentCharIndex);
+            }
+
+            if (currentCharIndex >= currentFullText.Length)
+            {
+                isTyping = false;
+                UpdateHint();
+            }
+            return; // Don't allow advancing while typing
+        }
+
         if (!WasAdvancePressedThisFrame())
         {
             return;
@@ -288,6 +348,7 @@ public class DialogueController : MonoBehaviour
         {
             dialogueText.text = "No dialogue lines set.";
             finished = true;
+            isTyping = false; // Not typing
             return;
         }
 
@@ -316,6 +377,16 @@ public class DialogueController : MonoBehaviour
         }
 
         ApplyDialogueImageForLine(currentLineIndex);
+        string soundToPlay = GetSoundForLine(currentLineIndex);
+        SoundEffectManager.Play(soundToPlay);
+
+        // Start typing animation
+        currentFullText = content;
+        currentCharIndex = 0;
+        typingTimer = 0f;
+        isTyping = true;
+        dialogueText.text = ""; // Start with empty text
+        UpdateHint(); // Update hint to show typing status 
     }
 
     private void ApplyDialogueImageForLine(int lineIndex)
@@ -338,6 +409,42 @@ public class DialogueController : MonoBehaviour
             dialogueImage.enabled = newSprite != null;
             return;
         }
+    }
+
+    private string GetSoundForLine(int lineIndex)
+    {
+        if (dialogueSoundChanges == null || dialogueSoundChanges.Count == 0)
+        {
+            return soundname;
+        }
+
+        for (int i = 0; i < dialogueSoundChanges.Count; i++)
+        {
+            if (dialogueSoundChanges[i].lineIndex == lineIndex)
+            {
+                return dialogueSoundChanges[i].soundName;
+            }
+        }
+
+        return soundname;
+    }
+
+    private float GetScrollSpeedForLine(int lineIndex)
+    {
+        if (dialogueScrollSpeeds == null || dialogueScrollSpeeds.Count == 0)
+        {
+            return defaultScrollSpeed;
+        }
+
+        for (int i = 0; i < dialogueScrollSpeeds.Count; i++)
+        {
+            if (dialogueScrollSpeeds[i].lineIndex == lineIndex)
+            {
+                return dialogueScrollSpeeds[i].scrollSpeed;
+            }
+        }
+
+        return defaultScrollSpeed;
     }
 
     public void SetDialogueImageForLine(int lineIndex, Sprite sprite)
@@ -370,9 +477,69 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    public void SetDialogueSoundForLine(int lineIndex, string soundName)
+    {
+        if (lineIndex < 0)
+        {
+            return;
+        }
+
+        if (dialogueSoundChanges == null)
+        {
+            dialogueSoundChanges = new List<DialogueSoundChange>();
+        }
+
+        int existingIndex = dialogueSoundChanges.FindIndex(x => x.lineIndex == lineIndex);
+        DialogueSoundChange change = new DialogueSoundChange { lineIndex = lineIndex, soundName = soundName };
+
+        if (existingIndex >= 0)
+        {
+            dialogueSoundChanges[existingIndex] = change;
+        }
+        else
+        {
+            dialogueSoundChanges.Add(change);
+        }
+    }
+
     public void ChangeCanvasImageAfterLine(int lineIndex, Sprite newSprite)
     {
         SetDialogueImageForLine(lineIndex, newSprite);
+    }
+
+    public void ChangeSoundAfterLine(int lineIndex, string soundName)
+    {
+        SetDialogueSoundForLine(lineIndex, soundName);
+    }
+
+    public void SetDialogueScrollSpeedForLine(int lineIndex, float scrollSpeed)
+    {
+        if (lineIndex < 0)
+        {
+            return;
+        }
+
+        if (dialogueScrollSpeeds == null)
+        {
+            dialogueScrollSpeeds = new List<DialogueScrollSpeed>();
+        }
+
+        int existingIndex = dialogueScrollSpeeds.FindIndex(x => x.lineIndex == lineIndex);
+        DialogueScrollSpeed change = new DialogueScrollSpeed { lineIndex = lineIndex, scrollSpeed = scrollSpeed };
+
+        if (existingIndex >= 0)
+        {
+            dialogueScrollSpeeds[existingIndex] = change;
+        }
+        else
+        {
+            dialogueScrollSpeeds.Add(change);
+        }
+    }
+
+    public void ChangeScrollSpeedAfterLine(int lineIndex, float scrollSpeed)
+    {
+        SetDialogueScrollSpeedForLine(lineIndex, scrollSpeed);
     }
 
     private void ShowEndMessage()
@@ -382,13 +549,20 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        dialogueText.text = "Dialogue finished.";
+        dialogueText.text = "Press Enter to Start the Game";
+        isTyping = false; // Make sure we're not typing the end message
     }
 
     private void UpdateHint()
     {
         if (hintText == null)
         {
+            return;
+        }
+
+        if (isTyping)
+        {
+            hintText.text = ""; // No hint while typing
             return;
         }
 
