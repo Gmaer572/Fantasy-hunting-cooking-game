@@ -139,7 +139,7 @@ public class SlimeBehaviour : MonoBehaviour
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
 
-        rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 5.0f)), ForceMode2D.Impulse);
+        rigidBody.AddForce(new Vector2(xSpeed, UnityEngine.Random.Range(3.0f, 4.5f)), ForceMode2D.Impulse);
         SoundEffectManager.Play("slime_jump", 2f);
     }
 
