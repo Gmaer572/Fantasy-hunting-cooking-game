@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DayManager : MonoBehaviour
 {
@@ -56,7 +55,7 @@ public class DayManager : MonoBehaviour
             return false;
         }
 
-        SceneManager.LoadScene(dialogueSceneName);
+        SceneFadeLoader.LoadScene(dialogueSceneName);
         return true;
     }
 
@@ -66,10 +65,10 @@ public class DayManager : MonoBehaviour
 
         if (useMaxDayLimit && CurrentDay > maxDay)
         {
-            SceneManager.LoadScene(gameOverSceneName);
+            SceneFadeLoader.LoadScene(gameOverSceneName);
             return;
         }
 
-        SceneManager.LoadScene(gameplaySceneName);
+        SceneFadeLoader.LoadScene(gameplaySceneName);
     }
 }

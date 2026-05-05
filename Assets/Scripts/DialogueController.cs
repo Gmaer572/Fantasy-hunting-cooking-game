@@ -2,7 +2,6 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
@@ -331,7 +330,7 @@ public class DialogueController : MonoBehaviour
 
             if (loadSceneAfterDialogue && !string.IsNullOrWhiteSpace(nextSceneName))
             {
-                SceneManager.LoadScene(nextSceneName);
+                SceneFadeLoader.LoadScene(nextSceneName);
             }
             return;
         }

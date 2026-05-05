@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Restartbutton : MonoBehaviour
 {
@@ -7,7 +6,7 @@ public class Restartbutton : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(startSceneName);
+        SceneFadeLoader.LoadScene(startSceneName);
     }
 
     public void QuitGame()
