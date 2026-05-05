@@ -13,11 +13,14 @@ public class WargBehavior : MonoBehaviour
     Animator animator;
 
     bool jumping;
+    bool jumpRecover;
     bool isGrounded;
 
     bool attacking;
 
     bool charging;
+    bool chargeRecover;
+
     bool isDead;
 
     string lastAttack;
@@ -41,6 +44,7 @@ public class WargBehavior : MonoBehaviour
 
     [SerializeField] GameObject meatPrefab;
     bool spawnMeat;
+    bool startCheckingGrounded;
     float nextAttackTime;
     float nextHitTime;
     Coroutine deadRoutine;
@@ -95,14 +99,19 @@ public class WargBehavior : MonoBehaviour
             RefreshPlayerReference();
         }
 
+        if (charging && rigidBody.linearVelocityX == 0)
+        {
+            charging = false;
+        }
         if (attacking == false)
         {
+            FacePlayer();
             attacking = true;
             PickNewAttack();
         }
 
 
-        if (spriteRenderer != null && spriteRenderer.color != Color.green && spriteRenderer.color != Color.blue)
+        if (spriteRenderer != null)
         {
             spriteRenderer.color = Time.time < nextHitTime ? Color.red : Color.white;
         }
@@ -126,13 +135,13 @@ public class WargBehavior : MonoBehaviour
 
     private void InvokeCharge()
     {
-        spriteRenderer.color = Color.green;
+        chargeRecover = true;
         Invoke(nameof(WargCharge), 3);
     }
 
     private void InvokeJump()
     {
-        spriteRenderer.color = Color.blue;
+        jumpRecover = true;
         Invoke(nameof(WargJump), 3);
     }
     private void WargCharge()
@@ -140,6 +149,7 @@ public class WargBehavior : MonoBehaviour
         spriteRenderer.color = Color.white;
 
         attacking = true;
+        charging = true;
         ApplyAnimatorState();
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
@@ -154,6 +164,7 @@ public class WargBehavior : MonoBehaviour
     {
         rigidBody.linearVelocityX = 0;
         charging = false;
+        chargeRecover = false;
         attacking = false;
     }
 
@@ -166,10 +177,13 @@ public class WargBehavior : MonoBehaviour
 
         ApplyAnimatorState();
         bool groundedNow = CheckGrounded();
-        if (groundedNow && !isGrounded && jumping)
+        if (startCheckingGrounded)
         {
-            jumping = false;
-            Invoke(nameof(ResetJump), 2);
+            if (groundedNow && !isGrounded && jumping)
+            {
+                jumping = false;
+                Invoke(nameof(ResetJump), 2);
+            }
         }
     }
 
@@ -183,11 +197,18 @@ public class WargBehavior : MonoBehaviour
         jumping = true;
         attacking = true;
         isGrounded = false;
+        startCheckingGrounded = false;
+        Invoke(nameof(StartCheckingGrounded), 1);
         ApplyAnimatorState();
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
         lastAttack = "Jump";
         rigidBody.AddForce(new Vector2(xSpeed, 6), ForceMode2D.Impulse);
+    }
+
+    void StartCheckingGrounded()
+    {
+        startCheckingGrounded = true;
     }
 
     float GetHorizontalJumpSpeedTowardPlayer()
@@ -217,9 +238,26 @@ public class WargBehavior : MonoBehaviour
         return direction * speed;
     }
 
+    void FacePlayer()
+    {
+        float deltaX = playerTransform.position.x - transform.position.x;
+
+        float direction = Mathf.Sign(deltaX);
+        if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+
+        }
+        else if (direction > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+    }
+
     void ResetJump()
     {
         isGrounded = CheckGrounded();
+        jumpRecover = false;
         jumping = false;
         attacking = false;
     }
@@ -362,8 +400,10 @@ public class WargBehavior : MonoBehaviour
             return;
         }
 
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetBool("IsDead", isDead);
+        animator.SetBool("IsCharging", charging);
+        animator.SetBool("IsChargeRecovering", chargeRecover);
+        animator.SetBool("IsJumpRecovering", jumpRecover);
+        animator.SetBool("IsJumping", jumping);
     }
 
     IEnumerator PlayDeathAndDisable()

@@ -12,6 +12,7 @@ public class SlimeBehaviour : MonoBehaviour
     bool jumping;
 
     bool isGrounded;
+
     bool isDead;
     bool playerDetected;
 
