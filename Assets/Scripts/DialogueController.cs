@@ -164,10 +164,59 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
+        // Handle typing animation
+        if (isTyping)
+        {
+            if (WasAdvancePressedThisFrame())
+            {
+                // Skip typing animation
+                dialogueText.text = currentFullText;
+                currentCharIndex = currentFullText.Length;
+                isTyping = false;
+                UpdateHint();
+                return;
+            }
+
+            if (WasSkipPressedThisFrame())
+            {
+                /// Skip to the end of the cutscene immediately and mark as finished
+                finished = true;
+                ShowEndMessage();
+                return;
+            }
+
+            typingTimer += Time.deltaTime;
+            float scrollSpeed = GetScrollSpeedForLine(currentLineIndex);
+            float timePerChar = 1f / scrollSpeed;
+
+            while (typingTimer >= timePerChar && currentCharIndex < currentFullText.Length)
+            {
+                typingTimer -= timePerChar;
+                currentCharIndex++;
+                dialogueText.text = currentFullText.Substring(0, currentCharIndex);
+            }
+
+            if (currentCharIndex >= currentFullText.Length)
+            {
+                isTyping = false;
+                UpdateHint();
+            }
+            return; // Don't allow advancing while typing
+        }
+
+        if (WasSkipPressedThisFrame())
+        {
+            /// Skip to the end of the cutscene immediately and mark as finished
+            finished = true;
+            ShowEndMessage();
+            return;
+        }
+
         if (!WasAdvancePressedThisFrame())
         {
             return;
         }
+
 
         if (finished)
         {
