@@ -10,7 +10,6 @@ public class DeerBehavior : MonoBehaviour
     Sprite[] idleFrames;
     Sprite[] walkFrames;
 
-
     [SerializeField] GameObject meatPrefab;
     bool turnAround;
     bool turning;

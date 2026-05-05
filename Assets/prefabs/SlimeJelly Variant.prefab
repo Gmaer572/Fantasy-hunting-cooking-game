@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: ID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: Name
       value: Slime Jelly
       objectReference: {fileID: 0}
@@ -16,6 +20,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2384705873072874699, guid: e8eac88f0a67f6c408c6a4e4b2eb042b, type: 3}
+    - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1353715863
+      objectReference: {fileID: 0}
     - target: {fileID: 2586052594656845283, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_Sprite
       value: 
