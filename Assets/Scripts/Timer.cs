@@ -116,7 +116,8 @@ public class Timer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
             timeRemaining = 0f;
-        if (!PauseController.IsGamePaused) timeRemaining -= Time.deltaTime;
+
+        timeRemaining -= Time.deltaTime;
 
         if (timerText != null)
         {
