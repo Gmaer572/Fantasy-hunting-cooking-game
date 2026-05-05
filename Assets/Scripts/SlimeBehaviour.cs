@@ -10,6 +10,7 @@ public class SlimeBehaviour : MonoBehaviour
     BoxCollider2D lookBoxCollider;
     bool spawnJelly;
     bool jumping;
+
     bool isGrounded;
     bool isDead;
     bool playerDetected;
@@ -183,10 +184,6 @@ public class SlimeBehaviour : MonoBehaviour
             jumping = true;
             ApplyAnimatorState();
 
-            if (animator != null)
-            {
-                animator.Play("slime_dead", 0, 0f);
-            }
 
             if (deadRoutine == null)
             {
@@ -356,6 +353,11 @@ public class SlimeBehaviour : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
+        if (animator != null)
+        {
+            //animator.Play("slime_dead", 0, 10f);
+        }
+
 
         yield return new WaitForSeconds(deadDisableDelay);
         if (spawnJelly)

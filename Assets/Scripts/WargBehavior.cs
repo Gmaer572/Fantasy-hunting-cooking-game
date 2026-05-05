@@ -46,6 +46,8 @@ public class WargBehavior : MonoBehaviour
     Coroutine deadRoutine;
     Transform playerTransform;
 
+
+
     void Start()
     {
         spawnMeat = true;
