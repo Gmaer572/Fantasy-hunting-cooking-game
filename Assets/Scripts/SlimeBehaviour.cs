@@ -8,9 +8,11 @@ public class SlimeBehaviour : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator animator;
     BoxCollider2D lookBoxCollider;
-
+    bool spawnJelly;
     bool jumping;
+
     bool isGrounded;
+
     bool isDead;
     bool playerDetected;
 
@@ -38,8 +40,11 @@ public class SlimeBehaviour : MonoBehaviour
     Coroutine deadRoutine;
     Transform playerTransform;
 
+    [SerializeField] GameObject jellyPrefab;
+
     void Start()
     {
+        spawnJelly = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -80,6 +85,7 @@ public class SlimeBehaviour : MonoBehaviour
         }
         if (isDead)
         {
+
             return;
         }
 
@@ -179,10 +185,6 @@ public class SlimeBehaviour : MonoBehaviour
             jumping = true;
             ApplyAnimatorState();
 
-            if (animator != null)
-            {
-                animator.Play("slime_dead", 0, 0f);
-            }
 
             if (deadRoutine == null)
             {
@@ -352,8 +354,18 @@ public class SlimeBehaviour : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
+        if (animator != null)
+        {
+            //animator.Play("slime_dead", 0, 10f);
+        }
+
 
         yield return new WaitForSeconds(deadDisableDelay);
+        if (spawnJelly)
+        {
+            Instantiate(jellyPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+            spawnJelly = false;
+        }
         gameObject.SetActive(false);
     }
 }
