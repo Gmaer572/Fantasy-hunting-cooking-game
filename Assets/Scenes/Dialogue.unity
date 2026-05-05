@@ -594,7 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueController
   dialogueText: {fileID: 1267125335}
   hintText: {fileID: 744677527}
-  speakerText: {fileID: 0}
+  speakerText: {fileID: 560766100}
   dialogueImage: {fileID: 0}
   dialogueImageChanges: []
   dialogueSoundChanges:
@@ -624,6 +624,15 @@ MonoBehaviour:
   - '"Love, Dad"'
   - You stare at the letter, wondering what to do.
   - . . . . Maybe a change of pace would be nice?
+  dayDialogues:
+  - day: 0
+    lines:
+    - Player:day 0 dialogue
+    - 'Customer:day 0 dialogue '
+  - day: 1
+    lines:
+    - Player:day 1 dialogue
+    - Player:day 2 dialogue
   loadSceneAfterDialogue: 1
   nextSceneName: Room1
   autoCreateUiAtRuntime: 1
@@ -973,7 +982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 141, y: 1}
+  m_AnchoredPosition: {x: 2, y: -18}
   m_SizeDelta: {x: -60, y: -85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1267125334
@@ -1070,7 +1079,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 132.49176, w: 0}
+  m_margin: {x: 109.918976, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
