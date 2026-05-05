@@ -55,11 +55,12 @@ public class Timer : MonoBehaviour
         }
 
         string sceneName = SceneManager.GetActiveScene().name;
-        bool isDialogueNow = DayManager.Instance != null && DayManager.Instance.IsDialogueScene(sceneName);
-        bool isGameOverNow = sceneName == "gameover";
-        if (timerText != null)
+        bool timerActive = IsTimerActiveScene(sceneName);
+        if (timerText != null) timerText.enabled = timerActive;
+        if (!timerActive)
         {
-            timerText.enabled = !isDialogueNow && !isGameOverNow;
+            timeRemaining = defaultTime;
+            hasTriggeredSceneChange = false;
         }
     }
 
@@ -84,10 +85,8 @@ public class Timer : MonoBehaviour
         EnsureTextReference();
         ApplyTimerStyle();
 
-        bool isDialogue = DayManager.Instance != null && DayManager.Instance.IsDialogueScene(scene.name);
-        bool isGameOver = scene.name == "gameover";
-
-        if (isDialogue || isGameOver)
+        bool timerActive = IsTimerActiveScene(scene.name);
+        if (!timerActive)
         {
             if (timerText != null) timerText.enabled = false;
             timeRemaining = defaultTime;
@@ -104,8 +103,7 @@ public class Timer : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         ApplyTimerStyle();
 
-        bool isDialogue = useDaySystem && DayManager.Instance != null && DayManager.Instance.IsDialogueScene(currentScene);
-        if (isDialogue || currentScene == "gameover")
+        if (!IsTimerActiveScene(currentScene))
             return;
 
         if (hasTriggeredSceneChange)
@@ -204,5 +202,25 @@ public class Timer : MonoBehaviour
         GameObject textGo = new GameObject("TimerText", typeof(RectTransform), typeof(TextMeshProUGUI));
         textGo.transform.SetParent(canvas.transform, false);
         timerText = textGo.GetComponent<TextMeshProUGUI>();
+    }
+
+    private bool IsTimerActiveScene(string sceneName)
+    {
+        if (sceneName == "title" || sceneName == "gameover")
+        {
+            return false;
+        }
+
+        if (DayManager.Instance != null && DayManager.Instance.IsDialogueScene(sceneName))
+        {
+            return false;
+        }
+
+        if (DayManager.Instance != null)
+        {
+            return DayManager.Instance.IsGameplayScene(sceneName);
+        }
+
+        return sceneName == "Room1";
     }
 }
