@@ -178,8 +178,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Famish '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
-  m_sharedMaterial: {fileID: -7207409838420965862, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
+  m_sharedMaterial: {fileID: 2857922300896848310, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4248635d45f22c4aa9fd2124e884505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Restartbutton
-  startSceneName: Room1
+  startSceneName: Dialogue
 --- !u!61 &2030416409
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1323,8 +1323,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
-  m_sharedMaterial: {fileID: -7207409838420965862, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
+  m_sharedMaterial: {fileID: 2857922300896848310, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1460,8 +1460,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
-  m_sharedMaterial: {fileID: -7207409838420965862, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
+  m_sharedMaterial: {fileID: 2857922300896848310, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
