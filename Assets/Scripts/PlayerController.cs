@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private bool playFootsteps = false;
     [SerializeField] float footstepInterval = 0.4f;
     float footstepTimer;
+    bool isInDialogueScene;
 
     private void Awake()
     {
@@ -91,8 +92,7 @@ public class PlayerController : MonoBehaviour
         }
         UpdateHealthBarUI();
 
-        setSpawnPoint();
-        GameObject.Find("TimerText").SetActive(true);
+        ApplySceneState(SceneManager.GetActiveScene().name);
     }
 
     private void OnDestroy()
@@ -101,9 +101,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        ApplySceneState(scene.name);
         UpdateHealthBarUI();
-        // Reposition to the correct spawn after every scene load.
-        setSpawnPoint();
     }
     private void UpdateHealthBarUI()
     {
@@ -112,6 +111,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isInDialogueScene)
+        {
+            return;
+        }
 
         //if the game ends, disable
         if (SceneManager.GetActiveScene().name == "gameover")
@@ -341,5 +344,57 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = spawn.getPosition();
+    }
+
+    void ApplySceneState(string sceneName)
+    {
+        bool isDialogue = DayManager.Instance != null
+            ? DayManager.Instance.IsDialogueScene(sceneName)
+            : sceneName == "Dialogue";
+
+        isInDialogueScene = isDialogue;
+
+        if (rigidBody == null)
+        {
+            rigidBody = GetComponent<Rigidbody2D>();
+        }
+
+        if (isDialogue)
+        {
+            if (rigidBody != null)
+            {
+                rigidBody.linearVelocity = Vector2.zero;
+                rigidBody.simulated = false;
+            }
+
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = false;
+            }
+
+            if (bodyCollider != null)
+            {
+                bodyCollider.enabled = false;
+            }
+
+            return;
+        }
+
+        if (rigidBody != null)
+        {
+            rigidBody.simulated = true;
+        }
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+
+        if (bodyCollider != null)
+        {
+            bodyCollider.enabled = true;
+        }
+
+        setSpawnPoint();
     }
 }
