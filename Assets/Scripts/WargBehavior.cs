@@ -39,6 +39,8 @@ public class WargBehavior : MonoBehaviour
     [SerializeField]
     float groundedCheckDistance = 0.08f;
 
+    [SerializeField] GameObject meatPrefab;
+    bool spawnMeat;
     float nextAttackTime;
     float nextHitTime;
     Coroutine deadRoutine;
@@ -46,6 +48,7 @@ public class WargBehavior : MonoBehaviour
 
     void Start()
     {
+        spawnMeat = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -375,6 +378,11 @@ public class WargBehavior : MonoBehaviour
             colliders[i].enabled = false;
         }
 
+        if (spawnMeat)
+        {
+            Instantiate(meatPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), Quaternion.identity);
+            spawnMeat = false;
+        }
         yield return new WaitForSeconds(deadDisableDelay);
         gameObject.SetActive(false);
     }
