@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
 {
+    [System.Serializable]
+    private class DayDialogue
+    {
+        public int day = 0;
+        [TextArea(2, 5)]
+        public string[] lines;
+    }
+
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI hintText;
@@ -13,7 +21,8 @@ public class DialogueController : MonoBehaviour
 
     [Header("Dialogue")]
     [TextArea(2, 5)]
-    [SerializeField] private string[] lines;
+    [SerializeField] private string[] defaultLines;
+    [SerializeField] private DayDialogue[] dayDialogues;
 
     [Header("Flow")]
     [SerializeField] private bool loadSceneAfterDialogue = false;
@@ -23,6 +32,7 @@ public class DialogueController : MonoBehaviour
 
     private int currentLineIndex;
     private bool finished;
+    private string[] activeLines;
 
     private void Start()
     {
@@ -31,6 +41,7 @@ public class DialogueController : MonoBehaviour
             EnsureDialogueUi();
         }
         AutoAssignTextReferencesIfNeeded();
+        ResolveActiveLinesForCurrentDay();
         currentLineIndex = 0;
         finished = false;
         ShowCurrentLine();
@@ -185,7 +196,7 @@ public class DialogueController : MonoBehaviour
         }
 
         currentLineIndex++;
-        if (currentLineIndex >= lines.Length)
+        if (activeLines == null || currentLineIndex >= activeLines.Length)
         {
             finished = true;
             ShowEndMessage();
@@ -220,14 +231,14 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        if (lines == null || lines.Length == 0)
+        if (activeLines == null || activeLines.Length == 0)
         {
             dialogueText.text = "No dialogue lines set.";
             finished = true;
             return;
         }
 
-        string rawLine = lines[currentLineIndex] ?? string.Empty;
+        string rawLine = activeLines[currentLineIndex] ?? string.Empty;
         string speaker = defaultSpeakerName;
         string content = rawLine;
 
@@ -260,6 +271,34 @@ public class DialogueController : MonoBehaviour
         }
 
         dialogueText.text = "Dialogue finished.";
+    }
+
+    private void ResolveActiveLinesForCurrentDay()
+    {
+        int currentDay = DayManager.Instance != null ? DayManager.Instance.CurrentDay : 0;
+        activeLines = GetLinesForDay(currentDay);
+    }
+
+    private string[] GetLinesForDay(int day)
+    {
+        if (dayDialogues != null)
+        {
+            for (int i = 0; i < dayDialogues.Length; i++)
+            {
+                DayDialogue entry = dayDialogues[i];
+                if (entry == null)
+                {
+                    continue;
+                }
+
+                if (entry.day == day && entry.lines != null && entry.lines.Length > 0)
+                {
+                    return entry.lines;
+                }
+            }
+        }
+
+        return defaultLines;
     }
 
     private void UpdateHint()
