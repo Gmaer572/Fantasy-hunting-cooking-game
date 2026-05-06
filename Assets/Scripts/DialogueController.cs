@@ -2,6 +2,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
@@ -75,6 +76,7 @@ public class DialogueController : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         if (autoCreateUiAtRuntime)
         {
             EnsureDialogueUi();
@@ -82,6 +84,40 @@ public class DialogueController : MonoBehaviour
         AutoAssignTextReferencesIfNeeded();
         ResolveActiveLinesForCurrentDay();
         AutoAssignImageReferencesIfNeeded();
+        currentLineIndex = 0;
+        finished = false;
+        ShowCurrentLine();
+        UpdateHint();
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool isDialogueScene = DayManager.Instance != null
+            ? DayManager.Instance.IsDialogueScene(scene.name)
+            : scene.name == "Dialogue";
+
+        if (!isDialogueScene)
+        {
+            enabled = false;
+            return;
+        }
+
+        // Returning to dialogue for a new day — clear stale scene refs and reinitialize.
+        enabled = true;
+        dialogueText = null;
+        hintText = null;
+        speakerText = null;
+        dialogueImage = null;
+        if (autoCreateUiAtRuntime)
+            EnsureDialogueUi();
+        AutoAssignTextReferencesIfNeeded();
+        AutoAssignImageReferencesIfNeeded();
+        ResolveActiveLinesForCurrentDay();
         currentLineIndex = 0;
         finished = false;
         ShowCurrentLine();
