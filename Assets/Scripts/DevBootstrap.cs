@@ -23,7 +23,7 @@ public static class DevBootstrap
     {
         if (scene.name != "Room1") return;
         SceneManager.sceneLoaded -= OnRoom1Loaded;
-        SpawnPointHandler.Instance?.setSpawnPoint(1);
+        SpawnPointHandler.Instance?.setSpawnPoint(0);
         SceneManager.LoadScene(targetScene);
     }
 }
