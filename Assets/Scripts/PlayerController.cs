@@ -248,6 +248,7 @@ public class PlayerController : MonoBehaviour
         playerHealth = Mathf.Max(0, playerHealth - damage);
         nextDamageTime = Time.time + damageCooldown;
 
+        SoundEffectManager.Play("hurt");
         savedHealth = playerHealth;
         UpdateHealthBarUI();
     }
