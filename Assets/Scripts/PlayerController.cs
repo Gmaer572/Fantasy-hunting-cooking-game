@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         // Jumping (only when grounded)
         if (jumpAction != null && jumpAction.WasPressedThisFrame() && IsGrounded())
         {
-            rigidBody.AddForce(new Vector2(0, speed * 1.75f), ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector2(0, speed * 2f), ForceMode2D.Impulse);
             if (player_animator != null)
             {
                 player_animator.SetTrigger("Jump");
