@@ -140,12 +140,14 @@ public class WargBehavior : MonoBehaviour
     private void InvokeCharge()
     {
         chargeRecover = true;
+        SoundEffectManager.Play("warg_growl", .5f);
         Invoke(nameof(WargCharge), 1);
     }
 
     private void InvokeJump()
     {
         jumpRecover = true;
+        SoundEffectManager.Play("warg_growl", .5f);
         Invoke(nameof(WargJump), 1);
     }
     private void WargCharge()
@@ -157,7 +159,7 @@ public class WargBehavior : MonoBehaviour
         ApplyAnimatorState();
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
-
+        SoundEffectManager.Play("warg_attack", 0.5f);
         rigidBody.linearVelocityX = xSpeed;
         Invoke(nameof(resetCharge), 2);
         lastAttack = "Charge";
@@ -207,8 +209,11 @@ public class WargBehavior : MonoBehaviour
         ApplyAnimatorState();
 
         float xSpeed = GetHorizontalJumpSpeedTowardPlayer();
+
         lastAttack = "Jump";
         rigidBody.AddForce(new Vector2(xSpeed, 6), ForceMode2D.Impulse);
+        SoundEffectManager.Play("warg_attack", 0.5f);
+
     }
 
     void StartCheckingGrounded()
