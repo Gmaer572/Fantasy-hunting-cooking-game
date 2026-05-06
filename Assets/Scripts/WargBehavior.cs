@@ -81,9 +81,13 @@ public class WargBehavior : MonoBehaviour
 
         RefreshPlayerReference();
         jumping = false;
+        jumpRecover = false;
+        chargeRecover = false;
+        charging = false;
         isGrounded = CheckGrounded();
-        ApplyAnimatorState();
+
         attacking = false;
+        ApplyAnimatorState();
 
     }
 
@@ -164,14 +168,10 @@ public class WargBehavior : MonoBehaviour
     {
         rigidBody.linearVelocityX = 0;
         charging = false;
+        chargeRecover = false;
         attacking = false;
-        Invoke(nameof(EndChargeRecover), 0.5f);
     }
 
-    private void EndChargeRecover()
-    {
-        chargeRecover = false;
-    }
 
     void FixedUpdate()
     {
