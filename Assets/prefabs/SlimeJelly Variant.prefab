@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: Name
       value: Slime Jelly
       objectReference: {fileID: 0}
+    - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: scoreValue
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_Sprite
       value: 

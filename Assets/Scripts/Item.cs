@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
    public int ID;
    public string Name;
+   public int scoreValue;
 
    //function for pickup
    public virtual void Pickup()

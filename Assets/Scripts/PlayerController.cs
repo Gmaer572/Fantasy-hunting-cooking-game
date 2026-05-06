@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
         if (playerHealth == 0)
         {
             savedHealth = -1;
+            ScoreManager.Calculate(FindObjectOfType<InventoryController>());
             Destroy(gameObject);
             SceneManager.LoadScene("gameover");
             return;
