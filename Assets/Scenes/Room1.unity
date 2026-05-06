@@ -2330,7 +2330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d69551945a37f41be36f43eb1e0457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomMusic
-  trackName: forest
+  trackName: start
 --- !u!4 &742581272
 Transform:
   m_ObjectHideFlags: 0
@@ -10441,6 +10441,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c017e8de5aa6e454896159daff4bdfc7, type: 3}
   - name: gameover
     clip: {fileID: 8300000, guid: ee99aa81337ab5e4989db8f9296cf5f1, type: 3}
+  - name: bossfight
+    clip: {fileID: 8300000, guid: b636f6157a6146e4790d9311641466c8, type: 3}
 --- !u!1 &2097263679
 GameObject:
   m_ObjectHideFlags: 0
