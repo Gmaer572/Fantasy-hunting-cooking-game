@@ -635,6 +635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Place
       objectReference: {fileID: 0}
+    - target: {fileID: 3421080965616894333, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4037241780689850623, guid: 06aa6d5ed99ece14397dac3bb2d644c5, type: 3}
       propertyPath: BoundingShape2D
       value: 
