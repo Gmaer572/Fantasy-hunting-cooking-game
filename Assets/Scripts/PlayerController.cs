@@ -254,6 +254,20 @@ public class PlayerController : MonoBehaviour
         UpdateHealthBarUI();
     }
 
+    public void Heal(int amount)
+    {
+        playerHealth = Mathf.Min(maxHealth, playerHealth + amount);
+        savedHealth = playerHealth;
+        UpdateHealthBarUI();
+    }
+
+    public void HealFull()
+    {
+        playerHealth = maxHealth;
+        savedHealth = playerHealth;
+        UpdateHealthBarUI();
+    }
+
     bool IsGrounded()
     {
         if (bodyCollider == null)
