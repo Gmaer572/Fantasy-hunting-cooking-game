@@ -109,6 +109,9 @@ public class Timer : MonoBehaviour
         if (hasTriggeredSceneChange)
             return;
 
+        if (PauseController.IsGamePaused)
+            return;
+
         if (Keyboard.current != null && Keyboard.current[endDayHotkey].wasPressedThisFrame)
             timeRemaining = 0f;
 
