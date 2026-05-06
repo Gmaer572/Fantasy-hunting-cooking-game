@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7dd58ec535927e24c9876d670c214494
+guid: 3e175611f92e0d54bb4b68a6b9396568
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8738525288068659500
-    second: warg_dash_1-Recovered3_0
+      213: -1448637216280238582
+    second: warg_dash_1-Recovered4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: warg_dash_1-Recovered3_0
+      name: warg_dash_1-Recovered4_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 14
-        width: 106
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 35
+        y: 0
+        width: 92
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c29b918637a754970800000000000000
-      internalID: 8738525288068659500
+      spriteID: a06a433802865ebe0800000000000000
+      internalID: -1448637216280238582
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      warg_dash_1-Recovered3_0: 8738525288068659500
+      warg_dash_1-Recovered4_0: -1448637216280238582
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

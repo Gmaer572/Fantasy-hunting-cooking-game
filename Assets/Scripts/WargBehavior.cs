@@ -164,8 +164,13 @@ public class WargBehavior : MonoBehaviour
     {
         rigidBody.linearVelocityX = 0;
         charging = false;
-        chargeRecover = false;
         attacking = false;
+        Invoke(nameof(EndChargeRecover), 0.5f);
+    }
+
+    private void EndChargeRecover()
+    {
+        chargeRecover = false;
     }
 
     void FixedUpdate()
