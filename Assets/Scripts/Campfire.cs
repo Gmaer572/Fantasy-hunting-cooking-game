@@ -26,6 +26,7 @@ public class Campfire : MonoBehaviour
         if (Time.time < nextHealTime) return;
 
         playerInRange.HealFull();
+        SoundEffectManager.Play("uiClick");
         //write debug message
         Debug.Log("Player healed to full health");
         nextHealTime = Time.time + healCooldown;

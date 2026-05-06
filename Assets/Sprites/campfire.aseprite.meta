@@ -12,7 +12,7 @@ ScriptedImporter:
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     fadeOut: 0
     borderMipMap: 0
     mipMapsPreserveCoverage: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639136202693740538
+  platformSettingsDirtyTick: 639136224237450659
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -149,9 +149,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: -11, y: -3}
   spriteSheetImportData:
-  - name: CAMP FIRE ANIMATION_0
+  - name: campfire_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -160,8 +160,8 @@ ScriptedImporter:
       x: 4
       y: 6
       width: 72
-      height: 75
-    spriteID: d515a1f37b33864498cf8c4abeb9cbd6
+      height: 76
+    spriteID: 50c7fb44faacf2c40b22a2ab91b4c1c2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,9 +170,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_1
+  - name: campfire_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -181,8 +181,8 @@ ScriptedImporter:
       x: 104
       y: 6
       width: 72
-      height: 66
-    spriteID: 8f3c821aef918d24cb918dae14e051f4
+      height: 76
+    spriteID: 9f14c8a1c71d15b41a539358bf0e72ed
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,19 +191,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_2
+  - name: campfire_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 203
-      y: 5
-      width: 74
-      height: 69
-    spriteID: 3634aa3749343df409457efce24c7bb4
+      x: 202
+      y: 4
+      width: 76
+      height: 76
+    spriteID: 1b9e882f7aad5c64ca4299c00441be02
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,19 +212,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_3
+  - name: campfire_3
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 303
-      y: 5
-      width: 74
-      height: 70
-    spriteID: b89bcaa9be426554da1004916970487a
+      x: 302
+      y: 4
+      width: 76
+      height: 76
+    spriteID: f162b459821af8247a442164d8998133
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -233,9 +233,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_4
+  - name: campfire_4
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -244,8 +244,8 @@ ScriptedImporter:
       x: 402
       y: 4
       width: 76
-      height: 79
-    spriteID: e05b48ce85f3adc4e943379ace56eb85
+      height: 80
+    spriteID: 0faa09673899f1447bc10a21d20d4a84
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -254,9 +254,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_5
+  - name: campfire_5
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -266,7 +266,7 @@ ScriptedImporter:
       y: 4
       width: 76
       height: 78
-    spriteID: 36c56278d1312534f93df9e4f7438bcd
+    spriteID: 50fc3ab697e466b40ab0200c48b43811
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -275,19 +275,40 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_6
+  - name: campfire_6
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 603
+      x: 602
+      y: 4
+      width: 76
+      height: 78
+    spriteID: 40ba4d5da3c6f114b8f538e5ca420a96
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: campfire_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 702
       y: 5
-      width: 74
+      width: 76
       height: 76
-    spriteID: f8ce43542f5fb0a4384435b9ab4bdf4e
+    spriteID: 077c19beefa259848a46ab5f0db3927d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -296,19 +317,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_7
+  - name: campfire_8
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 703
-      y: 5
-      width: 74
-      height: 73
-    spriteID: 0a79b69a1969f8547a831d397d52bd70
+      x: 802
+      y: 4
+      width: 76
+      height: 78
+    spriteID: c5dc1229f414c9a41b7c8b8ad380adec
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -317,30 +338,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_8
+  - name: campfire_9
     originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 803
-      y: 5
-      width: 74
-      height: 76
-    spriteID: 9e99e33387797da49a5615d3e12a91d1
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_9
-    originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 6
       width: 72
       height: 74
-    spriteID: d5e45028105ef834685047740db845d3
+    spriteID: d410329cc2eb8734189b10381ab0d909
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,9 +359,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: CAMP FIRE ANIMATION_10
+  - name: campfire_10
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -370,8 +370,8 @@ ScriptedImporter:
       x: 1004
       y: 6
       width: 72
-      height: 75
-    spriteID: 13159546a0f85f143a19302569083e25
+      height: 76
+    spriteID: 0ba3332c0d8829f48ac0dd8a9c87bbd2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -394,7 +394,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: CAMP FIRE ANIMATION
+    - name: campfire
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
