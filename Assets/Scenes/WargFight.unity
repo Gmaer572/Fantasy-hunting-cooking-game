@@ -1405,8 +1405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d1a7020dc417041a066d58afb313b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WargBehavior
-  health: 10
-  attackCooldown: 0.5
+  health: 20
+  attackCooldown: 0.2
   hitCooldown: 0.1
   deadDisableDelay: 0
   groundLayers:

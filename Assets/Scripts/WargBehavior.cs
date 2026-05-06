@@ -28,7 +28,7 @@ public class WargBehavior : MonoBehaviour
     [SerializeField]
     int health = 2;
     [SerializeField]
-    float attackCooldown = 0.5f;
+    float attackCooldown;
     [SerializeField]
     float hitCooldown = 0.1f;
     [SerializeField]
@@ -125,24 +125,24 @@ public class WargBehavior : MonoBehaviour
         int jumpOrCharge = UnityEngine.Random.Range(0, 2);
         if (jumpOrCharge == 0)
         {
-            Invoke(nameof(InvokeJump), 2);
+            Invoke(nameof(InvokeJump), 1);
         }
         else if (jumpOrCharge == 1)
         {
-            Invoke(nameof(InvokeCharge), 2);
+            Invoke(nameof(InvokeCharge), 1);
         }
     }
 
     private void InvokeCharge()
     {
         chargeRecover = true;
-        Invoke(nameof(WargCharge), 3);
+        Invoke(nameof(WargCharge), 1);
     }
 
     private void InvokeJump()
     {
         jumpRecover = true;
-        Invoke(nameof(WargJump), 3);
+        Invoke(nameof(WargJump), 1);
     }
     private void WargCharge()
     {
