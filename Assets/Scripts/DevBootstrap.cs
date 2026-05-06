@@ -13,7 +13,7 @@ public static class DevBootstrap
     static void Init()
     {
         targetScene = SceneManager.GetActiveScene().name;
-        if (targetScene == "Room1") return;
+        if (targetScene == "Room1" || targetScene == "title" || targetScene == "Dialogue") return;
 
         SceneManager.sceneLoaded += OnRoom1Loaded;
         SceneManager.LoadScene("Room1");
