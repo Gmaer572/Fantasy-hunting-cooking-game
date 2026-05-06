@@ -10439,6 +10439,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a38680b0857f1d045aa543af37e7ff70, type: 3}
   - name: start
     clip: {fileID: 8300000, guid: c017e8de5aa6e454896159daff4bdfc7, type: 3}
+  - name: gameover
+    clip: {fileID: 8300000, guid: ee99aa81337ab5e4989db8f9296cf5f1, type: 3}
 --- !u!1 &2097263679
 GameObject:
   m_ObjectHideFlags: 0
