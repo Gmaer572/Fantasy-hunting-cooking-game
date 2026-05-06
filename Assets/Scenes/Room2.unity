@@ -881,6 +881,10 @@ PrefabInstance:
       propertyPath: jellyPrefab
       value: 
       objectReference: {fileID: 8521532395813030089, guid: aa73fd48eaae9024caeb87a70aeec2e1, type: 3}
+    - target: {fileID: 5897162070478610455, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: deadDisableDelay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7307147054912835281, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.31
@@ -2602,6 +2606,10 @@ PrefabInstance:
       propertyPath: jellyPrefab
       value: 
       objectReference: {fileID: 8521532395813030089, guid: aa73fd48eaae9024caeb87a70aeec2e1, type: 3}
+    - target: {fileID: 5897162070478610455, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: deadDisableDelay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9057319012015641302, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5

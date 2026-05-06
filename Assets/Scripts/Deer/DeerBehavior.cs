@@ -23,7 +23,7 @@ public class DeerBehavior : MonoBehaviour
     [SerializeField] int health = 3;
     [SerializeField] float attackCooldown = 0.5f;
     [SerializeField] float hitCooldown = 0.1f;
-    [SerializeField] float deadDisableDelay = 0.8f;
+    [SerializeField] float deadDisableDelay = 0f;
 
     float nextAttackTime;
     float nextHitTime;

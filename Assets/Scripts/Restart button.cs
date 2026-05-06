@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Restartbutton : MonoBehaviour
 {
-    [SerializeField] private string startSceneName = "Room1";
+    [SerializeField] private string startSceneName = "Dialogue";
 
     public void StartGame()
     {
