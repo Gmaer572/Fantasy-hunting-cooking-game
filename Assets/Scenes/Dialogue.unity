@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 339037184}
   - component: {fileID: 339037183}
   m_Layer: 5
-  m_Name: Image
+  m_Name: dialogueImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +596,11 @@ MonoBehaviour:
   hintText: {fileID: 744677527}
   speakerText: {fileID: 0}
   dialogueImage: {fileID: 339037183}
-  dialogueImageChanges: []
+  dialogueImageChanges:
+  - lineIndex: 16
+    sprite: {fileID: -8022140956538937662, guid: 3f294ce9fee806b4987edaa0a918d92a, type: 3}
+  - lineIndex: 20
+    sprite: {fileID: -1077923803215850765, guid: 6c886fc629442c24d86e5451d4ffe59d, type: 3}
   dialogueSoundChanges: []
   dialogueScrollSpeeds: []
   defaultScrollSpeed: 30
@@ -605,8 +609,8 @@ MonoBehaviour:
   - You open the letter.
   - '"Hey, kid, I know it''s been a while!"'
   - '"I should probably ask if you''re doing well like any other father would,"'
-  - '"But I''ll cut striaght to the chase; If you''re reading this that means I''ve
-    passed away." '
+  - '"But I''ll cut to the chase; If you''re reading this that means I''ve passed
+    away." '
   - '"Don''t be alarmed! we both knew this kind of thing could happen with you going
     on your adventures." '
   - '"You always been the free spirit sort, but if you what put down roots for any
@@ -618,16 +622,16 @@ MonoBehaviour:
     all?" '
   - '"Hah! Guess your old man still had some tricks that you didn''t know about!" '
   - '"Take care, kid!" '
-  - 'Love, Dad" '
+  - '"Love, Dad" '
   - 'You close the letter, wondering what to do. '
   - '. . . . Maybe a change of pace would be nice? '
-  - "After many days of travel, you arrive at the town of Krisen and at your father\u2019s
+  - "After many days of travel, you arrive at the town of Kriesen and at your father\u2019s
     restaurant as his letter instructed. "
   - 'You push open the door, hearing a crack of aged wood as you move it.  '
-  - 'You cough iinstinctively at the abundance of dust. '
-  - "Well,  there\u2019s nothing more to it; you head to the pantry to, ready to
-    start cooking, only to find "
-  - ' .... Nothing but cobwebs and dust. Oh, and you father''s old recipe book. '
+  - 'You cough instinctively at the abundance of dust. '
+  - "Well, there\u2019s nothing more to it; you head to the pantry to, ready to start
+    cooking, only to find "
+  - ' .... Nothing but cobwebs and dust. Oh, and your father''s old recipe book. '
   - 'Guess you''ll have to gather the ingredients yourself. '
   dayDialogues: []
   loadSceneAfterDialogue: 1
