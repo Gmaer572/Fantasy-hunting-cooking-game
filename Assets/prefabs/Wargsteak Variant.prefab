@@ -10,15 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: ID
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: Name
-      value: Warg Steak
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: scoreValue
-      value: 100
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      propertyPath: m_EditorClassIdentifier
+      value: Assembly-CSharp::Item
       objectReference: {fileID: 0}
     - target: {fileID: -5215636017208145299, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
       propertyPath: m_Sprite
@@ -120,8 +124,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9102797847320441196, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6045393730002716528, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2027019541456602359}
   m_SourcePrefab: {fileID: 100100000, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+--- !u!1 &1855882218681391053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6045393730002716528, guid: a2efcf345c899df49be1fddab4d52e59, type: 3}
+  m_PrefabInstance: {fileID: 5342648610445611197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2027019541456602359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855882218681391053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39e5a7dd39888b43b7c4edecb773a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WargSteakItem
+  ID: 5
+  Name: Warg Steak
+  scoreValue: 100

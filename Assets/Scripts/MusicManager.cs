@@ -31,9 +31,10 @@ public class MusicManager : MonoBehaviour
         AudioClip clip = Instance.musicLibrary.GetClip(trackName);
         if (clip == null) { Debug.LogWarning($"MusicManager: no track found for \"{trackName}\"."); return; }
 
-        if (Instance.audioSource.clip == clip) return;
+        if (Instance.audioSource.clip == clip && Instance.audioSource.isPlaying) return;
 
         Instance.audioSource.clip = clip;
+        Instance.audioSource.loop = true;
         Instance.audioSource.Play();
     }
 

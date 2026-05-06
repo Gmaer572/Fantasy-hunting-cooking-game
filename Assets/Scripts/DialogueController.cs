@@ -43,7 +43,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private string defaultSpeakerName = "Narrator";
 
     /// Intialized Variables for Sound Effects - Sam Jackson
-    [SerializeField] private string soundname = "uiClick";
+    [SerializeField] private string soundname = "dialogue";
 
     private int currentLineIndex;
     private bool finished;
