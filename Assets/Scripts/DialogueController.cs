@@ -23,10 +23,10 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private Image dialogueImage;
     [SerializeField] private List<DialogueImageChange> dialogueImageChanges;
 
-    [Header("Dialogue Sounds")] // Dialogue Sound code made by Sam Jackson with help from Visual Studio AI in-app agent
+    [Header("Dialogue Sounds")] // Dialogue Sound code isn't used for anything in this scene. I had an idea to use it but it didn't pan out - Sam Jackson. 
     [SerializeField] private List<DialogueSoundChange> dialogueSoundChanges;
 
-    [Header("Dialogue Scroll Speeds")] // Dialogue Scroll Speed code made by Sam Jackson with help from Visual Studio AI in-app agent
+    [Header("Dialogue Scroll Speeds")] // Dialogue Scroll Speed code also isn't used for anything in this scene, but it allows you to set the typing speed for each line of dialogue individually. Made by Sam Jackson with help from Visual Studio AI in-app agent.
     [SerializeField] private List<DialogueScrollSpeed> dialogueScrollSpeeds;
     [SerializeField] private float defaultScrollSpeed = 0.05f; // Characters per second
 
@@ -363,7 +363,7 @@ public class DialogueController : MonoBehaviour
             || Keyboard.current.enterKey.wasPressedThisFrame
             || Keyboard.current.numpadEnterKey.wasPressedThisFrame;
     }
-    private bool WasSkipPressedThisFrame()
+    private bool WasSkipPressedThisFrame() // Made by Sam all by himself
     {
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -588,7 +588,7 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        dialogueText.text = "Press Enter to Start the Game";
+        dialogueText.text = "Press Enter to Start the Hunt!";
         isTyping = false; // Make sure we're not typing the end message
     }
 

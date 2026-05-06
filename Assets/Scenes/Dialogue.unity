@@ -594,45 +594,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueController
   dialogueText: {fileID: 1267125335}
   hintText: {fileID: 744677527}
-  speakerText: {fileID: 560766100}
-  dialogueImage: {fileID: 0}
+  speakerText: {fileID: 0}
+  dialogueImage: {fileID: 339037183}
   dialogueImageChanges: []
-  dialogueSoundChanges:
-  - lineIndex: 12
-    soundName: MonsterNoise
-  dialogueScrollSpeeds:
-  - lineIndex: 12
-    scrollSpeed: 10
+  dialogueSoundChanges: []
+  dialogueScrollSpeeds: []
   defaultScrollSpeed: 30
-  lines:
-  - 'After a tough day of adventuring, you return to your inn room to find a letter
-    waiting for you. '
+  defaultLines:
+  - You come back from a tough day of adventuring to find a letter waiting for you.
   - You open the letter.
-  - '"Hey, kid, I know it''s been a while. Crazy how time flies."'
-  - "\"I should probably be asking about if you\u2019ve been eating well like any
-    other father would, but I\u2019ll just cut straight to the chase.\""
-  - '"If you are reading this then that means I''ve passed on to ther side"'
-  - "\"How am I sending this letter then? Hah! Guess your old man still has some
-    tricks that you don\u2019t know about!\""
-  - '"Don''t feel bad for not being there for my final moments. we both accepted
-    this could happen with you going out on your adventures" '
-  - "\"But if you do ever put roots down, just know that I\u2019ve left the restaurant
-    for you\" "
-  - "\"It\u2019s still in good ol\u2019 Kriesen, and it\u2019ll be waiting for you.\" "
-  - "\"It\u2019ll be a bit of a fixer-upper, but I\u2019m sure you remember all of
-    the recipes I taught you.\""
-  - '"Love, Dad"'
-  - You stare at the letter, wondering what to do.
-  - . . . . Maybe a change of pace would be nice?
-  dayDialogues:
-  - day: 0
-    lines:
-    - Player:day 0 dialogue
-    - 'Customer:day 0 dialogue '
-  - day: 1
-    lines:
-    - Player:day 1 dialogue
-    - Player:day 2 dialogue
+  - '"Hey, kid, I know it''s been a while!"'
+  - '"I should probably ask if you''re doing well like any other father would,"'
+  - '"But I''ll cut striaght to the chase; If you''re reading this that means I''ve
+    passed away." '
+  - '"Don''t be alarmed! we both knew this kind of thing could happen with you going
+    on your adventures." '
+  - '"You always been the free spirit sort, but if you what put down roots for any
+    reason." '
+  - '"Just know I''ve left my old resturant waiting for you in good ol'' Kriesen." '
+  - '"It''ll be a bit of a fixer upper, but I''m sure you''ll do great!" '
+  - '"I mean you remember all the recipes I taught you, right?" '
+  - '"Now you might be wondering how I sent you this letter with me being dead and
+    all?" '
+  - '"Hah! Guess your old man still had some tricks that you didn''t know about!" '
+  - '"Take care, kid!" '
+  - 'Love, Dad" '
+  - 'You close the letter, wondering what to do. '
+  - '. . . . Maybe a change of pace would be nice? '
+  - "After many days of travel, you arrive at the town of Krisen and at your father\u2019s
+    restaurant as his letter instructed. "
+  - 'You push open the door, hearing a crack of aged wood as you move it.  '
+  - 'You cough iinstinctively at the abundance of dust. '
+  - "Well,  there\u2019s nothing more to it; you head to the pantry to, ready to
+    start cooking, only to find "
+  - ' .... Nothing but cobwebs and dust. Oh, and you father''s old recipe book. '
+  - 'Guess you''ll have to gather the ingredients yourself. '
+  dayDialogues: []
   loadSceneAfterDialogue: 1
   nextSceneName: Room1
   autoCreateUiAtRuntime: 1
@@ -982,7 +979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2, y: -18}
+  m_AnchoredPosition: {x: 35, y: 3}
   m_SizeDelta: {x: -60, y: -85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1267125334
@@ -1015,8 +1012,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
-  m_sharedMaterial: {fileID: -7207409838420965862, guid: 710b4a439d68c484d9a1770d5bd459b8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 82066f9c77744c64187cec039fea0df1, type: 2}
+  m_sharedMaterial: {fileID: 8915827297762852068, guid: 82066f9c77744c64187cec039fea0df1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
