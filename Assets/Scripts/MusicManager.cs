@@ -40,7 +40,7 @@ public class MusicManager : MonoBehaviour
     public static void SetVolume(float volume)
     {
         if (Instance != null)
-            Instance.audioSource.volume = volume * 0.7f;
+            Instance.audioSource.volume = volume * 1f;
     }
 
     public static void Pause()  => Instance?.audioSource.Pause();
