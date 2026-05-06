@@ -210,20 +210,11 @@ public class Timer : MonoBehaviour
     private bool IsTimerActiveScene(string sceneName)
     {
         if (sceneName == "title" || sceneName == "gameover")
-        {
             return false;
-        }
 
         if (DayManager.Instance != null && DayManager.Instance.IsDialogueScene(sceneName))
-        {
             return false;
-        }
 
-        if (DayManager.Instance != null)
-        {
-            return DayManager.Instance.IsGameplayScene(sceneName);
-        }
-
-        return sceneName == "Room1";
+        return true;
     }
 }
