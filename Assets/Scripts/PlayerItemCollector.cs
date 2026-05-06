@@ -1,42 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
+using System.Collections;
+using System.Collections.Generic;
 public class PlayerItemCollector : MonoBehaviour
 {
     private InventoryController inventoryController;
-
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventoryController = FindObjectOfType<InventoryController>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        inventoryController = FindObjectOfType<InventoryController>();
+        inventoryController=FindObjectOfType<InventoryController>();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Item")) return;
-
-        Item item = collision.GetComponent<Item>();
-        if (item == null) return;
-
-        if (inventoryController == null)
-            inventoryController = FindObjectOfType<InventoryController>();
-        if (inventoryController == null) return;
-
-        bool itemAdded = inventoryController.AddItem(collision.gameObject);
-        if (itemAdded)
+        if (collision.CompareTag("Item"))
         {
-            item.Pickup();
-            Destroy(collision.gameObject);
+            Item item = collision.GetComponent<Item>();
+            if (item != null)
+            {
+                //add item to inventory
+                bool itemAdded = inventoryController.AddItem(collision.gameObject);
+                
+                if (itemAdded)
+                {
+                    item.Pickup();
+                    Destroy(collision.gameObject);
+                }
+            }
         }
     }
 }
