@@ -7,6 +7,7 @@ public class WargSteakItem : Item
 {
     public override void Pickup()
     {
+        MusicManager.Stop();
         SoundEffectManager.Play("victory");
         ScoreManager.Calculate(FindObjectOfType<InventoryController>());
         LoadWin();
