@@ -1056,6 +1056,14 @@ PrefabInstance:
       propertyPath: 'defaultLines.Array.data[22]'
       value: 'Guess you''ll have to gather the ingredients yourself. '
       objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: dialogueImageChanges.Array.data[0].lineIndex
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: dialogueImageChanges.Array.data[1].lineIndex
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 2831882123999061964, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
       propertyPath: soundEffectGroups.Array.size
       value: 11
