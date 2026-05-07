@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Restartbutton : MonoBehaviour
 {
@@ -6,8 +7,11 @@ public class Restartbutton : MonoBehaviour
 
     public void StartGame()
     {
-        InventoryController inventoryController = Object.FindAnyObjectByType<InventoryController>();
-        inventoryController.DeleteAllItems();
+        if (SceneManager.GetActiveScene().name != "title")
+        {
+            InventoryController inventoryController = Object.FindAnyObjectByType<InventoryController>();
+            inventoryController.DeleteAllItems();
+        }
         Invoke(nameof(StartScene), 1f);
         SpawnPointHandler.Instance?.setSpawnPoint(1);
     }
