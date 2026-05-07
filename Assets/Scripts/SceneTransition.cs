@@ -59,7 +59,14 @@ public class SceneTransition : MonoBehaviour
         runner.BeginFadeIn(fadeImage, fadeDuration * 0.5f, transitionFootstepCount, transitionFootstepInterval);
         loadOp.allowSceneActivation = true;
     }
-
+    public void InvokeWin()
+    {
+        Invoke(nameof(loadWin), 2.0f);
+    }
+    public void loadWin()
+    {
+        SceneFadeLoader.LoadScene("winandrestart");
+    }
     IEnumerator PlayTransitionFootsteps()
     {
         for (int i = 0; i < transitionFootstepCount; i++)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Dynamic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class SceneFadeLoader : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
 
     public static void LoadScene(string sceneName)
     {

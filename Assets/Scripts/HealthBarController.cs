@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;   
+using UnityEngine.SceneManagement;
 
 public class HealthBarController : MonoBehaviour
 {
@@ -28,9 +28,9 @@ public class HealthBarController : MonoBehaviour
 
         Canvas parentCanvas = GetComponentInParent<Canvas>();
         if (parentCanvas != null)
-            DontDestroyOnLoad(parentCanvas.gameObject);
-        else
-            DontDestroyOnLoad(gameObject);
+            if (SceneManager.GetActiveScene().name != "winandrestart") DontDestroyOnLoad(parentCanvas.gameObject);
+            else
+                if (SceneManager.GetActiveScene().name != "winandrestart") DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()

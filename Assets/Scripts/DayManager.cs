@@ -1,4 +1,6 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DayManager : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class DayManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (SceneManager.GetActiveScene().name != "winandrestart") DontDestroyOnLoad(gameObject);
 
         if (startDay < 0) startDay = 0;
         if (maxDay < 0) maxDay = 0;

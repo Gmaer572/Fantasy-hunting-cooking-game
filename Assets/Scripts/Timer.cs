@@ -39,8 +39,10 @@ public class Timer : MonoBehaviour
         Canvas parentCanvas = GetComponentInParent<Canvas>();
         if (parentCanvas != null)
             DontDestroyOnLoad(parentCanvas.gameObject);
+
         else
             DontDestroyOnLoad(gameObject);
+
 
         if (defaultTime <= 0f)
             defaultTime = 100f;
@@ -96,6 +98,8 @@ public class Timer : MonoBehaviour
         {
             if (timerText != null) timerText.enabled = true;
         }
+
+
     }
 
     private void Update()
@@ -209,7 +213,7 @@ public class Timer : MonoBehaviour
 
     private bool IsTimerActiveScene(string sceneName)
     {
-        if (sceneName == "title" || sceneName == "gameover")
+        if (sceneName == "title" || sceneName == "gameover" || sceneName == "winandrestart")
             return false;
 
         if (DayManager.Instance != null && DayManager.Instance.IsDialogueScene(sceneName))

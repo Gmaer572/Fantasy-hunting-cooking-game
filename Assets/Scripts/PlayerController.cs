@@ -116,12 +116,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+
         //if the game ends, disable
-        if (SceneManager.GetActiveScene().name == "gameover")
+        if (SceneManager.GetActiveScene().name == "gameover" || SceneManager.GetActiveScene().name == "winandrestart")
         {
             Destroy(gameObject);
-
-
         }
         //if the game is paused, stop all movement and animations
         if (PauseController.IsGamePaused)

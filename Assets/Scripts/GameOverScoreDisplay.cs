@@ -9,5 +9,7 @@ public class GameOverScoreDisplay : MonoBehaviour
     {
         if (scoreText != null)
             scoreText.text = $"Score: {ScoreManager.TotalScore}";
+
+        Debug.Log(ScoreManager.TotalScore);
     }
 }

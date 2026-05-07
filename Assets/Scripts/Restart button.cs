@@ -6,9 +6,15 @@ public class Restartbutton : MonoBehaviour
 
     public void StartGame()
     {
+        InventoryController inventoryController = Object.FindAnyObjectByType<InventoryController>();
+        inventoryController.DeleteAllItems();
+        Invoke(nameof(StartScene), 1f);
+        SpawnPointHandler.Instance?.setSpawnPoint(1);
+    }
+    private void StartScene()
+    {
         SceneFadeLoader.LoadScene(startSceneName);
     }
-
     public void QuitGame()
     {
 #if UNITY_EDITOR

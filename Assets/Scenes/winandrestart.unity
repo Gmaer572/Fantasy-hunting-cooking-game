@@ -264,7 +264,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621266525}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9f2a1d8d3f10c94d90b9e5a458e7af4, type: 3}
   m_Name: 
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 634888650}
   - component: {fileID: 634888649}
   m_Layer: 5
-  m_Name: Game Over
+  m_Name: YouBeatTheWarg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: You Beat the Warg
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
   m_sharedMaterial: {fileID: 2857922300896848310, guid: 1a682105211f7b2409e92d89bc1ec4e3, type: 2}
@@ -336,8 +336,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -407,7 +407,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634888647}
   m_CullTransparentMesh: 1
---- !u!1 &899904913
+--- !u!1 &995009919
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,23 +415,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 899904915}
-  - component: {fileID: 899904914}
+  - component: {fileID: 995009921}
+  - component: {fileID: 995009920}
   m_Layer: 0
-  m_Name: Night Sky Top_0
+  m_Name: dawnbackground_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &899904914
+--- !u!212 &995009920
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899904913}
+  m_GameObject: {fileID: 995009919}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -473,27 +473,27 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8048672980330464054, guid: eda06c52a449ef24fbf2943b67c394ba, type: 3}
+  m_Sprite: {fileID: 2657487837508552646, guid: 1369f0ffd2740ff40b187904e03834ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 2.5}
+  m_Size: {x: 10.24, y: 7.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!4 &899904915
+--- !u!4 &995009921
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899904913}
+  m_GameObject: {fileID: 995009919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0.0872, y: 0.6716, z: 0}
+  m_LocalScale: {x: 2.231753, y: 1.5471654, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1177,7 +1177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d69551945a37f41be36f43eb1e0457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomMusic
-  trackName: gameover
+  trackName: supervictory
 --- !u!4 &2039152756
 Transform:
   m_ObjectHideFlags: 0
@@ -1727,4 +1727,4 @@ SceneRoots:
   - {fileID: 1230890311}
   - {fileID: 1966327294}
   - {fileID: 2039152756}
-  - {fileID: 899904915}
+  - {fileID: 995009921}

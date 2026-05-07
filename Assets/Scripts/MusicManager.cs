@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
@@ -38,13 +39,15 @@ public class MusicManager : MonoBehaviour
         Instance.audioSource.Play();
     }
 
+
+
     public static void SetVolume(float volume)
     {
         if (Instance != null)
             Instance.audioSource.volume = volume * 1f;
     }
 
-    public static void Pause()  => Instance?.audioSource.Pause();
+    public static void Pause() => Instance?.audioSource.Pause();
     public static void Resume() => Instance?.audioSource.UnPause();
-    public static void Stop()   => Instance?.audioSource.Stop();
+    public static void Stop() => Instance?.audioSource.Stop();
 }

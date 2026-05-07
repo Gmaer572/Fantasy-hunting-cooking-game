@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -24,9 +25,11 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (SceneManager.GetActiveScene().name == "gameover" || SceneManager.GetActiveScene().name == "winandrestart")
+        //     menuCanvas.SetActive(false);
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(!menuCanvas.activeSelf&&PauseController.IsGamePaused)
+            if (!menuCanvas.activeSelf && PauseController.IsGamePaused)
             {
                 return;
             }

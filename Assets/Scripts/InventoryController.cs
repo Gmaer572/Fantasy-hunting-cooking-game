@@ -3,9 +3,11 @@
 // slotCount — how many slots to create
 // itemPrefabs — optional items to pre-fill slots on start
 // On Start: spawns slotCount slots under inventoryPanel, and fills each slot with the matching itemPrefab if available
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryController : MonoBehaviour
 {
@@ -28,12 +30,14 @@ public class InventoryController : MonoBehaviour
         itemDictionary = FindObjectOfType<ItemDictionary>();
     }
 
+
+
     public bool AddItem(GameObject itemPrefab)
     {
-        foreach(Transform slotTransform in inventoryPanel.transform)
+        foreach (Transform slotTransform in inventoryPanel.transform)
         {
-            Slot slot=slotTransform.GetComponent<Slot>();
-            if (slot!=null && slot.currentItem == null)
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem == null)
             {
                 GameObject newItem = Instantiate(itemPrefab, slot.transform);
                 newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
@@ -46,42 +50,43 @@ public class InventoryController : MonoBehaviour
     }
     public List<InventorySaveData> GetInventoryItems()
     {
-        List<InventorySaveData> invData=new List<InventorySaveData>();
-        foreach(Transform slotTransform in inventoryPanel.transform)
+        List<InventorySaveData> invData = new List<InventorySaveData>();
+        foreach (Transform slotTransform in inventoryPanel.transform)
         {
-            Slot slot=slotTransform.GetComponent<Slot>();
-            if (slot!=null && slot.currentItem != null)
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem != null)
             {
-                Item item=slot.currentItem.GetComponent<Item>();
-                invData.Add(new InventorySaveData{
-                
-                    itemID=item.ID,
-                    slotIndex=slotTransform.GetSiblingIndex()
+                Item item = slot.currentItem.GetComponent<Item>();
+                invData.Add(new InventorySaveData
+                {
+
+                    itemID = item.ID,
+                    slotIndex = slotTransform.GetSiblingIndex()
                 });
             }
-            
+
         }
         return invData;
     }
-    
+
     public void LoadInventoryItems(List<InventorySaveData> invData)
     {
-        foreach(Transform child in inventoryPanel.transform)
+        foreach (Transform child in inventoryPanel.transform)
         {
             Destroy(child.gameObject);
         }
-        for(int i=0;i<slotCount;i++)
+        for (int i = 0; i < slotCount; i++)
         {
-            Instantiate(slotPrefab,inventoryPanel.transform);
+            Instantiate(slotPrefab, inventoryPanel.transform);
         }
         //Populate slots with saved items
-        foreach(InventorySaveData data in invData)
+        foreach (InventorySaveData data in invData)
         {
-            if(data.slotIndex < slotCount)
+            if (data.slotIndex < slotCount)
             {
                 Slot slot = inventoryPanel.transform.GetChild(data.slotIndex).GetComponent<Slot>();
                 GameObject itemPrefab = itemDictionary.GetItemPrefab(data.itemID);
-                if(itemPrefab != null)
+                if (itemPrefab != null)
                 {
                     GameObject item = Instantiate(itemPrefab, slot.transform);
                     item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
@@ -90,4 +95,17 @@ public class InventoryController : MonoBehaviour
             }
         }
     }
-}       
+
+    public void DeleteAllItems()
+    {
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem != null)
+            {
+                slot.currentItem = null;
+                Destroy(slot.transform.GetChild(0).gameObject);
+            }
+        }
+    }
+}
