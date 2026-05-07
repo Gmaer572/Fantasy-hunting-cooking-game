@@ -671,7 +671,7 @@ public class DialogueController : MonoBehaviour
 
         if (!finished)
         {
-            hintText.text = "Click / Space / Enter to continue";
+            hintText.text = "Click to continue - Shift to Skip";
             return;
         }
 

@@ -488,15 +488,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Space / Enter to continue - Left Shift to Skip
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 82066f9c77744c64187cec039fea0df1, type: 2}
+  m_sharedMaterial: {fileID: 8915827297762852068, guid: 82066f9c77744c64187cec039fea0df1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283058762
+  m_fontColor: {r: 0.2905661, g: 0.2905661, b: 0.2905661, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -977,6 +977,85 @@ PrefabInstance:
       propertyPath: dialogueImage
       value: 
       objectReference: {fileID: 339037183}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: defaultLines.Array.size
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[5]'
+      value: '"Don''t be alarmed! We both knew this kind of thing could happen with
+        you going on your adventures." '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[6]'
+      value: '"You''ve always been the free spirited sort, but if you want to put
+        down roots for any reason," '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[7]'
+      value: '"just know I''ve left my old resturant waiting for you in good ol''
+        Kriesen." '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[9]'
+      value: '"I mean, you remember all the recipes I taught you, right?" '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[10]'
+      value: '...You don''t. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[11]'
+      value: '"Now you might be wondering how I sent you this letter, what with me
+        being dead and all." '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[12]'
+      value: '"Hah! Guess your old man still had some tricks that you didn''t know
+        about!" '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[13]'
+      value: '"Take care, kid!" '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[14]'
+      value: '"Love, Dad" '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[15]'
+      value: 'You close the letter, wondering what to do. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[16]'
+      value: '. . . . Maybe a change of pace would be nice? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[17]'
+      value: "After many days of travel, you arrive at the town of Kriesen and at
+        your father\u2019s restaurant as \nhis letter instructed. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[18]'
+      value: 'You push open the door, hearing a crack of aged wood as you move it.  '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[19]'
+      value: 'You cough instinctively at the abundance of dust. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[20]'
+      value: 'You head to the pantry, ready to start cooking, only to find... '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[21]'
+      value: ' ....Nothing but cobwebs and dust. Oh, and your father''s old recipe
+        book.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715879479723395949, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
+      propertyPath: 'defaultLines.Array.data[22]'
+      value: 'Guess you''ll have to gather the ingredients yourself. '
+      objectReference: {fileID: 0}
     - target: {fileID: 2831882123999061964, guid: ba8529a4e3bd02244bd55f302b884fd4, type: 3}
       propertyPath: soundEffectGroups.Array.size
       value: 11

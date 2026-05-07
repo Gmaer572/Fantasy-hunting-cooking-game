@@ -1102,6 +1102,14 @@ PrefabInstance:
       propertyPath: deadDisableDelay
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7086417142741492164, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: m_Size.y
+      value: 0.35867286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086417142741492164, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.02990722
+      objectReference: {fileID: 0}
     - target: {fileID: 7307147054912835281, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.31
@@ -2141,7 +2149,7 @@ Transform:
   m_GameObject: {fileID: 1028607167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.353, y: -4.41, z: 0}
+  m_LocalPosition: {x: 10.353, y: -4.426, z: 0}
   m_LocalScale: {x: 3.8943, y: 3.8943, z: 3.8943}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2901,7 +2909,7 @@ Transform:
   m_GameObject: {fileID: 1516569034}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6545, y: -2.9327, z: 0}
+  m_LocalPosition: {x: 1.6545, y: -2.947, z: 0}
   m_LocalScale: {x: 2.4698, y: 2.4698, z: 2.4698}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3176,6 +3184,14 @@ PrefabInstance:
     - target: {fileID: 5897162070478610455, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: deadDisableDelay
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086417142741492164, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: m_Size.y
+      value: 0.37462538
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086417142741492164, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.021930873
       objectReference: {fileID: 0}
     - target: {fileID: 9057319012015641302, guid: 17580e17697d87846a4cff72f4213d74, type: 3}
       propertyPath: m_LocalScale.x

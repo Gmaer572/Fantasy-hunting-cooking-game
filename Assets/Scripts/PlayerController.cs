@@ -61,9 +61,11 @@ public class PlayerController : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
     void Start()
     {
+        HealFull();
         rigidBody = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<Collider2D>();
         if (bodyCollider == null)
