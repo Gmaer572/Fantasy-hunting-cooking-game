@@ -28,9 +28,9 @@ public class HealthBarController : MonoBehaviour
 
         Canvas parentCanvas = GetComponentInParent<Canvas>();
         if (parentCanvas != null)
-            if (SceneManager.GetActiveScene().name != "winandrestart") DontDestroyOnLoad(parentCanvas.gameObject);
-            else
-                if (SceneManager.GetActiveScene().name != "winandrestart") DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(parentCanvas.gameObject);
+        else
+            DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()

@@ -21,7 +21,7 @@ public class SoundEffectManager : MonoBehaviour
         Instance = this;
         audioSource = GetComponent<AudioSource>();
         soundEffectLibrary = GetComponent<SoundEffectLibrary>();
-        DontDestroyOnLoad(gameObject);
+        if (SceneManager.GetActiveScene().name != "Dialogue") DontDestroyOnLoad(gameObject);
         // Warm up the audio pipeline to eliminate first-play latency.
         audioSource.PlayOneShot(AudioClip.Create("warmup", 1, 1, 44100, false), 0f);
     }

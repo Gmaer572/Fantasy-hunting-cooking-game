@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour
         Instance = this;
         audioSource = GetComponent<AudioSource>();
         musicLibrary = GetComponent<MusicLibrary>();
-        DontDestroyOnLoad(gameObject);
+        if (SceneManager.GetActiveScene().name != "Dialogue") DontDestroyOnLoad(gameObject);
     }
 
     void Start()

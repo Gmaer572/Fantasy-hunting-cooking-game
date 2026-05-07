@@ -401,10 +401,10 @@ public class DialogueController : MonoBehaviour
     }
     private bool WasSkipPressedThisFrame() // Made by Sam all by himself
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            return true;
-        }
+        // if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        // {
+        //     return true;
+        // }
         if (Keyboard.current == null)
         {
             return false;
